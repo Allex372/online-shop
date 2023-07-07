@@ -1,0 +1,151 @@
+.container {
+    margin-top: 16px;
+    width: 100%;
+}
+
+.imageWrapper {
+    display: flex;
+    width: 100%;
+    height: 500px;
+}
+
+.image1 {
+    width: 50%;
+    transition: width 0.5s;
+    z-index: 1;
+    position: relative;
+    background-image: url('../../images/one.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.image2 {
+    width: 50%;
+    transition: width 0.5s;
+    z-index: 1;
+    position: relative;
+    background-image: url('../../images/many.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.image1:hover {
+    width: 450%;
+    z-index: 2;
+}
+
+.image2:hover {
+    width: 450%;
+    z-index: 2;
+}
+
+.title {
+    font-family: 'Merriweather', serif;
+    font-size: 50px;
+}
+
+.text {
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+.viewMoreOne,
+.viewMoreMany {
+    text-align: center;
+    cursor: pointer;
+}
+
+.viewMoreOne .text {
+    color: #F3EF83;
+}
+
+.viewMoreOne .title {
+    color: #F3EF83;
+}
+
+.viewMoreMany .text {
+    color: white;
+}
+
+.viewMoreMany .title {
+    color: white;
+}
+
+.viewMoreOne {
+    position: absolute;
+    left: 40px;
+    top: 20px
+}
+
+.viewMoreMany {
+    position: absolute;
+    right: 40px;
+    top: 20px
+}
+
+@media screen and (max-width: 768px) {
+    .imageWrapper {
+        flex-direction: column;
+    }
+
+    .image1 {
+        width: 100%;
+        height: 100%;
+        transition: width 0.5s;
+        z-index: 1;
+        position: relative;
+        background-image: url('../../images/one.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .image2 {
+        width: 100%;
+        height: 100%;
+        transition: width 0.5s;
+        z-index: 1;
+        position: relative;
+        background-image: url('../../images/many.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: right;
+    }
+
+    .viewMoreOne {
+        position: absolute;
+        left: 20%;
+        top: 20%
+    }
+
+    .viewMoreMany {
+        position: absolute;
+        left: 13%;
+        top: 20%
+    }
+
+    .viewMoreOne .text {
+        color: #67461F;
+    }
+
+    .viewMoreOne .title {
+        color: #67461F;
+    }
+
+    .viewMoreMany .text {
+        color: black;
+    }
+
+    .viewMoreMany .title {
+        color: black;
+    }
+
+    .image1:hover {
+        width: 100%;
+    }
+
+    .image2:hover {
+        width: 100%;
+    }
+}

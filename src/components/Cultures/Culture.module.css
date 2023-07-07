@@ -1,0 +1,78 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.cardWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imageWrapper {
+    height: 110px;
+}
+
+.imageWrapper img {
+    width: 100%;
+    height: 100%;
+}
+
+.text {
+    text-transform: capitalize;
+    font-family: 'Merriweather', serif;
+    margin-top: 8px;
+}
+
+.imageWrapper img:hover {
+    transform: scale(1.2);
+    filter: hue-rotate(180deg);
+    opacity: 0.8;
+    transition: all 0.3s ease-in-out;
+}
+
+.swiper {
+    display: none !important;
+}
+
+@media screen and (max-width: 768px) {
+    .cardWrapper {
+        display: none;
+    }
+
+    .swiper {
+        display: block !important;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* .swiperCardWrapper {
+        height: 200px;
+    } */
+
+    .swiperSlide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .swiperSlide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        /* object-fit: cover; */
+    }
+
+    .swiperCardWrapper .text {
+        margin-top: 24px;
+    }
+}

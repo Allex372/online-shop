@@ -1,0 +1,77 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    flex-wrap: wrap;
+}
+
+.elemWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.text {
+    font-weight: 20px;
+    color: #67461F;
+    line-height: 30px;
+    text-transform: capitalize;
+    font-family: 'Merriweather', serif;
+    position: relative;
+    display: inline-block;
+}
+
+.text::before {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #000;
+    transition: width 0.3s ease-in-out;
+}
+
+.elemWrapper:hover .text::before {
+    width: 100%;
+}
+
+.bankImg:hover {
+    animation: shake 0.4s infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-2px, -2px) rotate(-2deg);
+    }
+
+    50% {
+        transform: translate(2px, 2px) rotate(2deg);
+    }
+
+    75% {
+        transform: translate(-2px, -2px) rotate(-2deg);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .elemWrapper {
+        width: 110px;
+        margin-bottom: 4px;
+    }
+
+    .text {
+        font-size: 14px;
+        padding-top: 4px;
+    }
+}

@@ -1,0 +1,69 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+.wrapper {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    justify-content: space-between;
+    border-bottom: 2px solid #67461F;
+}
+
+.logoWrapper {
+    height: 75px;
+}
+
+.logoWrapper img {
+    height: 100%;
+    width: 100%;
+}
+
+.socialsWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.social {
+    height: 25px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.btnCall {
+    width: 280px;
+    height: 40px;
+    background-color: #67461F;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.iconPhone {
+    color: #67461F;
+}
+
+.iconPhoneWrapper {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .iconPhoneWrapper {
+        display: block;
+    }
+
+    .btnCall {
+        display: none;
+    }
+
+    .socialsWrapper {
+        margin-top: 12px;
+    }
+}
