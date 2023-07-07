@@ -2,9 +2,9 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    margin-top: 16px;
+    margin-top: 24px;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .cardWrapper {
@@ -37,6 +37,8 @@
 
 .swiper {
     display: none !important;
+    margin-top: 24px;
+    margin-bottom: 24px;
 }
 
 @media screen and (max-width: 768px) {
