@@ -105,12 +105,6 @@ export const ChemistryElements = () => (
 
                 ))
             }
-            {/* <div className={styles.sliderControler}>
-                <div className="swiper-button-prev" style={inlineStyles.btnStyles}></div>
-                <div className="swiper-button-next" style={inlineStyles.btnStyles}></div>
-            </div> */}
         </Swiper>
-        <div className={`${styles.swiperPagination} swiper-pagination`} />
-
     </>
 )
