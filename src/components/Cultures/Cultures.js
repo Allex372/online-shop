@@ -1,5 +1,12 @@
 import * as React from "react";
-import * as styles from './Culture.module.css';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+// import required modules
+import { Navigation } from 'swiper/modules';
+
 import помідор from '../../images/cultures/Помідор.svg';
 import пшениця from '../../images/cultures/пшениця.svg';
 import ріпак from '../../images/cultures/ріпак_1.svg';
@@ -7,14 +14,9 @@ import соняшник from '../../images/cultures/соняшник.svg';
 import соя from '../../images/cultures/соя.svg';
 import яблуко from '../../images/cultures/яблуко_1.svg';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
+import * as styles from './Culture.module.css';
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
 
-// import required modules
-import { Navigation } from 'swiper/modules';
 
 const CultureArray = [
     {
