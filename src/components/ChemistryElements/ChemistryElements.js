@@ -3,10 +3,9 @@ import * as React from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 // import required modules
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 
 import insect from '../../images/chemistry-elements/insect.svg';
 import gerb from '../../images/chemistry-elements/gerb.svg';
@@ -52,12 +51,6 @@ const ChemistryArray = [
     },
 ]
 
-const inlineStyles = {
-    btnStyles: {
-        color: '#67461F',
-    }
-}
-
 export const ChemistryElements = () => (
     <>
         <div className={styles.wrapper}>
@@ -72,7 +65,6 @@ export const ChemistryElements = () => (
         </div>
         <Swiper
             style={{
-                '--swiper-navigation-color': '#67461F',
                 '--swiper-pagination-color': '#67461F',
             }}
             slidesPerView={3}
@@ -81,12 +73,7 @@ export const ChemistryElements = () => (
             pagination={{
                 clickable: true,
             }}
-            navigation={{
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-                clickable: true,
-            }}
-            modules={[Pagination, Navigation]}
+            modules={[Pagination]}
             className={styles.swiper}
         >
 
