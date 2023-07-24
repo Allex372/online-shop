@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Seo from "../components/Seo/seo"
 import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, SortComponent } from '../components';
-import { SearchResultProvider, useResult } from "../context/SearchResultProvider";
+import { useResult } from "../context/SearchResultProvider";
 
 import * as styles from '../components/products.module.css';
 
@@ -174,7 +174,6 @@ const ProductsPage = ({ pageContext }) => {
     };
 
     return (
-        // <SearchResultProvider>
         <Layout>
             <div className={styles.wrapper}>
                 <ProductHeaderFilters />
@@ -209,7 +208,6 @@ const ProductsPage = ({ pageContext }) => {
                 </div>
             </div>
         </Layout>
-        // </SearchResultProvider>
     )
 }
 
