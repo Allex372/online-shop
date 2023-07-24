@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import Seo from "../components/Seo/seo"
 import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, SortComponent } from '../components';
-import { useResult } from "../context/SearchResultProvider";
 
 import * as styles from '../components/products.module.css';
 
@@ -126,7 +125,6 @@ const ProductsArray = [
 ];
 
 const ProductsPage = ({ pageContext }) => {
-    const { changeSearchResult } = useResult();
     const { filter } = pageContext;
     const filteredElements = ProductsArray.filter((el) => {
         if (el.chemistry === filter) {
@@ -138,8 +136,6 @@ const ProductsPage = ({ pageContext }) => {
         }
         return false;
     });
-
-    useEffect(() => { changeSearchResult(filteredElements.length); }, [filteredElements]);
 
     // Параметри пагінації
     const itemsPerPage = 6; // Кількість елементів на одній сторінці
@@ -176,7 +172,7 @@ const ProductsPage = ({ pageContext }) => {
     return (
         <Layout>
             <div className={styles.wrapper}>
-                <ProductHeaderFilters />
+                <ProductHeaderFilters result={filteredElements.length} />
                 <div className={styles.flexColumnWrapper}>
                     <div className={styles.mainWrapper}>
                         <FilterComponent />
