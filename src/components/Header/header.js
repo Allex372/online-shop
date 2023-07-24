@@ -42,9 +42,10 @@ export const Header = () => {
   return (
     <>
       <header className={styles.wrapper}>
-        {currentPath.includes("/products/") && <div className={styles.burgerMenu} onClick={handleClick}>
-          <img src={menuStatus ? close : burger} alt='burger' />
-        </div>}
+        {currentPath.includes("/products/") &&
+          <div className={styles.burgerMenu} onClick={handleClick}>
+            <img src={menuStatus ? close : burger} alt='burger' />
+          </div>}
         <div className={styles.logoWrapper}>
           <img alt='logo' src={logo} />
         </div>
