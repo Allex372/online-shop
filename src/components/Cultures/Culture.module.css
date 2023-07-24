@@ -22,10 +22,16 @@
     height: 100%;
 }
 
+.linkedText {
+    text-decoration: none;
+}
+
 .text {
     text-transform: capitalize;
     font-family: 'Merriweather', serif;
     margin-top: 8px;
+    text-align: center;
+    color: #742021;
 }
 
 .imageWrapper img:hover {

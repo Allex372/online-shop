@@ -1,0 +1,1 @@
+export { SortComponent } from './SortComponent';

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from 'gatsby';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -21,86 +22,107 @@ import * as styles from './Culture.module.css';
 const CultureArray = [
     {
         id: 1,
-        name: 'пшениця',
+        name: 'wheat',
         img: пшениця,
     },
     {
         id: 2,
-        name: 'соняшник',
+        name: 'sunflower',
         img: соняшник,
     },
     {
         id: 3,
-        name: 'соя',
+        name: 'soybean',
         img: соя,
     },
     {
         id: 4,
-        name: 'яблуня',
+        name: 'apple',
         img: яблуко,
     },
     {
         id: 5,
-        name: 'ріпак',
+        name: 'rapeseed',
         img: ріпак,
     },
     {
         id: 6,
-        name: "томати",
+        name: "tomatoes",
         img: помідор,
     },
 ]
 
 const inlineStyles = {
     btnStyles: {
-        color: '#67461F',
+        color: '#742021',
     }
 }
 
-export const Cultures = () => (
-    <div className={styles.wrapper}>
+export const Cultures = () => {
+    const handleViewMore = (filter) => {
+        // Виконуємо необхідні дії при кліку на "Дивитися детальніше"
+        // Наприклад, можна відправити фільтр в gatsby-node.js
 
-        {
-            CultureArray.map((el) => (
-                <div key={el.id} className={styles.cardWrapper}>
-                    <div className={styles.imageWrapper}>
-                        <img alt={el.name} src={el.img} />
-                    </div>
-                    <p className={styles.text}>{el.name}</p>
-                </div>
-
-            ))
-        }
-
-        <Swiper navigation={{
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-            clickable: true,
-        }}
-            modules={[Navigation]}
-            className={styles.swiper}
-        >
+        // Виконуємо дії для фільтра filter
+        console.log('Фільтр:', filter);
+    };
+    return (
+        <div className={styles.wrapper}>
 
             {
                 CultureArray.map((el) => (
-                    <>
-                        <SwiperSlide className={styles.swiperSlide} key={el.id} >
-                            <div className={styles.swiperCardWrapper}>
-                                <div className={styles.imageWrapper}>
-                                    <img alt={el.name} src={el.img} />
-                                </div>
-                                <p className={styles.text}>{el.name}</p>
+                    <div key={el.id} className={styles.cardWrapper}>
+                        <Link
+                            className={styles.linkedText}
+                            to={`/products/${encodeURIComponent(el.name)}`}
+                            onClick={() => handleViewMore(el.name)}
+                        >
+                            <div className={styles.imageWrapper}>
+                                <img alt={el.name} src={el.img} />
                             </div>
-                        </SwiperSlide>
-                    </>
+                            <p className={styles.text}>{el.name}</p>
+                        </Link>
+                    </div>
 
                 ))
             }
-            <div>
-                <div className="swiper-button-prev" style={inlineStyles.btnStyles}></div>
-                <div className="swiper-button-next" style={inlineStyles.btnStyles}></div>
-            </div>
-        </Swiper>
 
-    </div>
-)
+            <Swiper navigation={{
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+                clickable: true,
+            }}
+                modules={[Navigation]}
+                className={styles.swiper}
+            >
+
+                {
+                    CultureArray.map((el) => (
+                        <>
+                            <SwiperSlide className={styles.swiperSlide} key={el.id} >
+                                <div className={styles.swiperCardWrapper}>
+                                    <Link
+                                        className={styles.linkedText}
+                                        to={`/products/${encodeURIComponent(el.name)}`}
+                                        onClick={() => handleViewMore(el.name)}
+                                    >
+                                        <div className={styles.imageWrapper}>
+                                            <img alt={el.name} src={el.img} />
+                                        </div>
+                                        <p className={styles.text}>{el.name}</p>
+                                    </Link>
+                                </div>
+                            </SwiperSlide>
+                        </>
+
+                    ))
+                }
+                <div>
+                    <div className="swiper-button-prev" style={inlineStyles.btnStyles}></div>
+                    <div className="swiper-button-next" style={inlineStyles.btnStyles}></div>
+                </div>
+            </Swiper>
+
+        </div>
+    )
+}

@@ -11,6 +11,7 @@
     align-items: center;
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .imageWrapper {
@@ -19,7 +20,7 @@
 
 .text {
     font-weight: 20px;
-    color: #67461F;
+    color: #742021;
     line-height: 30px;
     text-transform: capitalize;
     font-family: 'Merriweather', serif;
@@ -118,5 +119,4 @@
     .swiperCardWrapper .text {
         margin-top: 24px;
     }
-
 }

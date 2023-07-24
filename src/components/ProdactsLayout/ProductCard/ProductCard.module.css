@@ -1,0 +1,58 @@
+.productCard {
+    /* height: 300px; */
+    width: 200px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.productCard:hover {
+    background-color: #EDDDDD;
+    border: 1px solid #742021;
+    border-radius: 10px;
+    transition: 1s;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.imageWrapper {
+    height: 200px;
+    margin-top: 12px;
+}
+
+.imageWrapper img {
+    height: 100%;
+    width: 100%;
+}
+
+.productName {
+    margin-top: 24px;
+    font-family: 'Merriweather', serif;
+    text-align: center;
+    line-height: 30px;
+}
+
+.chemistryType {
+    font-size: 12px;
+    font-family: 'Merriweather', serif;
+    color: grey;
+    margin-top: 12px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .productWrapper {
+        flex-direction: column;
+    }
+
+    .productCard {
+        width: auto;
+    }
+
+    .imageWrapper {
+        height: 100px;
+    }
+}

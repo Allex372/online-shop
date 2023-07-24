@@ -1,0 +1,111 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 16px;
+    width: 258px;
+}
+
+.titleWrapper {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.filterIconWrapper {
+    height: 24px;
+    width: 24px;
+}
+
+.filterIconWrapper img {
+    height: 100%;
+    width: 100%;
+}
+
+.filterText {
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+    line-height: 30px;
+    color: #742021;
+    margin-left: 16px;
+    margin-right: 24px;
+}
+
+.dropdown {
+    position: relative;
+    margin-top: 24px;
+}
+
+.rotateImage {
+    transform: rotate(180deg);
+}
+
+.checkboxes {
+    padding: 10px 10px 10px 5px;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, visibility 0s linear 0.3s, opacity 0.3s ease;
+}
+
+.show {
+    display: flex;
+    flex-direction: column;
+    max-height: 225px;
+    visibility: visible;
+    opacity: 1;
+    transition: max-height 0.7s ease, visibility 0s linear 0s, opacity 0.3s ease;
+}
+
+.optionButton {
+    height: 120px;
+    margin-bottom: 12px;
+    border: none;
+    background-color: white;
+    color: #742021;
+    font-size: 18px;
+    user-select: none;
+    text-align: left;
+    padding: 8px;
+}
+
+.optionButton:hover {
+    background-color: #EDDDDD;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.selected {
+    background-color: #EDDDDD;
+    border-radius: 8px;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        display: none;
+    }
+
+    .filterText {
+        display: none;
+    }
+
+    .filterIconWrapper:last-child {
+        display: none;
+    }
+
+    .titleWrapper {
+        justify-content: flex-end;
+    }
+
+    .show {
+        display: none;
+    }
+
+    .dropdown {
+        display: none;
+    }
+}
