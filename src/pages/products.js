@@ -126,7 +126,7 @@ const ProductsArray = [
 ];
 
 const ProductsPage = ({ pageContext }) => {
-    const { result, changeSearchResult } = useResult();
+    const { changeSearchResult } = useResult();
     const { filter } = pageContext;
     const filteredElements = ProductsArray.filter((el) => {
         if (el.chemistry === filter) {
