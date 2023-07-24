@@ -1,10 +1,9 @@
 import * as React from "react";
+import { Link } from "gatsby";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-// import required modules
 import { Pagination } from 'swiper/modules';
 
 import insect from '../../images/chemistry-elements/insect.svg';
@@ -12,41 +11,47 @@ import gerb from '../../images/chemistry-elements/gerb.svg';
 
 import * as styles from './ChemistryElements.module.css';
 
-
 const ChemistryArray = [
     {
         id: 1,
-        name: 'гербіциди',
+        name: 'Гербіциди',
+        linkTo: 'gerbicydy',
         img: insect,
     },
     {
         id: 2,
-        name: 'фунгіциди',
+        name: 'Фунгіциди',
+        linkTo: 'fungicydy',
         img: gerb,
     },
     {
         id: 3,
-        name: 'інсектициди',
+        name: 'Інсектециди',
+        linkTo: 'inectecydy',
         img: insect,
     },
     {
         id: 4,
-        name: 'протруйники',
+        name: 'Протруйники',
+        linkTo: 'protruinyky',
         img: insect,
     },
     {
         id: 5,
-        name: 'десиканти',
+        name: 'Десиканти',
+        linkTo: 'desucanty',
         img: insect,
     },
     {
         id: 6,
-        name: "ад'юванти",
+        name: "Ад'юванти",
+        linkTo: 'adiuvanty',
         img: insect,
     },
     {
         id: 7,
-        name: 'добрива',
+        name: 'Добрива',
+        linkTo: 'dobryva',
         img: insect,
     },
 ]
@@ -55,17 +60,23 @@ export const ChemistryElements = () => (
     <>
         <div className={styles.wrapper}>
             {
-                ChemistryArray.map((el) => (
-                    <div className={styles.elemWrapper} key={el.id}>
-                        <img alt='chemistry' className={styles.bankImg} src={el.img} />
-                        <p className={styles.text}>{el.name}</p>
-                    </div>
-                ))
+                ChemistryArray.map((el) => {
+                    return (
+                        <Link
+                            className={styles.elemWrapper}
+                            key={el.id}
+                            to={`/products/${encodeURIComponent(el.linkTo)}`}
+                        >
+                            <img alt='chemistry' className={styles.bankImg} src={el.img} />
+                            <p className={styles.text}>{el.name}</p>
+                        </Link>
+                    )
+                })
             }
         </div>
         <Swiper
             style={{
-                '--swiper-pagination-color': '#67461F',
+                '--swiper-pagination-color': '#742021',
             }}
             slidesPerView={3}
             spaceBetween={30}
@@ -81,12 +92,18 @@ export const ChemistryElements = () => (
                 ChemistryArray.map((el) => (
                     <>
                         <SwiperSlide className={styles.swiperSlide} key={el.id} >
-                            <div className={styles.elemWrapper} key={el.id}>
-                                <div className={styles.imageWrapper}>
-                                    <img alt='chemistry' className={styles.bankImg} src={el.img} />
+                            <Link
+                                className={styles.elemWrapper}
+                                key={el.id}
+                                to={`/products/${encodeURIComponent(el.linkTo)}`}
+                            >
+                                <div className={styles.elemWrapper} key={el.id}>
+                                    <div className={styles.imageWrapper}>
+                                        <img alt='chemistry' className={styles.bankImg} src={el.img} />
+                                    </div>
+                                    <p className={styles.text}>{el.name}</p>
                                 </div>
-                                <p className={styles.text}>{el.name}</p>
-                            </div>
+                            </Link>
                         </SwiperSlide>
                     </>
 

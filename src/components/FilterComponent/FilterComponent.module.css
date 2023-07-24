@@ -1,0 +1,130 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 16px;
+    width: 258px;
+}
+
+.titleWrapper {
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+
+.filterIconWrapper {
+    height: 24px;
+    width: 24px;
+}
+
+.filterIconWrapper img {
+    height: 100%;
+    width: 100%;
+}
+
+.filterText {
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+    line-height: 30px;
+    color: #742021;
+    margin-left: 16px;
+    margin-right: 24px;
+}
+
+.dropdown {
+    position: relative;
+    margin-top: 24px;
+}
+
+.filterTitleWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.arrowWrapper {
+    height: 14px;
+    width: 14px;
+}
+
+.arrowWrapper img {
+    height: 100%;
+    width: 100%;
+}
+
+.rotateImage {
+    transform: rotate(180deg);
+}
+
+.title {
+    cursor: pointer;
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+    line-height: 24px;
+    color: #742021;
+    margin-left: 16px;
+}
+
+.checkboxes {
+    padding: 10px 10px 10px 5px;
+    background-color: #fff;
+    overflow: hidden;
+    max-height: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, visibility 0s linear 0.3s, opacity 0.3s ease;
+}
+
+.show {
+    border-bottom: 1px solid #742021;
+    max-height: 245px;
+    visibility: visible;
+    opacity: 1;
+    transition: max-height 0.7s ease, visibility 0s linear 0s, opacity 0.3s ease;
+}
+
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.checkboxWrapper p {
+    margin-left: 12px;
+    color: #742021;
+    font-size: 18px;
+    user-select: none;
+}
+
+input[type='checkbox'] {
+    width: 14px !important;
+    height: 14px !important;
+    margin: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    outline: 1px solid gray;
+    box-shadow: none;
+    font-size: 0.8em;
+    text-align: center;
+    line-height: 1em;
+}
+
+input[type='checkbox']:checked:after {
+    content: '✔';
+    color: #742021;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        display: none;
+    }
+
+    .dropdown {
+        display: none;
+    }
+
+    .filterText {
+        display: none;
+    }
+}

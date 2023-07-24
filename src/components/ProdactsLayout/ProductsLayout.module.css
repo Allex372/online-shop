@@ -1,0 +1,25 @@
+.productWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 35px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1140px) {
+    .productWrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* @media screen and (max-width: 879px) {
+    .productWrapper {
+        grid-template-columns: 1fr;
+    }
+} */
+
+@media screen and (max-width: 768px) {
+    .productWrapper {
+        flex-direction: column;
+
+    }
+}

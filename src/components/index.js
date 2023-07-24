@@ -3,3 +3,7 @@ export * from './Header';
 export * from './Layout';
 export * from './ChemistryElements';
 export * from './Cultures';
+export * from './ProductHeaderFilters';
+export * from './ProdactsLayout';
+export * from './FilterComponent';
+export * from './SortComponent';

@@ -19,6 +19,10 @@
     background-repeat: no-repeat;
 }
 
+.linkedText {
+    text-decoration: none;
+}
+
 .image2 {
     width: 50%;
     transition: width 0.5s;
@@ -53,8 +57,12 @@
 
 .viewMoreOne,
 .viewMoreMany {
-    text-align: center;
+    /* text-align: center; */
     cursor: pointer;
+}
+
+.viewMoreOne .linkedText {
+    text-align: left;
 }
 
 .viewMoreOne .text {
@@ -73,6 +81,10 @@
     color: white;
 }
 
+.viewMoreMany .linkedText {
+    text-align: right;
+}
+
 .viewMoreOne {
     position: absolute;
     left: 40px;
@@ -88,6 +100,10 @@
 @media screen and (max-width: 768px) {
     .imageWrapper {
         flex-direction: column;
+    }
+
+    .title {
+        font-size: 30px;
     }
 
     .image1 {
@@ -126,11 +142,11 @@
     }
 
     .viewMoreOne .text {
-        color: #67461F;
+        color: #742021;
     }
 
     .viewMoreOne .title {
-        color: #67461F;
+        color: #742021;
     }
 
     .viewMoreMany .text {
