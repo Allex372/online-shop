@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export const Header = () => {
+  const currentPath = window.location.pathname;
+  console.log(currentPath);
   const [menuStatus, setMenuStatus] = useState(false);
   const [style, setStyle] = useState(styles.menu);
 
@@ -35,9 +37,9 @@ export const Header = () => {
   return (
     <>
       <header className={styles.wrapper}>
-        <div className={styles.burgerMenu} onClick={handleClick}>
+        {currentPath.includes("/products/") && <div className={styles.burgerMenu} onClick={handleClick}>
           <img src={menuStatus ? close : burger} alt='burger' />
-        </div>
+        </div>}
         <div className={styles.logoWrapper}>
           <img alt='logo' src={logo} />
         </div>

@@ -167,6 +167,7 @@
 
     .burgerMenu {
         height: 30px;
+        width: 30px;
         display: block;
         z-index: 2;
     }
