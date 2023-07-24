@@ -175,9 +175,10 @@ const ProductsPage = ({ pageContext }) => {
                 <ProductHeaderFilters result={filteredElements.length} />
                 <div className={styles.flexColumnWrapper}>
                     <div className={styles.mainWrapper}>
-                        <FilterComponent />
+                        <div className={styles.filterWrapper}><FilterComponent /></div>
+
                         <ProductsLayout array={filteredElements.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} />
-                        <SortComponent />
+                        <div className={styles.filterWrapper}><SortComponent /></div>
                     </div>
                     {/* Пагінація */}
                     <div className={styles.paginationWrapper}>

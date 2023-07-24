@@ -33,7 +33,7 @@
 
 .dropdown {
     position: relative;
-    margin-top: 24px;
+    /* margin-top: 24px; */
 }
 
 .rotateImage {
@@ -85,27 +85,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .container {
-        display: none;
-    }
-
-    .filterText {
-        display: none;
-    }
-
-    .filterIconWrapper:last-child {
-        display: none;
-    }
-
-    .titleWrapper {
-        justify-content: flex-end;
-    }
-
     .show {
-        display: none;
-    }
-
-    .dropdown {
-        display: none;
+        border-bottom: 1px solid #742021;
     }
 }
