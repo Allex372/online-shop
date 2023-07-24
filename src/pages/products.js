@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import Seo from "../components/Seo/seo"
 import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, SortComponent } from '../components';
 

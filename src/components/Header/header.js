@@ -15,14 +15,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export const Header = () => {
-  const currentPath = window.location.pathname;
-  console.log(currentPath);
+  const [currentPath, setCurrentPath] = useState('');
+
+
   const [menuStatus, setMenuStatus] = useState(false);
   const [style, setStyle] = useState(styles.menu);
 
   const handleClick = () => {
     setMenuStatus(!menuStatus);
   };
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname);
+  }, []);
 
   useEffect(() => {
     if (menuStatus) {
