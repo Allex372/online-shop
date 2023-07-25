@@ -73,3 +73,9 @@
     background-color: #742021;
     color: #EDDDDD;
 }
+
+@media screen and (max-width: 768px) {
+    .filterWrapper {
+        display: none;
+    }
+}

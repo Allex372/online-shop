@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import Seo from "../components/Seo/seo"
 import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, SortComponent } from '../components';
 
@@ -175,9 +175,10 @@ const ProductsPage = ({ pageContext }) => {
                 <ProductHeaderFilters result={filteredElements.length} />
                 <div className={styles.flexColumnWrapper}>
                     <div className={styles.mainWrapper}>
-                        <FilterComponent />
+                        <div className={styles.filterWrapper}><FilterComponent /></div>
+
                         <ProductsLayout array={filteredElements.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} />
-                        <SortComponent />
+                        <div className={styles.filterWrapper}><SortComponent /></div>
                     </div>
                     {/* Пагінація */}
                     <div className={styles.paginationWrapper}>

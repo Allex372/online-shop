@@ -37,7 +37,7 @@
 
 .filterTitleWrapper {
     display: flex;
-    align-items: center;
+    align-items: baseline;
 }
 
 .arrowWrapper {
@@ -113,18 +113,4 @@ input[type='checkbox'] {
 input[type='checkbox']:checked:after {
     content: '✔';
     color: #742021;
-}
-
-@media screen and (max-width: 768px) {
-    .container {
-        display: none;
-    }
-
-    .dropdown {
-        display: none;
-    }
-
-    .filterText {
-        display: none;
-    }
 }
