@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export const Header = () => {
-  const backetContext = useBacket(); // Збережіть контекст у змінну
+  const backetContext = useBacket();
   const { handleOpenBacket } = backetContext ? backetContext : {};
 
   const [currentPath, setCurrentPath] = useState('');
