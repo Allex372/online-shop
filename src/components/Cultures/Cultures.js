@@ -64,7 +64,7 @@ export const Cultures = () => {
         // Наприклад, можна відправити фільтр в gatsby-node.js
 
         // Виконуємо дії для фільтра filter
-        console.log('Фільтр:', filter);
+        // console.log('Фільтр:', filter);
     };
     return (
         <div className={styles.wrapper}>
