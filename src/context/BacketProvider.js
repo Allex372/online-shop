@@ -9,6 +9,10 @@ const BacketProvider = ({ children }) => {
         setShowBacket(!showBacket);
     }
 
+    if (!Context) {
+        return null;
+    }
+
     return <Context.Provider value={{ showBacket, handleOpenBacket }}>{children}</Context.Provider>;
 }
 
