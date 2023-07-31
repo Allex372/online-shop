@@ -7,8 +7,13 @@
 // You can delete this file if you're not using it
 
 import React from "react"
-import SearchResultProvider from "./src/context/SearchResultProvider"
+import SearchResultProvider from "./src/context/SearchResultProvider";
+import BacketProvider from "./src/context/BacketProvider";
 
 export const wrapRootElement = ({ element }) => (
-    <SearchResultProvider>{element}</SearchResultProvider>
+    <BacketProvider>
+        <SearchResultProvider>
+            {element}
+        </SearchResultProvider>
+    </BacketProvider>
 )

@@ -1,0 +1,219 @@
+.container {
+    position: absolute;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    z-index: 3;
+}
+
+.open {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(128, 128, 128, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    width: 1000px;
+    background-color: white;
+    position: relative;
+    border-radius: 10px;
+    overflow: auto;
+    max-height: 90%;
+}
+
+.closeBntIconWrapper {
+    height: 16px;
+    width: 16px;
+    margin-right: 25px;
+    cursor: pointer;
+}
+
+.closeBntIconWrapper img {
+    height: 100%;
+    width: 100%;
+}
+
+.bodyNoScroll {
+    overflow: hidden;
+}
+
+.backetHeaderWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    border-bottom: 1px solid rgba(239, 234, 234, 1);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: white;
+}
+
+.backetHeaderWrapper p {
+    font-family: 'Merriweather', serif;
+    font-size: 24px;
+    color: rgba(116, 32, 33, 1);
+    margin-left: 25px;
+}
+
+.itemWrapper {
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 16px;
+}
+
+.summBlockWrapper {
+    height: 150px;
+    width: 100%;
+    position: relative;
+}
+
+.summBlock {
+    margin-top: 32px;
+    margin-bottom: 32px;
+    right: 20px;
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    width: 340px;
+    height: 72px;
+    background-color: rgba(252, 204, 204, 1);
+    border: 1px solid rgba(116, 32, 33, 1);
+    border-radius: 10px;
+    align-items: center;
+}
+
+.sumText {
+    font-family: 'Merriweather', serif;
+    font-size: 24px;
+}
+
+.orderBtn {
+    width: 180px;
+    height: 46px;
+    background-color: rgba(116, 32, 33, 1);
+    border-radius: 10px;
+    font-family: 'Merriweather', serif;
+    font-size: 14px;
+    color: white;
+}
+
+.offerFormWrapper {
+    opacity: 0;
+    height: 0;
+    visibility: hidden;
+    position: relative;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.openForm {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin: 32px auto 0 auto;
+    height: 200px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.offeredText {
+    font-size: 25px;
+    color: black;
+    font-family: 'Merriweather', serif;
+}
+
+
+.formContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputsWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+
+.label {
+    font-size: 16px;
+    color: rgba(125, 125, 125, 1);
+    margin-bottom: 5px;
+}
+
+.input {
+    border: 1px solid rgba(165, 159, 159, 1);
+    background-color: rgba(239, 233, 233, 1);
+    color: rgba(125, 125, 125, 1);
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    outline: none;
+    width: 250px;
+}
+
+.input::placeholder {
+    color: rgba(125, 125, 125, 1);
+}
+
+.displayNone {
+    display: none;
+}
+
+
+.warningText {
+    font-size: 14px;
+    color: red;
+    font-family: 'Merriweather', serif;
+}
+
+@media screen and (max-width: 1024px) {
+    .formContainer {
+        flex-direction: column;
+    }
+
+    .modal {
+        width: 90%;
+    }
+
+    .openForm {
+        height: 440px;
+        align-items: center;
+    }
+}
+
+
+
+@media screen and (max-width: 425px) {
+    .summBlock {
+        width: 310px
+    }
+
+    .sumText {
+        font-size: 16px;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    .orderBtn {
+        margin-right: 8px;
+    }
+}

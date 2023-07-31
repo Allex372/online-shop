@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SortComponent, FilterComponent } from '../index';
+import { useBacket } from "../../context/BacketProvider";
 
 import * as styles from './header.module.css';
 
@@ -15,8 +16,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export const Header = () => {
+  const { handleOpenBacket } = useBacket();
   const [currentPath, setCurrentPath] = useState('');
-
 
   const [menuStatus, setMenuStatus] = useState(false);
   const [style, setStyle] = useState(styles.menu);
@@ -70,7 +71,7 @@ export const Header = () => {
             </a>
           </div>
 
-          <div className={styles.backet}>
+          <div className={styles.backet} onClick={() => handleOpenBacket()}>
             <img alt="backet" src={backet} />
           </div>
         </div>
