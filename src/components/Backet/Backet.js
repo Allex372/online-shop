@@ -7,7 +7,8 @@ import * as styles from './Backet.module.css';
 import closeIcon from '../../images/close.png'
 
 export const Backet = () => {
-    const { showBacket, handleOpenBacket } = useBacket();
+    const backetContext = useBacket();
+    const { showBacket, handleOpenBacket } = backetContext ? backetContext : {};
     const [isOffered, setIsOffered] = useState({
         preparedToOffer: true,
         readyToOffer: false,
