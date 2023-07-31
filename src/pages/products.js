@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Seo from "../components/Seo/seo"
-import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, SortComponent } from '../components';
+import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, SortComponent, Backet } from '../components';
 
 import * as styles from '../components/products.module.css';
 
@@ -24,6 +24,7 @@ const ProductsArray = [
         culture: ['sunflower', 'soybean'],
         chemistry: 'gerbicydy',
         size: 'gurt',
+        activeIng: 'test',
         img: big,
     },
     {
@@ -171,6 +172,7 @@ const ProductsPage = ({ pageContext }) => {
 
     return (
         <Layout>
+            <Backet />
             <div className={styles.wrapper}>
                 <ProductHeaderFilters result={filteredElements.length} />
                 <div className={styles.flexColumnWrapper}>
