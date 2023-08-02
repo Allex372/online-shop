@@ -8,7 +8,7 @@ import closeIcon from '../../images/close.png'
 
 export const Backet = () => {
     const backetContext = useBacket();
-    const { showBacket, handleOpenBacket } = backetContext ? backetContext : {};
+    const { showBacket, handleOpenBacket, items, totalSum } = backetContext ? backetContext : {};
     const [isOffered, setIsOffered] = useState({
         preparedToOffer: true,
         readyToOffer: false,
@@ -32,6 +32,7 @@ export const Backet = () => {
     }, [isOffered]);
 
     useEffect(() => {
+        console.log(showBacket, 'backet');
         if (showBacket) {
             document.body.classList.add(styles.bodyNoScroll);
         } else {
@@ -91,14 +92,14 @@ export const Backet = () => {
                             </div>
                         </div>
                         <div className={styles.itemWrapper}>
-                            <BacketItem />
+                            <BacketItem items={items} />
                         </div>
                         <div className={`${styles.offerFormWrapper} ${isOffered.readyToOffer ? styles.openForm : ''}`}>
                             <p className={styles.offeredText}>Оформлення замовлення:</p>
                             <div className={`${isOffered.readyToOffer ? styles.formContainer : styles.displayNone}`}>
                                 <div className={styles.inputsWrapper}>
                                     <div className={styles.inputWrapper}>
-                                        <label className={styles.label}>ПІП</label>
+                                        <label className={styles.label}>Прізвище, і'мя, по батькові</label>
                                         <input
                                             className={styles.input}
                                             type="text"
@@ -151,24 +152,30 @@ export const Backet = () => {
                             {(isOffered.offered && !formDataValid) && (<p className={styles.warningText}>Всі поля повинні бути заповнені</p>)}
 
                         </div>
-                        <div className={styles.summBlockWrapper}>
-                            <div className={styles.summBlock}>
-                                <p className={styles.sumText}>700₴</p>
-                                {
-                                    isOffered.preparedToOffer &&
-                                    <button className={styles.orderBtn} onClick={() => handleOffered('readyToOffer')}>
-                                        Оформити замовлення
-                                    </button>
-                                }
-                                {
-                                    isOffered.readyToOffer &&
-                                    <button className={styles.orderBtn} onClick={() => handleOffered('offered')}>
-                                        Замовити
-                                    </button>
-                                }
+                        {
+                            items?.length ?
 
-                            </div>
-                        </div>
+                                <div className={styles.summBlockWrapper}>
+                                    <div className={styles.summBlock}>
+                                        <p className={styles.sumText}>{totalSum}₴</p>
+                                        {
+                                            isOffered.preparedToOffer &&
+                                            <button className={styles.orderBtn} onClick={() => handleOffered('readyToOffer')}>
+                                                Оформити замовлення
+                                            </button>
+                                        }
+                                        {
+                                            isOffered.readyToOffer &&
+                                            <button className={styles.orderBtn} onClick={() => handleOffered('offered')}>
+                                                Замовити
+                                            </button>
+                                        }
+
+                                    </div>
+                                </div>
+                                :
+                                <></>
+                        }
                     </div>
                 </div>
             )
