@@ -1,5 +1,4 @@
 .productCard {
-    /* height: 300px; */
     width: 200px;
 
     display: flex;
@@ -10,10 +9,10 @@
 
 .productCard:hover {
     background-color: #EDDDDD;
-    border: 1px solid #742021;
+    /* border: 1px solid #742021; */
     border-radius: 10px;
     transition: 1s;
-    cursor: pointer;
+    /* cursor: pointer; */
     box-sizing: border-box;
 }
 
@@ -41,6 +40,30 @@
     margin-top: 12px;
     margin-bottom: 16px;
     text-align: center;
+}
+
+.buyButton {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-family: 'Merriweather', serif;
+    color: white;
+    font-weight: bold;
+    background-color: #742021;
+    height: 30px;
+    width: 120px;
+    border-radius: 10px;
+}
+
+.buyButtonAdded {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-family: 'Merriweather', serif;
+    color: #742021;
+    font-weight: bold;
+    border: 1px solid #742021;
+    height: 30px;
+    width: 120px;
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 768px) {

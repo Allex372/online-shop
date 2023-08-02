@@ -26,6 +26,7 @@
     position: relative;
     border-radius: 10px;
     overflow: auto;
+    min-height: 180px;
     max-height: 90%;
 }
 
@@ -112,7 +113,7 @@
     height: 0;
     visibility: hidden;
     position: relative;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 1s ease, visibility 1s ease;
 }
 
 .openForm {

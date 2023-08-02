@@ -41,10 +41,23 @@
     height: 100%;
 }
 
+.textWrapper {
+    margin-left: 32px;
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-size: 22px;
+    font-family: 'Merriweather', serif;
+    color: rgba(116, 32, 33, 1);
+}
+
 .descriptionText {
     font-size: 16px;
     font-family: 'Merriweather', serif;
     color: rgba(116, 32, 33, 1);
+    margin-top: 16px;
 }
 
 .priseWrapper {
@@ -89,18 +102,45 @@ button {
     /* margin-top: 100px; */
 }
 
+.clearBacket {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.clearBacket p {
+    font-size: 18px;
+    font-family: 'Merriweather', serif;
+    color: rgba(116, 32, 33, 1);
+}
+
+.buttonBack {
+    margin-top: 12px;
+    font-size: 14px;
+    font-family: 'Merriweather', serif;
+    color: white;
+    font-weight: bold;
+    background-color: #742021;
+    height: 30px;
+    width: 150px;
+    border-radius: 10px;
+}
+
 @media screen and (max-width: 768px) {
     .wrapper {
         flex-direction: column;
     }
 
     .productImageWrapper {
-        margin-left: 0;
+        margin-left: 16px;
     }
 
     .descriptionText {
         font-size: 12px;
     }
 
-
+    .name {
+        font-size: 16px;
+    }
 }

@@ -17,7 +17,7 @@ import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export const Header = () => {
   const backetContext = useBacket();
-  const { handleOpenBacket } = backetContext ? backetContext : {};
+  const { handleOpenBacket, items } = backetContext ? backetContext : {};
 
   const [currentPath, setCurrentPath] = useState('');
 
@@ -45,10 +45,12 @@ export const Header = () => {
   return (
     <>
       <header className={styles.wrapper}>
-        {currentPath.includes("/products/") &&
+        {
+          currentPath.includes("/products/") &&
           <div className={styles.burgerMenu} onClick={handleClick}>
             <img src={menuStatus ? close : burger} alt='burger' />
-          </div>}
+          </div>
+        }
         <div className={styles.logoWrapper}>
           <img alt='logo' src={logo} />
         </div>
@@ -75,6 +77,12 @@ export const Header = () => {
 
           <div className={styles.backet} onClick={() => handleOpenBacket()}>
             <img alt="backet" src={backet} />
+            {
+              items?.length >= 1 &&
+              <div className={styles.backetLength}>
+                <p>{items?.length}</p>
+              </div>
+            }
           </div>
         </div>
       </header >
