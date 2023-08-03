@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Seo from "../components/Seo/seo"
 import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, SortComponent, Backet } from '../components';
+import { useResult } from "../context/SearchResultProvider";
 
 import * as styles from '../components/products.module.css';
 
@@ -113,7 +114,7 @@ const ProductsArray = [
     },
     {
         id: 11,
-        name: 'МЕДЯН ЕКСТРА',
+        name: 'МЕДЯН ЕКСТРА Фунгіцид',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
         culture: ['tomatoes', 'apple'],
         chemistry: 'fungicydy',
@@ -154,7 +155,11 @@ const ProductsArray = [
 ];
 
 const ProductsPage = ({ pageContext }) => {
+    const resultContext = useResult();
+    const { searchResult } = resultContext ? resultContext : {};
+
     const { filter } = pageContext;
+
     const filteredElements = ProductsArray.filter((el) => {
         if (el.chemistry === filter) {
             return el;
@@ -166,12 +171,22 @@ const ProductsPage = ({ pageContext }) => {
         return false;
     });
 
+    const searchedElements = searchResult
+        ? filteredElements.filter((el) =>
+            el.name.toLowerCase().includes(searchResult.toLowerCase()) ||
+            el.description.toLowerCase().includes(searchResult.toLowerCase()) ||
+            el.culture.some((culture) => culture.toLowerCase().includes(searchResult.toLowerCase())) ||
+            el.chemistry.toLowerCase().includes(searchResult.toLowerCase()) ||
+            el.size.toLowerCase().includes(searchResult.toLowerCase())
+        )
+        : filteredElements;
+
     // Параметри пагінації
     const itemsPerPage = 6; // Кількість елементів на одній сторінці
     const [currentPage, setCurrentPage] = useState(1); // Поточна сторінка
 
     // Обчислюємо загальну кількість сторінок на основі кількості елементів і кількості елементів на сторінці
-    const totalPages = Math.ceil(filteredElements.length / itemsPerPage);
+    const totalPages = Math.ceil(searchedElements.length / itemsPerPage);
 
     // Функція для зміни поточної сторінки
     const handlePageChange = (page) => {
@@ -202,12 +217,12 @@ const ProductsPage = ({ pageContext }) => {
         <Layout>
             <Backet />
             <div className={styles.wrapper}>
-                <ProductHeaderFilters result={filteredElements.length} />
+                <ProductHeaderFilters result={searchedElements.length} />
                 <div className={styles.flexColumnWrapper}>
                     <div className={styles.mainWrapper}>
                         <div className={styles.filterWrapper}><FilterComponent /></div>
 
-                        <ProductsLayout array={filteredElements.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} />
+                        <ProductsLayout array={searchedElements.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} />
                         <div className={styles.filterWrapper}><SortComponent /></div>
                     </div>
                     {/* Пагінація */}

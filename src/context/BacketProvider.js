@@ -28,7 +28,6 @@ const BacketProvider = ({ children }) => {
     }, [items]);
 
     const handleOpenBacket = () => {
-        console.log(showBacket, 'context');
         setShowBacket(!showBacket);
     }
 

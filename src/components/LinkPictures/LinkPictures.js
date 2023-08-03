@@ -8,7 +8,6 @@ export const LinkPictures = () => {
         // Наприклад, можна відправити фільтр в gatsby-node.js
 
         // Виконуємо дії для фільтра filter
-        console.log('Фільтр:', filter);
     };
     return (
         <div className={styles.container}>

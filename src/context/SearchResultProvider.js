@@ -3,13 +3,13 @@ import React, { createContext, useContext, useState } from "react";
 const Context = createContext();
 
 const SearchResultProvider = ({ children }) => {
-    const [result, setResult] = useState(null);
+    const [searchResult, setSearchResult] = useState(null);
 
     const changeSearchResult = (result) => {
-        setResult(result);
+        setSearchResult(result);
     }
 
-    return <Context.Provider value={{ result, changeSearchResult }}>{children}</Context.Provider>;
+    return <Context.Provider value={{ searchResult, changeSearchResult }}>{children}</Context.Provider>;
 }
 
 export default SearchResultProvider;

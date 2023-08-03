@@ -51,6 +51,43 @@
     margin-left: auto;
 }
 
+.helperDiv {
+    display: flex;
+    align-items: center;
+    background-color: #D3CFCF;
+    width: 100px;
+    border-radius: 16px;
+    position: relative;
+    padding: 8px;
+    height: 20px;
+    transition: background-color 0.2s ease;
+    /* Додаємо перехід для плавності ефекту */
+}
+
+.helperDiv:active {
+    background-color: #555;
+    /* Темний колір для затемнення під час натискання */
+}
+
+.helperDiv p {
+    width: 80%;
+    overflow: hidden;
+}
+
+.closeImg {
+    cursor: pointer;
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    right: 9px;
+}
+
+.dNone {
+    width: 100px;
+    padding: 8px;
+    opacity: 0;
+}
+
 @media screen and (max-width: 768px) {
     .searchInput {
         width: 200px;

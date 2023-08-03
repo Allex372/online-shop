@@ -32,7 +32,6 @@ export const Backet = () => {
     }, [isOffered]);
 
     useEffect(() => {
-        console.log(showBacket, 'backet');
         if (showBacket) {
             document.body.classList.add(styles.bodyNoScroll);
         } else {
