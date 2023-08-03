@@ -61,7 +61,6 @@
     padding: 8px;
     height: 20px;
     transition: background-color 0.2s ease;
-    /* Додаємо перехід для плавності ефекту */
 }
 
 .helperDiv:active {
@@ -95,5 +94,9 @@
 
     .helperDiv {
         display: none;
+    }
+
+    .resultBlock p {
+        width: 125px;
     }
 }

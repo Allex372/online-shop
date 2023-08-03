@@ -20,7 +20,9 @@ export const ProductHeaderFilters = ({ result }) => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.resultBlock}><p>Знайдено: {result}</p></div>
+            <div className={styles.resultBlock}>
+                <p>Знайдено: {result}</p>
+            </div>
             <div className={styles.searchContainer}>
                 <div>
                     <input
