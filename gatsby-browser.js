@@ -12,8 +12,8 @@ import BacketProvider from "./src/context/BacketProvider";
 
 export const wrapRootElement = ({ element }) => (
     <BacketProvider>
-        {/* <SearchResultProvider> */}
-        {element}
-        {/* </SearchResultProvider> */}
+        <SearchResultProvider>
+            {element}
+        </SearchResultProvider>
     </BacketProvider>
 )
