@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import Seo from "../components/Seo/seo"
+import React, { useState } from "react";
+import Seo from "../components/Seo/seo";
 import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, SortComponent, Backet } from '../components';
 import { useResult } from "../context/SearchResultProvider";
 
