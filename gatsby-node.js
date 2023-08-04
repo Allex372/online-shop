@@ -1,6 +1,5 @@
 const path = require('path');
 
-
 const ChemistryArray = [
     {
         id: 1,
@@ -32,6 +31,164 @@ const ChemistryArray = [
     },
 ]
 
+const ProductsArray = [
+    {
+        id: 1,
+        name: 'МЕДЯН ЕКСТРА',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['tomatoes', 'apple'],
+        chemistry: 'fungicydy',
+        size: 'rozdrib',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/bigBotltle.png'),
+        price: 200,
+    },
+    {
+        id: 2,
+        name: 'МЕДЯН ЕКСТРА TURBO',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['sunflower', 'soybean'],
+        chemistry: 'gerbicydy',
+        size: 'gurt',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/bigBotltle.png'),
+        price: 300,
+    },
+    {
+        id: 3,
+        name: 'МЕДЯН ЕКСТРА TURBO',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['sunflower', 'soybean'],
+        chemistry: 'gerbicydy',
+        size: 'gurt',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/bigBotltle.png'),
+        price: 400,
+    },
+    {
+        id: 4,
+        name: 'МЕДЯН ЕКСТРА TURBO',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['sunflower', 'soybean'],
+        chemistry: 'gerbicydy',
+        size: 'gurt',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/smallBottle.png'),
+        price: 500,
+    },
+    {
+        id: 5,
+        name: 'МЕДЯН ЕКСТРА',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['tomatoes', 'apple'],
+        chemistry: 'fungicydy',
+        size: 'rozdrib',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/smallBottle.png'),
+        price: 600,
+    },
+    {
+        id: 6,
+        name: 'МЕДЯН ЕКСТРА',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['tomatoes', 'apple'],
+        chemistry: 'fungicydy',
+        size: 'rozdrib',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/smallBottle.png'),
+        price: 700,
+    },
+    {
+        id: 7,
+        name: 'МЕДЯН ЕКСТРА',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['tomatoes', 'apple'],
+        chemistry: 'fungicydy',
+        size: 'rozdrib',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/smallBottle.png'),
+        price: 800,
+    },
+    {
+        id: 8,
+        name: 'МЕДЯН ЕКСТРА',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['tomatoes', 'apple'],
+        chemistry: 'fungicydy',
+        size: 'rozdrib',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/smallBottle.png'),
+        price: 900,
+    },
+    {
+        id: 9,
+        name: 'МЕДЯН ЕКСТРА',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['tomatoes', 'apple'],
+        chemistry: 'fungicydy',
+        size: 'rozdrib',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/smallBottle.png'),
+        price: 100,
+    },
+    {
+        id: 10,
+        name: 'МЕДЯН ЕКСТРА',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['tomatoes', 'apple'],
+        chemistry: 'fungicydy',
+        size: 'rozdrib',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/smallBottle.png'),
+        price: 1000,
+    },
+    {
+        id: 11,
+        name: 'МЕДЯН ЕКСТРА Фунгіцид',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['tomatoes', 'apple'],
+        chemistry: 'fungicydy',
+        size: 'rozdrib',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/smallBottle.png'),
+        price: 1100,
+    },
+    {
+        id: 12,
+        name: 'МЕДЯН ЕКСТРА',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['tomatoes', 'apple'],
+        chemistry: 'fungicydy',
+        size: 'rozdrib',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/smallBottle.png'),
+        price: 1200,
+    },
+    {
+        id: 13,
+        name: 'МЕДЯН ЕКСТРА',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['tomatoes', 'apple', 'rapeseed'],
+        chemistry: 'fungicydy',
+        size: 'rozdrib',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/smallBottle.png'),
+        price: 1300,
+    },
+    {
+        id: 14,
+        name: 'МЕДЯН ЕКСТРА',
+        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
+        culture: ['tomatoes', 'soyabean'],
+        chemistry: 'fungicydy',
+        size: 'rozdrib',
+        activeIng: 'Імідаклоприд, 600 г/л',
+        // img: require('./src/images/smallBottle.png'),
+        price: 1400,
+    },
+];
+
+
 
 exports.createPages = async ({ actions }) => {
     const { createPage } = actions;
@@ -61,7 +218,7 @@ exports.createPages = async ({ actions }) => {
         });
     });
 
-    const cultureFilter = ['wheat', 'sunflower', 'soybean', 'apple', 'rapeseed', 'tomatoes']; // Типи фільтрів опт/гурт
+    const cultureFilter = ['wheat', 'sunflower', 'soybean', 'apple', 'rapeseed', 'tomatoes']; // Типи фільтрів культури
 
     cultureFilter.forEach((filter) => {
         const path = `/products/${filter}`;
@@ -73,5 +230,15 @@ exports.createPages = async ({ actions }) => {
                 filter,
             },
         });
+    });
+
+    ProductsArray?.forEach(node => {
+        const { id, name } = node;
+        actions.createPage({
+            path: `products/${id}/${name}`,
+            component: path.resolve('./src/templates/single-product.js'),
+            // context: { url }
+            context: { productData: node }
+        })
     });
 };
