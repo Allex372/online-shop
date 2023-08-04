@@ -93,7 +93,7 @@ export const Backet = () => {
                         <div className={styles.itemWrapper}>
                             <BacketItem items={items} />
                         </div>
-                        <div className={`${styles.offerFormWrapper} ${isOffered.readyToOffer ? styles.openForm : ''}`}>
+                        <div className={`${styles.offerFormWrapper} ${isOffered.readyToOffer && items?.length ? styles.openForm : ''}`}>
                             <p className={styles.offeredText}>Оформлення замовлення:</p>
                             <div className={`${isOffered.readyToOffer ? styles.formContainer : styles.displayNone}`}>
                                 <div className={styles.inputsWrapper}>
