@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { SortComponent, FilterComponent } from '../index';
 import { useBacket } from "../../context/BacketProvider";
+import { useFilter } from "../../context/FilterProvider";
 
 import * as styles from './header.module.css';
 
@@ -16,6 +17,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export const Header = () => {
+  const resultFilterContext = useFilter();
+  const { cultureFilter, chemistryFilter, typeFilter } = resultFilterContext ? resultFilterContext : {};
+
+
   const backetContext = useBacket();
   const { handleOpenBacket, items } = backetContext ? backetContext : {};
 
@@ -94,7 +99,7 @@ export const Header = () => {
               <SortComponent />
             </div>
             <div className={styles.filterWrapper}>
-              <FilterComponent />
+              <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} />
             </div>
             <div className={styles.contactsMobile}>
               <div className={styles.socialMobile}>

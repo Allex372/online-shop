@@ -1,240 +1,170 @@
 const path = require('path');
 
-const ChemistryArray = [
-    {
-        id: 1,
-        name: 'gerbicydy',
-    },
-    {
-        id: 2,
-        name: 'fungicydy',
-    },
-    {
-        id: 3,
-        name: 'inectecydy',
-    },
-    {
-        id: 4,
-        name: 'protruinyky',
-    },
-    {
-        id: 5,
-        name: 'desucanty',
-    },
-    {
-        id: 6,
-        name: 'adiuvanty',
-    },
-    {
-        id: 7,
-        name: 'dobryva',
-    },
-]
-
 const ProductsArray = [
     {
         id: 1,
-        name: 'МЕДЯН ЕКСТРА',
+        name: 'АЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/bigBotltle.png'),
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'фермерське',
+        // img: big,
         price: 200,
+        isAvailable: true,
     },
     {
         id: 2,
-        name: 'МЕДЯН ЕКСТРА TURBO',
+        name: 'БЕДЯН ЕКСТРА TURBO',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['sunflower', 'soybean'],
-        chemistry: 'gerbicydy',
-        size: 'gurt',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/bigBotltle.png'),
+        culture: ['соняшник', 'соя'],
+        chemistry: 'гербіциди',
+        size: 'фермерське',
+        activeIng: 'test',
+        // img: big,
         price: 300,
+        isAvailable: true,
     },
     {
         id: 3,
-        name: 'МЕДЯН ЕКСТРА TURBO',
+        name: 'ВЕДЯН ЕКСТРА TURBO',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['sunflower', 'soybean'],
-        chemistry: 'gerbicydy',
-        size: 'gurt',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/bigBotltle.png'),
+        culture: ['соняшник', 'соя'],
+        chemistry: 'гербіциди',
+        size: 'фермерське',
+        // img: big,
         price: 400,
+        isAvailable: true,
     },
     {
         id: 4,
-        name: 'МЕДЯН ЕКСТРА TURBO',
+        name: 'ГЕДЯН ЕКСТРА TURBO',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['sunflower', 'soybean'],
-        chemistry: 'gerbicydy',
-        size: 'gurt',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/smallBottle.png'),
+        culture: ['соняшник', 'соя'],
+        chemistry: 'гербіциди',
+        size: 'фермерське',
+        // img: small,
         price: 500,
+        isAvailable: true,
     },
     {
         id: 5,
-        name: 'МЕДЯН ЕКСТРА',
+        name: 'ДЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/smallBottle.png'),
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'гербіциди',
+        size: 'присадибне',
+        // img: small,
         price: 600,
+        isAvailable: true,
     },
     {
         id: 6,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/smallBottle.png'),
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
+        // img: small,
         price: 700,
+        isAvailable: true,
     },
     {
         id: 7,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/smallBottle.png'),
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
+        // img: small,
         price: 800,
+        isAvailable: false,
     },
     {
         id: 8,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/smallBottle.png'),
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
+        // img: small,
         price: 900,
+        isAvailable: false,
     },
     {
         id: 9,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/smallBottle.png'),
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
+        // img: small,
         price: 100,
+        isAvailable: false,
     },
     {
         id: 10,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/smallBottle.png'),
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
+        // img: small,
         price: 1000,
+        isAvailable: false,
     },
     {
         id: 11,
         name: 'МЕДЯН ЕКСТРА Фунгіцид',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/smallBottle.png'),
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
+        // img: small,
         price: 1100,
+        isAvailable: false,
     },
     {
         id: 12,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/smallBottle.png'),
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
+        // img: small,
         price: 1200,
+        isAvailable: false,
     },
     {
         id: 13,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple', 'rapeseed'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/smallBottle.png'),
+        culture: ['помідори', 'яблуко', 'ріпак'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
+        // img: small,
         price: 1300,
+        isAvailable: false,
     },
     {
         id: 14,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'soyabean'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
-        activeIng: 'Імідаклоприд, 600 г/л',
-        // img: require('./src/images/smallBottle.png'),
+        culture: ['помідори', 'соя'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
+        // img: small,
         price: 1400,
+        isAvailable: true,
     },
 ];
-
 
 
 exports.createPages = async ({ actions }) => {
     const { createPage } = actions;
 
-    // Для кожного об'єкта ChemistryArray створюємо сторінку з відповідним фільтром
-    ChemistryArray.forEach((el) => {
-        const filter = encodeURIComponent(el.name);
-
-        createPage({
-            path: `/products/${filter}`,
-            component: require.resolve('./src/pages/products.js'),
-            context: { filter },
-        });
-    });
-
-    const filters = ['rozdrib', 'gurt']; // Типи фільтрів опт/гурт
-
-    filters.forEach((filter) => {
-        const path = `/products/${filter}`;
-
-        createPage({
-            path,
-            component: require.resolve('./src/pages/products.js'),
-            context: {
-                filter,
-            },
-        });
-    });
-
-    const cultureFilter = ['wheat', 'sunflower', 'soybean', 'apple', 'rapeseed', 'tomatoes']; // Типи фільтрів культури
-
-    cultureFilter.forEach((filter) => {
-        const path = `/products/${filter}`;
-
-        createPage({
-            path,
-            component: require.resolve('./src/pages/products.js'),
-            context: {
-                filter,
-            },
-        });
-    });
-
     ProductsArray?.forEach(node => {
         const { id, name } = node;
-        actions.createPage({
+        createPage({
             path: `products/${id}/${name}`,
             component: path.resolve('./src/templates/single-product.js'),
             // context: { url }

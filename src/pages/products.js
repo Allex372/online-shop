@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Seo from "../components/Seo/seo";
 import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, SortComponent, Backet } from '../components';
 import { useResult } from "../context/SearchResultProvider";
+import { useFilter } from "../context/FilterProvider";
 
 import * as styles from '../components/products.module.css';
 
@@ -13,173 +14,199 @@ import arrow from '../images/sort-icons/arrow-down.svg';
 const ProductsArray = [
     {
         id: 1,
-        name: 'МЕДЯН ЕКСТРА',
+        name: 'АЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'фермерське',
         img: big,
         price: 200,
+        isAvailable: true,
     },
     {
         id: 2,
-        name: 'МЕДЯН ЕКСТРА TURBO',
+        name: 'БЕДЯН ЕКСТРА TURBO',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['sunflower', 'soybean'],
-        chemistry: 'gerbicydy',
-        size: 'gurt',
+        culture: ['соняшник', 'соя'],
+        chemistry: 'гербіциди',
+        size: 'фермерське',
         activeIng: 'test',
         img: big,
         price: 300,
+        isAvailable: true,
     },
     {
         id: 3,
-        name: 'МЕДЯН ЕКСТРА TURBO',
+        name: 'ВЕДЯН ЕКСТРА TURBO',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['sunflower', 'soybean'],
-        chemistry: 'gerbicydy',
-        size: 'gurt',
+        culture: ['соняшник', 'соя'],
+        chemistry: 'гербіциди',
+        size: 'фермерське',
         img: big,
         price: 400,
+        isAvailable: true,
     },
     {
         id: 4,
-        name: 'МЕДЯН ЕКСТРА TURBO',
+        name: 'ГЕДЯН ЕКСТРА TURBO',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['sunflower', 'soybean'],
-        chemistry: 'gerbicydy',
-        size: 'gurt',
+        culture: ['соняшник', 'соя'],
+        chemistry: 'гербіциди',
+        size: 'фермерське',
         img: small,
         price: 500,
+        isAvailable: true,
     },
     {
         id: 5,
-        name: 'МЕДЯН ЕКСТРА',
+        name: 'ДЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'гербіциди',
+        size: 'присадибне',
         img: small,
         price: 600,
+        isAvailable: true,
     },
     {
         id: 6,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
         img: small,
         price: 700,
+        isAvailable: true,
     },
     {
         id: 7,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
         img: small,
         price: 800,
+        isAvailable: false,
     },
     {
         id: 8,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
         img: small,
         price: 900,
+        isAvailable: false,
     },
     {
         id: 9,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
         img: small,
         price: 100,
+        isAvailable: false,
     },
     {
         id: 10,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
         img: small,
         price: 1000,
+        isAvailable: false,
     },
     {
         id: 11,
         name: 'МЕДЯН ЕКСТРА Фунгіцид',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
         img: small,
         price: 1100,
+        isAvailable: false,
     },
     {
         id: 12,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
+        culture: ['помідори', 'яблуко'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
         img: small,
         price: 1200,
+        isAvailable: false,
     },
     {
         id: 13,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'apple', 'rapeseed'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
+        culture: ['помідори', 'яблуко', 'ріпак'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
         img: small,
         price: 1300,
+        isAvailable: false,
     },
     {
         id: 14,
         name: 'МЕДЯН ЕКСТРА',
         description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['tomatoes', 'soyabean'],
-        chemistry: 'fungicydy',
-        size: 'rozdrib',
+        culture: ['помідори', 'соя'],
+        chemistry: 'фунгіциди',
+        size: 'присадибне',
         img: small,
         price: 1400,
+        isAvailable: true,
     },
 ];
 
-const ProductsPage = ({ pageContext }) => {
+const ProductsPage = () => {
+    const resultFilterContext = useFilter();
+    const { cultureFilter, chemistryFilter, typeFilter, sortOptions } = resultFilterContext ? resultFilterContext : {};
+
     const resultContext = useResult();
     const { searchResult } = resultContext ? resultContext : {};
 
-    const { filter } = pageContext;
-
     const filteredElements = ProductsArray.filter((el) => {
-        if (el.chemistry === filter) {
-            return el;
-        } else if (el.size === filter) {
-            return el;
-        } else if (el.culture.includes(filter)) {
-            return true;
-        }
-        return false;
+        const isChemistryMatch = !chemistryFilter || el?.chemistry === chemistryFilter.toLowerCase();
+        const isTypeMatch = !typeFilter || el?.size === typeFilter;
+        const isCultureMatch = !cultureFilter || el?.culture.includes(cultureFilter);
+        const idAvailable = !sortOptions?.availability || el?.isAvailable === sortOptions?.availability;
+
+        return isChemistryMatch && isTypeMatch && isCultureMatch && idAvailable;
     });
 
+    const sortedElement = [...filteredElements]; // Створюємо копію масиву для сортування
+
+    if (sortOptions?.alphabet) {
+        sortedElement.sort((a, b) => a.name.localeCompare(b.name)); // Сортування за назвою в алфавітному порядку
+    } else if (sortOptions?.reverseAlphabet) {
+        sortedElement.sort((a, b) => b.name.localeCompare(a.name)); // Сортування за назвою в зворотньому алфавітному порядку
+    } else if (sortOptions?.priceHighToLow) {
+        sortedElement.sort((a, b) => b.price - a.price); // Сортування за ціною від вищої до нижчої
+    } else if (sortOptions?.priceLowToHigh) {
+        sortedElement.sort((a, b) => a.price - b.price); // Сортування за ціною від нижчої до вищої
+    }
+
     const searchedElements = searchResult
-        ? filteredElements.filter((el) =>
+        ? sortedElement.filter((el) =>
             el.name.toLowerCase().includes(searchResult.toLowerCase()) ||
             el.description.toLowerCase().includes(searchResult.toLowerCase()) ||
             el.culture.some((culture) => culture.toLowerCase().includes(searchResult.toLowerCase())) ||
             el.chemistry.toLowerCase().includes(searchResult.toLowerCase()) ||
             el.size.toLowerCase().includes(searchResult.toLowerCase())
         )
-        : filteredElements;
+        : sortedElement;
+
 
     // Параметри пагінації
     const itemsPerPage = 6; // Кількість елементів на одній сторінці
@@ -220,10 +247,14 @@ const ProductsPage = ({ pageContext }) => {
                 <ProductHeaderFilters result={searchedElements.length} />
                 <div className={styles.flexColumnWrapper}>
                     <div className={styles.mainWrapper}>
-                        <div className={styles.filterWrapper}><FilterComponent /></div>
+                        <div className={styles.filterWrapper}>
+                            <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} />
+                        </div>
 
                         <ProductsLayout array={searchedElements.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} />
-                        <div className={styles.filterWrapper}><SortComponent /></div>
+                        <div className={styles.filterWrapper}>
+                            <SortComponent />
+                        </div>
                     </div>
                     {/* Пагінація */}
                     <div className={styles.paginationWrapper}>

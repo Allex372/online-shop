@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "gatsby";
+import { useFilter } from "../../context/FilterProvider";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -15,100 +16,106 @@ const ChemistryArray = [
     {
         id: 1,
         name: 'Гербіциди',
-        linkTo: 'gerbicydy',
+        // linkTo: 'gerbicydy',
         img: insect,
     },
     {
         id: 2,
         name: 'Фунгіциди',
-        linkTo: 'fungicydy',
+        // linkTo: 'fungicydy',
         img: gerb,
     },
     {
         id: 3,
         name: 'Інсектециди',
-        linkTo: 'inectecydy',
+        // linkTo: 'inectecydy',
         img: insect,
     },
     {
         id: 4,
         name: 'Протруйники',
-        linkTo: 'protruinyky',
+        // linkTo: 'protruinyky',
         img: insect,
     },
     {
         id: 5,
         name: 'Десиканти',
-        linkTo: 'desucanty',
+        // linkTo: 'desucanty',
         img: insect,
     },
     {
         id: 6,
         name: "Ад'юванти",
-        linkTo: 'adiuvanty',
+        // linkTo: 'adiuvanty',
         img: insect,
     },
     {
         id: 7,
         name: 'Добрива',
-        linkTo: 'dobryva',
+        // linkTo: 'dobryva',
         img: insect,
     },
 ]
 
-export const ChemistryElements = () => (
-    <>
-        <div className={styles.wrapper}>
-            {
-                ChemistryArray.map((el) => {
-                    return (
-                        <Link
-                            className={styles.elemWrapper}
-                            key={el.id}
-                            to={`/products/${encodeURIComponent(el.linkTo)}`}
-                        >
-                            <img alt='chemistry' className={styles.bankImg} src={el.img} />
-                            <p className={styles.text}>{el.name}</p>
-                        </Link>
-                    )
-                })
-            }
-        </div>
-        <Swiper
-            style={{
-                '--swiper-pagination-color': '#742021',
-            }}
-            slidesPerView={3}
-            spaceBetween={30}
-
-            pagination={{
-                clickable: true,
-            }}
-            modules={[Pagination]}
-            className={styles.swiper}
-        >
-
-            {
-                ChemistryArray.map((el) => (
-                    <>
-                        <SwiperSlide className={styles.swiperSlide} key={el.id} >
+export const ChemistryElements = () => {
+    const resultContext = useFilter();
+    const { changeChemistryFilter } = resultContext ? resultContext : {};
+    return (
+        <>
+            <div className={styles.wrapper}>
+                {
+                    ChemistryArray.map((el) => {
+                        return (
                             <Link
                                 className={styles.elemWrapper}
                                 key={el.id}
-                                to={`/products/${encodeURIComponent(el.linkTo)}`}
+                                to={`/products`}
+                                onClick={() => changeChemistryFilter(el.name)}
                             >
-                                <div className={styles.elemWrapper} key={el.id}>
-                                    <div className={styles.imageWrapper}>
-                                        <img alt='chemistry' className={styles.bankImg} src={el.img} />
-                                    </div>
-                                    <p className={styles.text}>{el.name}</p>
-                                </div>
+                                <img alt='chemistry' className={styles.bankImg} src={el.img} />
+                                <p className={styles.text}>{el.name}</p>
                             </Link>
-                        </SwiperSlide>
-                    </>
+                        )
+                    })
+                }
+            </div>
+            <Swiper
+                style={{
+                    '--swiper-pagination-color': '#742021',
+                }}
+                slidesPerView={3}
+                spaceBetween={30}
 
-                ))
-            }
-        </Swiper>
-    </>
-)
+                pagination={{
+                    clickable: true,
+                }}
+                modules={[Pagination]}
+                className={styles.swiper}
+            >
+
+                {
+                    ChemistryArray.map((el) => (
+                        <>
+                            <SwiperSlide className={styles.swiperSlide} key={el.id} >
+                                <Link
+                                    className={styles.elemWrapper}
+                                    key={el.id}
+                                    to={`/products/`}
+                                    onClick={() => changeChemistryFilter(el.name)}
+                                >
+                                    <div className={styles.elemWrapper} key={el.id}>
+                                        <div className={styles.imageWrapper}>
+                                            <img alt='chemistry' className={styles.bankImg} src={el.img} />
+                                        </div>
+                                        <p className={styles.text}>{el.name}</p>
+                                    </div>
+                                </Link>
+                            </SwiperSlide>
+                        </>
+
+                    ))
+                }
+            </Swiper>
+        </>
+    )
+}

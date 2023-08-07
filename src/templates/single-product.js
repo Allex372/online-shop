@@ -14,8 +14,8 @@ const SingleProduct = ({ pageContext }) => {
         name,
         description,
         culture,
-        chemistry,
-        size,
+        // chemistry,
+        // size,
         activeIng,
         price
     } = productData

@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { useFilter } from '../../context/FilterProvider';
 import * as styles from './LinkPictures.module.css';
 
 export const LinkPictures = () => {
+    const resultContext = useFilter();
+    const { changeTypeFilter } = resultContext ? resultContext : {};
     const handleViewMore = (filter) => {
         // Виконуємо необхідні дії при кліку на "Дивитися детальніше"
         // Наприклад, можна відправити фільтр в gatsby-node.js
@@ -16,8 +19,8 @@ export const LinkPictures = () => {
                     <div className={styles.viewMoreOne}>
                         <Link
                             className={styles.linkedText}
-                            to="/products/rozdrib"
-                            onClick={() => handleViewMore('rozdrib')}
+                            to="/products"
+                            onClick={() => changeTypeFilter('присадибне')}
                         >
                             <p className={styles.title}>Присадибне</p>
                             <p className={styles.text}>Дивитися детальніше</p>
@@ -29,8 +32,8 @@ export const LinkPictures = () => {
                     <div className={styles.viewMoreMany}>
                         <Link
                             className={styles.linkedText}
-                            to="/products/gurt"
-                            onClick={() => handleViewMore('gurt')}
+                            to="/products"
+                            onClick={() => changeTypeFilter('фермерське')}
                         >
                             <p className={styles.title}>Фермерське</p>
                             <p className={styles.text}>Дивитися детальніше</p>

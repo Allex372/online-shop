@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useFilter } from '../../context/FilterProvider';
 
 import filterIcon from '../../images/sort-icons/filter.svg';
 import arrowDown from '../../images/sort-icons/arrow-down.svg';
 
 import * as styles from './FilterComponent.module.css';
 
-export const FilterComponent = () => {
+export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter }) => {
+    const resultFilterContext = useFilter();
+    const { changeCultureFilter, changeChemistryFilter, changeTypeFilter } = resultFilterContext ? resultFilterContext : {};
+
     const [showTypeCheckboxes, setShowTypeCheckboxes] = useState(false);
     const [showChemistryCheckboxes, setShowChemistryCheckboxes] = useState(false);
     const [showCheckboxes, setShowCheckboxes] = useState(false);
@@ -20,6 +24,7 @@ export const FilterComponent = () => {
     const handleCropChange = (event) => {
         const { name, checked } = event.target;
         setSelectedCrop(checked ? name : '');
+        changeCultureFilter(name);
     };
 
     const handleToggleChemistryChange = () => {
@@ -29,6 +34,7 @@ export const FilterComponent = () => {
     const handleTypeChemistryChange = (event) => {
         const { name, checked } = event.target;
         setCheckboxChemistryState(checked ? name : '');
+        changeChemistryFilter(name);
     };
 
     const handleToggleTypeCheckboxes = () => {
@@ -38,7 +44,29 @@ export const FilterComponent = () => {
     const handleTypeChange = (event) => {
         const { name, checked } = event.target;
         setTypeCheckboxState(checked ? name : '');
+        changeTypeFilter(name);
     };
+
+    const handleResetCulture = () => {
+        setSelectedCrop('');
+        changeCultureFilter(null);
+    }
+
+    const handleResetChemistry = () => {
+        setCheckboxChemistryState('');
+        changeChemistryFilter(null);
+    }
+
+    const handleResetType = () => {
+        setTypeCheckboxState('');
+        changeTypeFilter(null);
+    }
+
+    useEffect(() => {
+        cultureFilter && handleToggleCheckboxes();
+        chemistryFilter && handleToggleChemistryChange();
+        typeFilter && handleToggleTypeCheckboxes();
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -62,9 +90,9 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="wheat"
+                            name="пшениця"
                             className={styles.checkboxColor}
-                            checked={selectedCrop === 'wheat'}
+                            checked={selectedCrop === 'пшениця' || cultureFilter === 'пшениця'}
                             onChange={handleCropChange}
                         />
                         <p>Пшениця</p>
@@ -72,8 +100,8 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="sunflower"
-                            checked={selectedCrop === 'sunflower'}
+                            name="соняшник"
+                            checked={selectedCrop === 'соняшник' || cultureFilter === 'соняшник'}
                             onChange={handleCropChange}
                         />
                         <p>Соняшник</p>
@@ -81,8 +109,8 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="soybean"
-                            checked={selectedCrop === 'soybean'}
+                            name="соя"
+                            checked={selectedCrop === 'соя' || cultureFilter === 'соя'}
                             onChange={handleCropChange}
                         />
                         <p>Соя</p>
@@ -90,8 +118,8 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="apple"
-                            checked={selectedCrop === 'apple'}
+                            name="яблуко"
+                            checked={selectedCrop === 'яблуко' || cultureFilter === 'яблуко'}
                             onChange={handleCropChange}
                         />
                         <p>Яблуко</p>
@@ -99,8 +127,8 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="rapeseed"
-                            checked={selectedCrop === 'rapeseed'}
+                            name="ріпак"
+                            checked={selectedCrop === 'ріпак' || cultureFilter === 'ріпак'}
                             onChange={handleCropChange}
                         />
                         <p>Ріпак</p>
@@ -108,12 +136,13 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="tomatoes"
-                            checked={selectedCrop === 'tomatoes'}
+                            name="помідори"
+                            checked={selectedCrop === 'помідори' || cultureFilter === 'помідори'}
                             onChange={handleCropChange}
                         />
                         <p>Помідори</p>
                     </label>
+                    <button className={styles.resetButton} onClick={() => handleResetCulture()}>Скинути</button>
                 </div>
             </div>
 
@@ -130,9 +159,9 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="gerbicydy"
+                            name="гербіциди"
                             className={styles.checkboxColor}
-                            checked={selectedChemistryState === 'gerbicydy'}
+                            checked={selectedChemistryState === 'гербіциди' || chemistryFilter === 'гербіциди'}
                             onChange={handleTypeChemistryChange}
                         />
                         <p>Гербіциди</p>
@@ -140,8 +169,8 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="fungicydy"
-                            checked={selectedChemistryState === 'fungicydy'}
+                            name="фунгіциди"
+                            checked={selectedChemistryState === 'фунгіциди' || chemistryFilter === 'фунгіциди'}
                             onChange={handleTypeChemistryChange}
                         />
                         <p>Фунгіциди</p>
@@ -149,8 +178,8 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="inectecydy"
-                            checked={selectedChemistryState === 'inectecydy'}
+                            name="інсектециди"
+                            checked={selectedChemistryState === 'інсектециди' || chemistryFilter === 'інсектециди'}
                             onChange={handleTypeChemistryChange}
                         />
                         <p>Інсектециди</p>
@@ -158,8 +187,8 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="protruinyky"
-                            checked={selectedChemistryState === 'protruinyky'}
+                            name="протруйники"
+                            checked={selectedChemistryState === 'протруйники' || chemistryFilter === 'протруйники'}
                             onChange={handleTypeChemistryChange}
                         />
                         <p>Протруйники</p>
@@ -167,8 +196,8 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="desucanty"
-                            checked={selectedChemistryState === 'desucanty'}
+                            name="десиканти"
+                            checked={selectedChemistryState === 'десиканти' || chemistryFilter === 'десиканти'}
                             onChange={handleTypeChemistryChange}
                         />
                         <p>Десиканти</p>
@@ -176,8 +205,8 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="adiuvanty"
-                            checked={selectedChemistryState === 'adiuvanty'}
+                            name="ад'юванти"
+                            checked={selectedChemistryState === "ад'юванти" || chemistryFilter === "ад'юванти"}
                             onChange={handleTypeChemistryChange}
                         />
                         <p>Ад`юванти</p>
@@ -185,12 +214,13 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="dobryva"
-                            checked={selectedChemistryState === 'dobryva'}
+                            name="добрива"
+                            checked={selectedChemistryState === 'добрива' || chemistryFilter === 'добрива'}
                             onChange={handleTypeChemistryChange}
                         />
                         <p>Добрива</p>
                     </label>
+                    <button className={styles.resetButton} onClick={() => handleResetChemistry()}>Скинути</button>
                 </div>
             </div>
 
@@ -207,9 +237,9 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="rozdrib"
+                            name="присадибне"
                             className={styles.checkboxColor}
-                            checked={selectedTypeState === 'rozdrib'}
+                            checked={selectedTypeState === 'присадибне' || typeFilter === 'присадибне'}
                             onChange={handleTypeChange}
                         />
                         <p>Присадибне</p>
@@ -217,12 +247,13 @@ export const FilterComponent = () => {
                     <label className={styles.checkboxWrapper}>
                         <input
                             type="checkbox"
-                            name="gurt"
-                            checked={selectedTypeState === 'gurt'}
+                            name="фермерське"
+                            checked={selectedTypeState === 'фермерське' || typeFilter === 'фермерське'}
                             onChange={handleTypeChange}
                         />
                         <p>Фермерське</p>
                     </label>
+                    <button className={styles.resetButton} onClick={() => handleResetType()}>Скинути</button>
                 </div>
             </div>
         </div>
