@@ -28,6 +28,7 @@
     overflow: auto;
     min-height: 180px;
     max-height: 90%;
+    z-index: 5;
 }
 
 .closeBntIconWrapper {
@@ -43,7 +44,7 @@
 }
 
 .bodyNoScroll {
-    overflow: hidden;
+    overflow: hidden !important;
 }
 
 .backetHeaderWrapper {
@@ -196,7 +197,7 @@
     }
 
     .openForm {
-        height: 440px;
+        height: 474px;
         align-items: center;
     }
 }
@@ -204,8 +205,17 @@
 
 
 @media screen and (max-width: 425px) {
+    .summBlockWrapper {
+        height: auto;
+        margin-bottom: 16px;
+    }
+
     .summBlock {
-        width: 310px
+        width: 200px;
+        margin: 0 auto;
+        position: relative;
+        right: 0;
+        margin-top: 16px;
     }
 
     .sumText {
