@@ -9,11 +9,14 @@
 import React from "react"
 import SearchResultProvider from "./src/context/SearchResultProvider";
 import BacketProvider from "./src/context/BacketProvider";
+import FilterProvider from "./src/context/FilterProvider";
 
 export const wrapRootElement = ({ element }) => (
-    <BacketProvider>
-        <SearchResultProvider>
-            {element}
-        </SearchResultProvider>
-    </BacketProvider>
+    <FilterProvider>
+        <BacketProvider>
+            <SearchResultProvider>
+                {element}
+            </SearchResultProvider>
+        </BacketProvider>
+    </FilterProvider>
 )

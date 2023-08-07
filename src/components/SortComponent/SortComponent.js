@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useFilter } from '../../context/FilterProvider';
 
 import sortIcon from '../../images/sort-icons/sort.svg';
 import arrowDown from '../../images/sort-icons/arrow-down.svg';
@@ -6,68 +7,23 @@ import arrowDown from '../../images/sort-icons/arrow-down.svg';
 import * as styles from './SortComponent.module.css';
 
 export const SortComponent = () => {
-    const [showCheckboxes, setShowCheckboxes] = useState(false);
+    const resultFilterContext = useFilter();
+    const { handleSortOptionChange, sortOptions } = resultFilterContext ? resultFilterContext : {};
 
-    const [sortOptions, setSortOptions] = useState({
-        alphabet: false,
-        reverseAlphabet: false,
-        priceHighToLow: false,
-        priceLowToHigh: false,
-        availability: false,
-    });
+    const [showCheckboxes, setShowCheckboxes] = useState(false);
 
     const handleToggleCheckboxes = () => {
         setShowCheckboxes((prevState) => !prevState);
     };
 
-    const handleOptionChange = (option) => {
-        const resetOptions = {
-            alphabet: false,
-            reverseAlphabet: false,
-            priceHighToLow: false,
-            priceLowToHigh: false,
-            availability: false,
-        };
-
-        switch (option) {
-            case 'alphabet':
-                setSortOptions({
-                    ...resetOptions,
-                    alphabet: true,
-                });
-                break;
-            case 'reverseAlphabet':
-                setSortOptions({
-                    ...resetOptions,
-                    reverseAlphabet: true,
-                });
-                break;
-            case 'priceHighToLow':
-                setSortOptions({
-                    ...resetOptions,
-                    priceHighToLow: true,
-                });
-                break;
-            case 'priceLowToHigh':
-                setSortOptions({
-                    ...resetOptions,
-                    priceLowToHigh: true,
-                });
-                break;
-            case 'availability':
-                setSortOptions({
-                    ...resetOptions,
-                    availability: true,
-                });
-                break;
-            default:
-                setSortOptions((prevState) => ({
-                    ...prevState,
-                    [option]: !prevState[option],
-                }));
-                break;
+    useEffect(() => {
+        const isInLocalStorage = JSON.parse(localStorage.getItem('sortOption'));
+        if (!isInLocalStorage) {
+            handleSortOptionChange('alphabet');
+        } else {
+            handleSortOptionChange(isInLocalStorage);
         }
-    };
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -87,31 +43,31 @@ export const SortComponent = () => {
                 >
                     <button
                         className={`${styles.optionButton} ${sortOptions.alphabet && styles.selected}`}
-                        onClick={() => handleOptionChange('alphabet')}
+                        onClick={() => handleSortOptionChange('alphabet')}
                     >
                         За алфавітом: A-Я
                     </button>
                     <button
                         className={`${styles.optionButton} ${sortOptions.reverseAlphabet && styles.selected}`}
-                        onClick={() => handleOptionChange('reverseAlphabet')}
+                        onClick={() => handleSortOptionChange('reverseAlphabet')}
                     >
                         За алфавітом: Я-A
                     </button>
                     <button
                         className={`${styles.optionButton} ${sortOptions.priceHighToLow && styles.selected}`}
-                        onClick={() => handleOptionChange('priceHighToLow')}
+                        onClick={() => handleSortOptionChange('priceHighToLow')}
                     >
                         Від більшої ціни до меншої
                     </button>
                     <button
                         className={`${styles.optionButton} ${sortOptions.priceLowToHigh && styles.selected}`}
-                        onClick={() => handleOptionChange('priceLowToHigh')}
+                        onClick={() => handleSortOptionChange('priceLowToHigh')}
                     >
                         Від меншої ціни до більшої
                     </button>
                     <button
                         className={`${styles.optionButton} ${sortOptions.availability && styles.selected}`}
-                        onClick={() => handleOptionChange('availability')}
+                        onClick={() => handleSortOptionChange('availability')}
                     >
                         За наявністю
                     </button>

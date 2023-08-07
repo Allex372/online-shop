@@ -20,25 +20,41 @@ export const ProductCard = ({ product }) => {
     }, [items]);
 
     return (
-        <div key={product?.id} className={styles.productCard}>
+        <div key={product?.id} className={`${product?.isAvailable ? styles.productCard : styles.notAvailable}`}>
             <div className={styles.imageWrapper}>
-                {product?.img &&
-                    <Link className={styles.link} to={`/products/${product?.id}/${product?.name}`}>
-                        <img src={product?.img} alt={product?.name} />
-                    </Link>
+                {
+                    product?.img &&
+                    (product?.isAvailable ? <Link className={styles.link} to={`/products/${product?.id}/${product?.name}`}>
+                        < img src={product?.img} alt={product?.name} />
+                    </Link >
+                        :
+                        < img src={product?.img} alt={product?.name} />
+                    )
                 }
-            </div>
+            </div >
 
-            <Link className={styles.link} to={`/products/${product?.id}/${product?.name}`}>
-                <p className={styles.productName}>{product?.name}</p>
-            </Link>
-            <p className={styles.chemistryType}>Хімічна речовина: {product?.chemistry}</p>
-            {isInBacket ?
-                <button className={styles.buyButtonAdded} onClick={() => handleOpenBacket()}>В корзині</button>
-                :
-                <button className={styles.buyButton} onClick={() => handleAddItem(product)}>Купити</button>
+            {
+                product?.isAvailable ?
+                    <Link className={styles.link} to={`/products/${product?.id}/${product?.name}`}>
+                        <p className={styles.productName}>{product?.name}</p>
+                    </Link>
+                    :
+                    <p className={styles.productName}>{product?.name}</p>
             }
-        </div>
+            <p className={styles.chemistryType}>Хімічна речовина: {product?.chemistry}</p>
+            <p className={styles.price}>{product?.price}₴</p>
+            {
+                product?.isAvailable ?
+                    (
+                        isInBacket ?
+                            <button className={styles.buyButtonAdded} onClick={() => handleOpenBacket()}>В корзині</button>
+                            :
+                            <button className={styles.buyButton} onClick={() => handleAddItem(product)}>Купити</button>)
+                    :
+                    <button className={styles.buyButton}>Купити</button>
+
+            }
+        </div >
 
     )
 }

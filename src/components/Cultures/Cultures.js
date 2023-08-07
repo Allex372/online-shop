@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from 'gatsby';
+import { useFilter } from "../../context/FilterProvider";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -22,32 +23,32 @@ import * as styles from './Culture.module.css';
 const CultureArray = [
     {
         id: 1,
-        name: 'wheat',
+        name: 'пшениця',
         img: пшениця,
     },
     {
         id: 2,
-        name: 'sunflower',
+        name: 'соняшник',
         img: соняшник,
     },
     {
         id: 3,
-        name: 'soybean',
+        name: 'соя',
         img: соя,
     },
     {
         id: 4,
-        name: 'apple',
+        name: 'яблуко',
         img: яблуко,
     },
     {
         id: 5,
-        name: 'rapeseed',
+        name: 'ріпак',
         img: ріпак,
     },
     {
         id: 6,
-        name: "tomatoes",
+        name: "помідори",
         img: помідор,
     },
 ]
@@ -59,6 +60,8 @@ const inlineStyles = {
 }
 
 export const Cultures = () => {
+    const resultContext = useFilter();
+    const { changeCultureFilter } = resultContext ? resultContext : {};
     const handleViewMore = (filter) => {
         // Виконуємо необхідні дії при кліку на "Дивитися детальніше"
         // Наприклад, можна відправити фільтр в gatsby-node.js
@@ -73,8 +76,8 @@ export const Cultures = () => {
                     <div key={el.id} className={styles.cardWrapper}>
                         <Link
                             className={styles.linkedText}
-                            to={`/products/${encodeURIComponent(el.name)}`}
-                            onClick={() => handleViewMore(el.name)}
+                            to={`/products/`}
+                            onClick={() => changeCultureFilter(el.name)}
                         >
                             <div className={styles.imageWrapper}>
                                 <img alt={el.name} src={el.img} />
@@ -102,8 +105,8 @@ export const Cultures = () => {
                                 <div className={styles.swiperCardWrapper}>
                                     <Link
                                         className={styles.linkedText}
-                                        to={`/products/${encodeURIComponent(el.name)}`}
-                                        onClick={() => handleViewMore(el.name)}
+                                        to={`/products/`}
+                                        onClick={() => changeCultureFilter(el.name)}
                                     >
                                         <div className={styles.imageWrapper}>
                                             <img alt={el.name} src={el.img} />
