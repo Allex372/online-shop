@@ -177,23 +177,23 @@ const ProductsPage = () => {
     const { searchResult } = resultContext ? resultContext : {};
 
     const filteredElements = ProductsArray.filter((el) => {
-        const isChemistryMatch = !chemistryFilter || el.chemistry === chemistryFilter.toLowerCase();
-        const isTypeMatch = !typeFilter || el.size === typeFilter;
-        const isCultureMatch = !cultureFilter || el.culture.includes(cultureFilter);
-        const idAvailable = !sortOptions.availability || el.isAvailable === sortOptions.availability;
+        const isChemistryMatch = !chemistryFilter || el?.chemistry === chemistryFilter.toLowerCase();
+        const isTypeMatch = !typeFilter || el?.size === typeFilter;
+        const isCultureMatch = !cultureFilter || el?.culture.includes(cultureFilter);
+        const idAvailable = !sortOptions?.availability || el?.isAvailable === sortOptions?.availability;
 
         return isChemistryMatch && isTypeMatch && isCultureMatch && idAvailable;
     });
 
     const sortedElement = [...filteredElements]; // Створюємо копію масиву для сортування
 
-    if (sortOptions.alphabet) {
+    if (sortOptions?.alphabet) {
         sortedElement.sort((a, b) => a.name.localeCompare(b.name)); // Сортування за назвою в алфавітному порядку
-    } else if (sortOptions.reverseAlphabet) {
+    } else if (sortOptions?.reverseAlphabet) {
         sortedElement.sort((a, b) => b.name.localeCompare(a.name)); // Сортування за назвою в зворотньому алфавітному порядку
-    } else if (sortOptions.priceHighToLow) {
+    } else if (sortOptions?.priceHighToLow) {
         sortedElement.sort((a, b) => b.price - a.price); // Сортування за ціною від вищої до нижчої
-    } else if (sortOptions.priceLowToHigh) {
+    } else if (sortOptions?.priceLowToHigh) {
         sortedElement.sort((a, b) => a.price - b.price); // Сортування за ціною від нижчої до вищої
     }
 
