@@ -42,31 +42,31 @@ export const SortComponent = () => {
                     className={`${styles.checkboxes} ${showCheckboxes ? styles.show : ''}`}
                 >
                     <button
-                        className={`${styles.optionButton} ${sortOptions.alphabet && styles.selected}`}
+                        className={`${styles.optionButton} ${sortOptions?.alphabet && styles.selected}`}
                         onClick={() => handleSortOptionChange('alphabet')}
                     >
                         За алфавітом: A-Я
                     </button>
                     <button
-                        className={`${styles.optionButton} ${sortOptions.reverseAlphabet && styles.selected}`}
+                        className={`${styles.optionButton} ${sortOptions?.reverseAlphabet && styles.selected}`}
                         onClick={() => handleSortOptionChange('reverseAlphabet')}
                     >
                         За алфавітом: Я-A
                     </button>
                     <button
-                        className={`${styles.optionButton} ${sortOptions.priceHighToLow && styles.selected}`}
+                        className={`${styles.optionButton} ${sortOptions?.priceHighToLow && styles.selected}`}
                         onClick={() => handleSortOptionChange('priceHighToLow')}
                     >
                         Від більшої ціни до меншої
                     </button>
                     <button
-                        className={`${styles.optionButton} ${sortOptions.priceLowToHigh && styles.selected}`}
+                        className={`${styles.optionButton} ${sortOptions?.priceLowToHigh && styles.selected}`}
                         onClick={() => handleSortOptionChange('priceLowToHigh')}
                     >
                         Від меншої ціни до більшої
                     </button>
                     <button
-                        className={`${styles.optionButton} ${sortOptions.availability && styles.selected}`}
+                        className={`${styles.optionButton} ${sortOptions?.availability && styles.selected}`}
                         onClick={() => handleSortOptionChange('availability')}
                     >
                         За наявністю
