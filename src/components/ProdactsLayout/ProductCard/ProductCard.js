@@ -15,6 +15,15 @@ export const ProductCard = ({ product }) => {
         addItemToBacket(currentProduct);
     }
 
+    const handleBuyProduct = () => {
+        handleOpenBacket();
+        handleClick();
+    }
+
+    const handleClick = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     useEffect(() => {
         setIsInBacket(items.some((item) => item.id === product?.id));
     }, [items]);
@@ -47,7 +56,7 @@ export const ProductCard = ({ product }) => {
                 product?.isAvailable ?
                     (
                         isInBacket ?
-                            <button className={styles.buyButtonAdded} onClick={() => handleOpenBacket()}>В корзині</button>
+                            <button className={styles.buyButtonAdded} onClick={() => handleBuyProduct()}>В корзині</button>
                             :
                             <button className={styles.buyButton} onClick={() => handleAddItem(product)}>Купити</button>)
                     :
