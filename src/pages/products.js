@@ -172,13 +172,17 @@ const ProductsArray = [
 
 const ProductsPage = () => {
     const viewContext = useView();
-    const { viewOptions } = viewContext ? viewContext : {};
+    const { viewOptions, changeGridView } = viewContext ? viewContext : {};
 
     const resultFilterContext = useFilter();
     const { cultureFilter, chemistryFilter, typeFilter, sortOptions } = resultFilterContext ? resultFilterContext : {};
 
     const resultContext = useResult();
     const { searchResult } = resultContext ? resultContext : {};
+
+    useEffect(() => {
+        changeGridView('grid');
+    }, []);
 
     const filteredElements = ProductsArray.filter((el) => {
         const isChemistryMatch = !chemistryFilter || el?.chemistry === chemistryFilter.toLowerCase();

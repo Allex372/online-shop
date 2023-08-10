@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 const Context = createContext();
 
@@ -7,28 +7,6 @@ const ViewProvider = ({ children }) => {
         gridView: true,
         listView: false,
     });
-
-    useEffect(() => {
-        const resetOptions = {
-            gridView: false,
-            listView: false,
-        };
-
-        const localStorageView = JSON.parse(localStorage.getItem('viewOption') || '[]');
-
-        if (localStorageView === 'list') {
-            setViewOptions({
-                ...resetOptions,
-                listView: true,
-            });
-        } else {
-            setViewOptions({
-                ...resetOptions,
-                gridView: true,
-            });
-        }
-
-    }, []);
 
     const changeGridView = (option) => {
         const resetOptions = {
