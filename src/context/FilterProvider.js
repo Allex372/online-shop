@@ -70,7 +70,6 @@ const FilterProvider = ({ children }) => {
     };
 
     const changeCultureFilter = (result) => {
-        console.log(result);
         setCultureFilter(result);
     }
 

@@ -10,12 +10,15 @@ import React from "react"
 import SearchResultProvider from "./src/context/SearchResultProvider";
 import BacketProvider from "./src/context/BacketProvider";
 import FilterProvider from "./src/context/FilterProvider";
+import ViewProvider from "./src/context/ViewProvider";
 
 export const wrapRootElement = ({ element }) => (
     <FilterProvider>
         <BacketProvider>
             <SearchResultProvider>
-                {element}
+                <ViewProvider>
+                    {element}
+                </ViewProvider>
             </SearchResultProvider>
         </BacketProvider>
     </FilterProvider>

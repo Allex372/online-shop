@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     margin-right: 16px;
-    max-width: 220px;
+    width: 213px;
 }
 
 .titleWrapper {
@@ -91,7 +91,7 @@
 .checkboxWrapper p {
     margin-left: 12px;
     color: #742021;
-    font-size: 18px;
+    font-size: 16px;
     user-select: none;
 }
 
@@ -135,5 +135,9 @@ input[type='checkbox']:checked:after {
 @media screen and (max-width: 768px) {
     input[type='checkbox'] {
         font-size: 0.6em;
+    }
+
+    .container {
+        margin-right: 0;
     }
 }

@@ -238,4 +238,8 @@
     .orderBtn {
         margin-right: 8px;
     }
+
+    .offeredText {
+        text-align: center;
+    }
 }

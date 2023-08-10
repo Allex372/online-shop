@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { SortComponent, FilterComponent } from '../index';
 import { useBacket } from "../../context/BacketProvider";
 import { useFilter } from "../../context/FilterProvider";
+import { navigate } from "gatsby";
 
 import * as styles from './header.module.css';
 
@@ -19,7 +20,6 @@ import { faPhone } from '@fortawesome/free-solid-svg-icons';
 export const Header = () => {
   const resultFilterContext = useFilter();
   const { cultureFilter, chemistryFilter, typeFilter } = resultFilterContext ? resultFilterContext : {};
-
 
   const backetContext = useBacket();
   const { handleOpenBacket, items } = backetContext ? backetContext : {};
@@ -56,7 +56,7 @@ export const Header = () => {
             <img src={menuStatus ? close : burger} alt='burger' />
           </div>
         }
-        <div className={styles.logoWrapper}>
+        <div className={styles.logoWrapper} onClick={() => navigate('/')}>
           <img alt='logo' src={logo} />
         </div>
         <div className={styles.socialsWrapper}>

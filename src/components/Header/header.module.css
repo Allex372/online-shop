@@ -11,6 +11,7 @@
 }
 
 .logoWrapper {
+    cursor: pointer;
     height: 75px;
 }
 

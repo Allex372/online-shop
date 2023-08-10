@@ -3,13 +3,13 @@ import { ProductCard } from './ProductCard';
 
 import * as styles from './ProductsLayout.module.css'
 
-export const ProductsLayout = ({ array }) => {
+export const ProductsLayout = ({ array, viewStyle }) => {
     return (
-        <div className={styles.productWrapper}>
+        <div className={`${viewStyle?.gridView ? styles.productWrapperGrid : styles.productWrapperList}`}>
             {array.map((el) => {
                 const { id } = el;
                 return (
-                    <ProductCard product={el} key={id} />
+                    <ProductCard viewStyle={viewStyle} product={el} key={id} />
                 )
             })}
         </div>
