@@ -6,6 +6,7 @@ import { useBacket } from "../../../context/BacketProvider";
 import * as styles from './ProductCard.module.css'
 
 export const ProductCard = ({ product, viewStyle }) => {
+    console.log(product);
     const backetContext = useBacket();
     const { addItemToBacket, items, handleOpenBacket } = backetContext ? backetContext : {};
 
