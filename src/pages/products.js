@@ -3,6 +3,7 @@ import Seo from "../components/Seo/seo";
 import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, SortComponent, Backet } from '../components';
 import { useResult } from "../context/SearchResultProvider";
 import { useFilter } from "../context/FilterProvider";
+import { useView } from "../context/ViewProvider";
 
 import * as styles from '../components/products.module.css';
 
@@ -170,11 +171,18 @@ const ProductsArray = [
 ];
 
 const ProductsPage = () => {
+    const viewContext = useView();
+    const { viewOptions, changeGridView } = viewContext ? viewContext : {};
+
     const resultFilterContext = useFilter();
     const { cultureFilter, chemistryFilter, typeFilter, sortOptions } = resultFilterContext ? resultFilterContext : {};
 
     const resultContext = useResult();
     const { searchResult } = resultContext ? resultContext : {};
+
+    useEffect(() => {
+        changeGridView('grid');
+    }, []);
 
     const filteredElements = ProductsArray.filter((el) => {
         const isChemistryMatch = !chemistryFilter || el?.chemistry === chemistryFilter.toLowerCase();
@@ -206,7 +214,6 @@ const ProductsPage = () => {
             el.size.toLowerCase().includes(searchResult.toLowerCase())
         )
         : sortedElement;
-
 
     // Параметри пагінації
     const itemsPerPage = 6; // Кількість елементів на одній сторінці
@@ -240,6 +247,12 @@ const ProductsPage = () => {
         return displayedPages;
     };
 
+    useEffect(() => {
+        if ((cultureFilter || chemistryFilter || typeFilter || sortOptions?.availability || searchResult) && currentPage !== 1) {
+            handlePageChange(1);
+        };
+    }, [cultureFilter, chemistryFilter, typeFilter, sortOptions, searchResult]);
+
     return (
         <Layout>
             <Backet />
@@ -251,7 +264,7 @@ const ProductsPage = () => {
                             <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} />
                         </div>
 
-                        <ProductsLayout array={searchedElements.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} />
+                        <ProductsLayout array={searchedElements.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} viewStyle={viewOptions} />
                         <div className={styles.filterWrapper}>
                             <SortComponent />
                         </div>

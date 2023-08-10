@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 16px;
-    max-width: 220px;
+    width: 213px;
 }
 
 .titleWrapper {
@@ -67,7 +67,7 @@
     border: none;
     background-color: white;
     color: #742021;
-    font-size: 18px;
+    font-size: 16px;
     user-select: none;
     text-align: left;
     padding: 8px;
@@ -87,5 +87,9 @@
 @media screen and (max-width: 768px) {
     .show {
         border-bottom: 1px solid #742021;
+    }
+
+    .container {
+        margin-left: 0;
     }
 }

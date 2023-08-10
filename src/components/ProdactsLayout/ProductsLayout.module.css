@@ -1,25 +1,24 @@
-.productWrapper {
+.productWrapperGrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 35px;
     margin: 0 auto;
 }
 
+.productWrapperList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 @media screen and (max-width: 1140px) {
-    .productWrapper {
+    .productWrapperGrid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* @media screen and (max-width: 879px) {
-    .productWrapper {
-        grid-template-columns: 1fr;
-    }
-} */
-
 @media screen and (max-width: 768px) {
-    .productWrapper {
-        flex-direction: column;
-
+    .productWrapperGrid {
+        gap: 8px;
     }
 }

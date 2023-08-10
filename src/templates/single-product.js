@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Backet } from "../components";
 import { useBacket } from "../context/BacketProvider";
+import { navigate } from 'gatsby';
+import { StaticImage } from "gatsby-plugin-image";
 
 import big from '../images/bigBotltle.png';
 
@@ -48,6 +50,9 @@ const SingleProduct = ({ pageContext }) => {
             <Backet />
             {/* <Seo title={isFetchedServiceNew ? fetchedServices?.attributes?.title : seoTitle} description={isFetchedServiceNew ? fetchedServices?.attributes?.description : seoDescription} /> */}
             <div className={styles.wrapper}>
+                <div className={styles.menuIcon} onClick={() => navigate(-1)}>
+                    <StaticImage height={20} width={20} alt="back" src='../images/arrow-left.png' />
+                </div>
                 <div className={styles.infoWrapper}>
                     <div className={styles.imgWrapper}>
                         <p className={styles.productName}>{name}</p>

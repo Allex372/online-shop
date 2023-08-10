@@ -5,7 +5,7 @@ import { useBacket } from "../../../context/BacketProvider";
 
 import * as styles from './ProductCard.module.css'
 
-export const ProductCard = ({ product }) => {
+export const ProductCard = ({ product, viewStyle }) => {
     const backetContext = useBacket();
     const { addItemToBacket, items, handleOpenBacket } = backetContext ? backetContext : {};
 
@@ -29,7 +29,14 @@ export const ProductCard = ({ product }) => {
     }, [items]);
 
     return (
-        <div key={product?.id} className={`${product?.isAvailable ? styles.productCard : styles.notAvailable}`}>
+        <div key={product?.id}
+            className={`${(viewStyle?.gridView && product?.isAvailable) && styles.productCard}
+        ${(viewStyle?.gridView && !product?.isAvailable) && styles.notAvailable}
+        ${(viewStyle?.listView && product?.isAvailable) && styles.productCardListStyle}
+        ${(viewStyle?.listView && !product?.isAvailable) && styles.notAvailableList}
+        `}
+        >
+
             <div className={styles.imageWrapper}>
                 {
                     product?.img &&
@@ -42,27 +49,33 @@ export const ProductCard = ({ product }) => {
                 }
             </div >
 
-            {
-                product?.isAvailable ?
-                    <Link className={styles.link} to={`/products/${product?.id}/${product?.name}`}>
+            <div className={`${viewStyle?.gridView ? styles.textStyleGrid : styles.textStyleList}`}>
+                {(viewStyle?.listView && !product?.isAvailable) &&
+                    <div className={styles.notAvailableMessage}>Немає в наявності</div>
+                }
+                {
+                    product?.isAvailable ?
+                        <Link className={styles.link} to={`/products/${product?.id}/${product?.name}`}>
+                            <p className={styles.productName}>{product?.name}</p>
+                        </Link>
+                        :
                         <p className={styles.productName}>{product?.name}</p>
-                    </Link>
-                    :
-                    <p className={styles.productName}>{product?.name}</p>
-            }
-            <p className={styles.chemistryType}>Хімічна речовина: {product?.chemistry}</p>
-            <p className={styles.price}>{product?.price}₴</p>
-            {
-                product?.isAvailable ?
-                    (
-                        isInBacket ?
-                            <button className={styles.buyButtonAdded} onClick={() => handleBuyProduct()}>В корзині</button>
-                            :
-                            <button className={styles.buyButton} onClick={() => handleAddItem(product)}>Купити</button>)
-                    :
-                    <button className={styles.buyButton}>Купити</button>
+                }
+                <p className={styles.chemistryType}>Хімічна речовина: {product?.chemistry}</p>
+                <p className={styles.chemistryType}>Діюча речовина: діюча речовина</p>
+                <p className={styles.price}>Ціна: {product?.price}₴</p>
+                {
+                    product?.isAvailable ?
+                        (
+                            isInBacket ?
+                                <button className={styles.buyButtonAdded} onClick={() => handleBuyProduct()}>В корзині</button>
+                                :
+                                <button className={styles.buyButton} onClick={() => handleAddItem(product)}>Купити</button>)
+                        :
+                        <button className={styles.buyButton}>Купити</button>
 
-            }
+                }
+            </div>
         </div >
 
     )

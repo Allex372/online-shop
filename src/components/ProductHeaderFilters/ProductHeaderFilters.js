@@ -1,12 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useResult } from '../../context/SearchResultProvider';
+// import { StaticImage } from 'gatsby-plugin-image';
+import { useView } from '../../context/ViewProvider';
 
 import * as styles from './ProductHeaderFilters.module.css';
 
 import searchIcon from '../../images/search.svg';
-import close from '../../images/close.png'
+import close from '../../images/close.png';
+import grid from '../../images/views/grid.svg';
+import list from '../../images/views/list.svg';
 
 export const ProductHeaderFilters = ({ result }) => {
+    const viewContext = useView();
+    const { viewOptions, changeGridView } = viewContext ? viewContext : {};
+
     const resultContext = useResult();
     const { changeSearchResult, searchResult } = resultContext ? resultContext : {};
 
@@ -39,9 +46,15 @@ export const ProductHeaderFilters = ({ result }) => {
                     alt="Search Icon"
                 />
             </div>
-            <div className={`${searchResult?.length ? styles.helperDiv : styles.dNone}`}>
-                <p>{searchResult}</p>
-                <img src={close} alt='Close' className={styles.closeImg} onClick={() => handleClearSearch()} />
+            <div className={styles.rightWrapper}>
+                <div className={`${searchResult?.length ? styles.helperDiv : styles.dNone}`}>
+                    <p>{searchResult}</p>
+                    <img src={close} alt='Close' className={styles.closeImg} onClick={() => handleClearSearch()} />
+                </div>
+                <div className={styles.iconViewWrapper}>
+                    <img className={styles.viewIconActive} onClick={() => changeGridView('grid')} alt="row" src={grid} />
+                    <img className={styles.viewIconActive} onClick={() => changeGridView('list')} alt="table" src={list} />
+                </div>
             </div>
 
         </div>

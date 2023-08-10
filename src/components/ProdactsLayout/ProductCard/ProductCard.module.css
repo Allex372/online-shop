@@ -1,21 +1,61 @@
 .productCard {
     max-width: 200px;
-    max-height: 390px;
+    /* max-height: 390px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
 }
 
+.productCardListStyle {
+    display: flex;
+    width: 100%;
+}
+
+.productCardListStyle:not(:first-child) {
+    margin-top: 12px;
+}
+
+.productCardListStyle .productName {
+    text-align: center;
+}
+
+.productCardListStyle .imageWrapper {
+    margin-top: 0;
+    max-width: 30%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.productCardListStyle:hover {
+    background-color: #EDDDDD;
+    border-radius: 10px;
+    transition: 1s;
+    box-sizing: border-box;
+}
+
 .notAvailable {
     max-width: 200px;
-    max-height: 390px;
+    /* max-height: 390px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
     opacity: 0.5;
     cursor: no-drop;
+}
+
+.notAvailableList {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    opacity: 0.5;
+    cursor: no-drop;
+}
+
+.notAvailableMessage {
+    position: absolute;
+    right: 0;
 }
 
 .notAvailable .imageWrapper img:hover {
@@ -50,6 +90,25 @@
 
 .imageWrapper img:hover {
     cursor: pointer;
+}
+
+.textStyleGrid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.textStyleList {
+    position: relative;
+    /* background-color: aquamarine; */
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.textStyleList .productName {
+    vertical-align: center;
 }
 
 .productName {
@@ -114,7 +173,7 @@
     }
 
     .productCard {
-        width: auto;
+        width: 171px;
     }
 
     .imageWrapper {
