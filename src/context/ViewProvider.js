@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const Context = createContext();
 
@@ -7,6 +7,10 @@ const ViewProvider = ({ children }) => {
         gridView: true,
         listView: false,
     });
+
+    useEffect(() => {
+        changeGridView('grid');
+    }, []);
 
     const changeGridView = (option) => {
         const resetOptions = {
