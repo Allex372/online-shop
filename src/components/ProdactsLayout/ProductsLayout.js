@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProductCard } from './ProductCard';
 
 import * as styles from './ProductsLayout.module.css'
 
 export const ProductsLayout = ({ array, viewStyle }) => {
-    const grid = true;
-    const view = viewStyle ? viewStyle : grid = true;
-    useEffect(() => {
-        console.log(view);
-    }, []);
+    const [viewOptions, setViewOptions] = useState({
+        gridView: true,
+        listView: false,
+    });
+
+    const view = viewStyle ? viewStyle : viewOptions;
+
     return (
         <div className={`${view?.gridView ? styles.productWrapperGrid : styles.productWrapperList}`}>
             {array.map((el) => {
