@@ -6,6 +6,12 @@ import { useBacket } from "../../../context/BacketProvider";
 import * as styles from './ProductCard.module.css'
 
 export const ProductCard = ({ product, viewStyle }) => {
+    const [viewOptions, setViewOptions] = useState({
+        gridView: true,
+        listView: false,
+    });
+
+    const view = viewStyle ? viewStyle : viewOptions;
     const backetContext = useBacket();
     const { addItemToBacket, items, handleOpenBacket } = backetContext ? backetContext : {};
 
@@ -30,10 +36,10 @@ export const ProductCard = ({ product, viewStyle }) => {
 
     return (
         <div key={product?.id}
-            className={`${(viewStyle?.gridView && product?.isAvailable) && styles.productCard}
-        ${(viewStyle?.gridView && !product?.isAvailable) && styles.notAvailable}
-        ${(viewStyle?.listView && product?.isAvailable) && styles.productCardListStyle}
-        ${(viewStyle?.listView && !product?.isAvailable) && styles.notAvailableList}
+            className={`${(view?.gridView && product?.isAvailable) && styles.productCard}
+        ${(view?.gridView && !product?.isAvailable) && styles.notAvailable}
+        ${(view?.listView && product?.isAvailable) && styles.productCardListStyle}
+        ${(view?.listView && !product?.isAvailable) && styles.notAvailableList}
         `}
         >
 
