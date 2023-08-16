@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProductCard } from './ProductCard';
 
 import * as styles from './ProductsLayout.module.css'
 
 export const ProductsLayout = ({ array, viewStyle }) => {
+    const [viewOptions, setViewOptions] = useState({
+        gridView: true,
+        listView: false,
+    });
+
+    const view = viewStyle ? viewStyle : viewOptions;
+
     return (
-        <div className={`${viewStyle?.gridView ? styles.productWrapperGrid : styles.productWrapperList}`}>
+        <div className={`${view?.gridView ? styles.productWrapperGrid : styles.productWrapperList}`}>
             {array.map((el) => {
                 const { id } = el;
                 return (
