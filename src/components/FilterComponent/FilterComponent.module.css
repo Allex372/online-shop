@@ -78,6 +78,7 @@
     max-height: 283px;
     visibility: visible;
     opacity: 1;
+    background-color: #f5f5f5;
     transition: max-height 0.7s ease, visibility 0s linear 0s, opacity 0.3s ease;
 }
 
@@ -132,9 +133,23 @@ input[type='checkbox']:checked:after {
     cursor: pointer;
 }
 
+.buttonWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.showButton {
+    display: none;
+}
+
 @media screen and (max-width: 768px) {
     input[type='checkbox'] {
         font-size: 0.6em;
+    }
+
+    .showButton {
+        margin-left: 8px;
+        display: block;
     }
 
     .container {

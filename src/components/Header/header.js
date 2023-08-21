@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { SortComponent, FilterComponent } from '../index';
 import { useBacket } from "../../context/BacketProvider";
 import { useFilter } from "../../context/FilterProvider";
+import { useSideBar } from "../../context/SideBarProvider";
 import { navigate } from "gatsby";
 
 import * as styles from './header.module.css';
@@ -24,14 +25,13 @@ export const Header = () => {
   const backetContext = useBacket();
   const { handleOpenBacket, items } = backetContext ? backetContext : {};
 
+  const sideBarContext = useSideBar();
+  const { menuStatus, handleSideBar, setMenuStatus } = sideBarContext ? sideBarContext : {};
+
   const [currentPath, setCurrentPath] = useState('');
 
-  const [menuStatus, setMenuStatus] = useState(false);
   const [style, setStyle] = useState(styles.menu);
 
-  const handleClick = () => {
-    setMenuStatus(!menuStatus);
-  };
 
   useEffect(() => {
     setCurrentPath(window.location.pathname);
@@ -47,16 +47,21 @@ export const Header = () => {
     }
   }, [menuStatus]);
 
+  const handleLogoClick = () => {
+    setMenuStatus(false);
+    navigate('/');
+  }
+
   return (
     <>
       <header className={styles.wrapper}>
         {
           currentPath.includes("/products/") &&
-          <div className={styles.burgerMenu} onClick={handleClick}>
+          <div className={styles.burgerMenu} onClick={() => handleSideBar()}>
             <img src={menuStatus ? close : burger} alt='burger' />
           </div>
         }
-        <div className={styles.logoWrapper} onClick={() => navigate('/')}>
+        <div className={styles.logoWrapper} onClick={() => handleLogoClick()}>
           <img alt='logo' src={logo} />
         </div>
         <div className={styles.socialsWrapper}>

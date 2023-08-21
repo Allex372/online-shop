@@ -12,10 +12,19 @@
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
     text-decoration: none;
+    background-color: white;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid #742021;
 }
 
 .imageWrapper {
     height: 56px;
+}
+
+.imageWrapper img {
+    height: 100%;
+    width: 100%;
 }
 
 .text {
@@ -28,51 +37,19 @@
     display: inline-block;
 }
 
-.text::before {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #000;
-    transition: width 0.3s ease-in-out;
-}
-
 .elemWrapper:hover .text::before {
     width: 100%;
 }
 
-.bankImg:hover {
-    animation: shake 0.4s infinite;
+.elemWrapper:hover {
+    transition: box-shadow 0.3s ease-in-out;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
-@keyframes shake {
-    0% {
-        transform: translate(0, 0);
-    }
-
-    25% {
-        transform: translate(-2px, -2px) rotate(-2deg);
-    }
-
-    50% {
-        transform: translate(2px, 2px) rotate(2deg);
-    }
-
-    75% {
-        transform: translate(-2px, -2px) rotate(-2deg);
-    }
-
-    100% {
-        transform: translate(0, 0);
-    }
-}
-
-
-.swiper {
-    display: none !important;
-
+.swiperContainer {
+    display: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -86,6 +63,20 @@
         display: none;
     }
 
+    .swiperContainer {
+        display: block;
+        padding-bottom: 32px;
+        position: relative;
+    }
+
+    .swiperSlide {
+        width: 10rem;
+        position: relative;
+        border: 1px solid #742021;
+        border-radius: 10px;
+        margin-top: 12px;
+    }
+
     .swiper {
         display: block !important;
         width: 100%;
@@ -93,30 +84,17 @@
         --swiper-pagination-bottom: -3px;
     }
 
-    .swiperPagination {
-        margin-top: 20px;
+    .elemWrapper:hover {
+        transition: none;
+        box-shadow: none;
     }
 
-    .swiperSlide {
-        text-align: center;
-        height: 120px;
-        background: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .elemWrapper {
+        border: none;
     }
 
     .sliderСontroler .swiperButtonNext {
         left: 58%;
         transform: translateX(-58%);
-    }
-
-    .swiperSlide img {
-        display: block;
-        width: 100%;
-    }
-
-    .swiperCardWrapper .text {
-        margin-top: 24px;
     }
 }

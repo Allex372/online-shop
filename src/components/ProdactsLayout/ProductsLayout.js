@@ -12,13 +12,20 @@ export const ProductsLayout = ({ array, viewStyle }) => {
     const view = viewStyle ? viewStyle : viewOptions;
 
     return (
-        <div className={`${view?.gridView ? styles.productWrapperGrid : styles.productWrapperList}`}>
-            {array.map((el) => {
-                const { id } = el;
-                return (
-                    <ProductCard viewStyle={viewStyle} product={el} key={id} />
-                )
-            })}
-        </div>
+        <>
+            <div className={`${view?.gridView ? styles.productWrapperGrid : styles.productWrapperList}`}>
+                {array.map((el) => {
+                    const { id } = el;
+                    return (
+                        <ProductCard viewStyle={viewStyle} product={el} key={id} />
+                    )
+                })}
+
+            </div>
+            {!array.length && (
+                <p className={styles.notFoundMessage}>Товарів не знайдено <span>&#128530;</span></p>
+            )}
+        </>
+
     )
 }

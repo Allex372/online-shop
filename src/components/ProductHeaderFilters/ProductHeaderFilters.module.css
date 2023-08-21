@@ -98,19 +98,22 @@
 }
 
 .viewIcon {
-    height: 25px;
+    height: 20px;
     cursor: pointer;
+    filter: invert(74%) sepia(65%) saturate(0%) hue-rotate(195deg) brightness(109%) contrast(86%);
 }
 
 .viewIconActive {
     filter: invert(16%) sepia(87%) saturate(1644%) hue-rotate(334deg) brightness(80%) contrast(94%);
     height: 20px;
     cursor: pointer;
-    /* padding-left: 8px; */
-    /* width: 20px; */
 }
 
 .viewIconActive:first-child {
+    margin-right: 8px;
+}
+
+.viewIcon:first-child {
     margin-right: 8px;
 }
 

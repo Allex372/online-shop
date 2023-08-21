@@ -50,7 +50,7 @@ const SingleProduct = ({ pageContext }) => {
             <Backet />
             {/* <Seo title={isFetchedServiceNew ? fetchedServices?.attributes?.title : seoTitle} description={isFetchedServiceNew ? fetchedServices?.attributes?.description : seoDescription} /> */}
             <div className={styles.wrapper}>
-                <div className={styles.menuIcon} onClick={() => navigate(-1)}>
+                <div className={styles.menuIcon} onClick={() => navigate('/products')}>
                     <StaticImage height={20} width={20} alt="back" src='../images/arrow-left.png' />
                 </div>
                 <div className={styles.infoWrapper}>
