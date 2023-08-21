@@ -55,10 +55,10 @@ export const ProductHeaderFilters = ({ result }) => {
                 </div>
                 <div className={styles.iconViewWrapper}>
                     <div onClick={() => changeGridView('grid')}>
-                        <img className={`${viewOptions.gridView ? styles.viewIconActive : styles.viewIcon}`} alt="row" src={grid} />
+                        <img className={`${viewOptions?.gridView ? styles.viewIconActive : styles.viewIcon}`} alt="row" src={grid} />
                     </div>
                     <div onClick={() => changeGridView('list')}>
-                        <img className={`${viewOptions.listView ? styles.viewIconActive : styles.viewIcon}`} alt="table" src={list} />
+                        <img className={`${viewOptions?.listView ? styles.viewIconActive : styles.viewIcon}`} alt="table" src={list} />
                     </div>
                 </div>
             </div>
