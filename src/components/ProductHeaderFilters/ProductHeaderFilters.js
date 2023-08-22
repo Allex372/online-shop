@@ -25,6 +25,8 @@ export const ProductHeaderFilters = ({ result }) => {
         changeSearchResult('');
     }
 
+    console.log(viewOptions);
+
     return (
         <div className={styles.container}>
             <div className={styles.resultBlock}>
@@ -52,8 +54,12 @@ export const ProductHeaderFilters = ({ result }) => {
                     <img src={close} alt='Close' className={styles.closeImg} onClick={() => handleClearSearch()} />
                 </div>
                 <div className={styles.iconViewWrapper}>
-                    <img className={styles.viewIconActive} onClick={() => changeGridView('grid')} alt="row" src={grid} />
-                    <img className={styles.viewIconActive} onClick={() => changeGridView('list')} alt="table" src={list} />
+                    <div onClick={() => changeGridView('grid')}>
+                        <img className={`${viewOptions?.gridView ? styles.viewIconActive : styles.viewIcon}`} alt="row" src={grid} />
+                    </div>
+                    <div onClick={() => changeGridView('list')}>
+                        <img className={`${viewOptions?.listView ? styles.viewIconActive : styles.viewIcon}`} alt="table" src={list} />
+                    </div>
                 </div>
             </div>
 

@@ -257,7 +257,7 @@ const ProductsPage = () => {
                 <div className={styles.flexColumnWrapper}>
                     <div className={styles.mainWrapper}>
                         <div className={styles.filterWrapper}>
-                            <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} />
+                            <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} resultLength={searchedElements.length} />
                         </div>
 
                         <ProductsLayout array={searchedElements.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} viewStyle={viewOptions} />

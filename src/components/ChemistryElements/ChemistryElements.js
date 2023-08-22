@@ -5,7 +5,7 @@ import { useFilter } from "../../context/FilterProvider";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import { Pagination, EffectCoverflow, Navigation } from 'swiper/modules';
 
 import insect from '../../images/chemistry-elements/insect.svg';
 import gerb from '../../images/chemistry-elements/gerb.svg';
@@ -57,6 +57,12 @@ const ChemistryArray = [
     },
 ]
 
+const inlineStyles = {
+    btnStyles: {
+        color: '#742021',
+    }
+}
+
 export const ChemistryElements = () => {
     const resultContext = useFilter();
     const { changeChemistryFilter } = resultContext ? resultContext : {};
@@ -80,41 +86,51 @@ export const ChemistryElements = () => {
                 }
             </div>
             <Swiper
-                style={{
-                    '--swiper-pagination-color': '#742021',
+                effect="coverflow"
+                grabCursor={true}
+                centeredSlides={true}
+                slidesPerView="auto"
+                coverflowEffect={{
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 2.5,
                 }}
-                slidesPerView={3}
-                spaceBetween={30}
-
-                pagination={{
+                navigation={{
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
                     clickable: true,
                 }}
-                modules={[Pagination]}
-                className={styles.swiper}
+                modules={[EffectCoverflow, Pagination, Navigation]}
+                className={styles.swiperContainer}
             >
-
-                {
-                    ChemistryArray.map((el) => (
-                        <>
-                            <SwiperSlide className={styles.swiperSlide} key={el.id} >
-                                <Link
-                                    className={styles.elemWrapper}
-                                    key={el.id}
-                                    to={`/products/`}
-                                    onClick={() => changeChemistryFilter(el.name)}
-                                >
-                                    <div className={styles.elemWrapper} key={el.id}>
-                                        <div className={styles.imageWrapper}>
-                                            <img alt='chemistry' className={styles.bankImg} src={el.img} />
-                                        </div>
-                                        <p className={styles.text}>{el.name}</p>
+                {ChemistryArray?.map((el) => {
+                    return (
+                        <SwiperSlide key={el?.id} className={styles.swiperSlide}>
+                            <Link
+                                className={styles.elemWrapper}
+                                key={el.id}
+                                to={`/products/`}
+                                onClick={() => changeChemistryFilter(el.name)}
+                            >
+                                <div className={styles.elemWrapper} key={el.id}>
+                                    <div className={styles.imageWrapper}>
+                                        <img alt='chemistry' className={styles.bankImg} src={el.img} />
                                     </div>
-                                </Link>
-                            </SwiperSlide>
-                        </>
-
-                    ))
-                }
+                                    <p className={styles.text}>{el.name}</p>
+                                </div>
+                            </Link>
+                        </SwiperSlide>
+                    );
+                })}
+                <div className={styles.sliderControler}>
+                    <div className="swiper-button-prev" style={inlineStyles.btnStyles}>
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </div>
+                    <div className="swiper-button-next" style={inlineStyles.btnStyles}>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
             </Swiper>
         </>
     )

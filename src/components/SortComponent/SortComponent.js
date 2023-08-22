@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFilter } from '../../context/FilterProvider';
+import { useSideBar } from '../../context/SideBarProvider';
 
 import sortIcon from '../../images/sort-icons/sort.svg';
 import arrowDown from '../../images/sort-icons/arrow-down.svg';
@@ -7,10 +8,21 @@ import arrowDown from '../../images/sort-icons/arrow-down.svg';
 import * as styles from './SortComponent.module.css';
 
 export const SortComponent = () => {
+    const sideBarContext = useSideBar();
+    const { handleSideBar } = sideBarContext ? sideBarContext : {};
+
     const resultFilterContext = useFilter();
     const { handleSortOptionChange, sortOptions } = resultFilterContext ? resultFilterContext : {};
 
     const [showCheckboxes, setShowCheckboxes] = useState(false);
+    const [showSearchButton, setSearchTypeButton] = useState(false);
+
+    useEffect(() => {
+        const isAnyOptionTrue = Object.values(sortOptions).some(value => value === true);
+        if (isAnyOptionTrue) {
+            setSearchTypeButton(true);
+        }
+    }, [sortOptions]);
 
     const handleToggleCheckboxes = () => {
         setShowCheckboxes((prevState) => !prevState);
@@ -71,6 +83,7 @@ export const SortComponent = () => {
                     >
                         За наявністю
                     </button>
+                    {showSearchButton && <button className={`${styles.resetButton}`} onClick={() => handleSideBar()}>Показати</button>}
                 </div>
             </div>
         </div>

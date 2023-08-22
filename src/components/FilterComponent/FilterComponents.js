@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFilter } from '../../context/FilterProvider';
+import { useSideBar } from '../../context/SideBarProvider';
 
 import filterIcon from '../../images/sort-icons/filter.svg';
 import arrowDown from '../../images/sort-icons/arrow-down.svg';
@@ -10,12 +11,24 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter }) 
     const resultFilterContext = useFilter();
     const { changeCultureFilter, changeChemistryFilter, changeTypeFilter } = resultFilterContext ? resultFilterContext : {};
 
+    const sideBarContext = useSideBar();
+    const { handleSideBar } = sideBarContext ? sideBarContext : {};
+
     const [showTypeCheckboxes, setShowTypeCheckboxes] = useState(false);
     const [showChemistryCheckboxes, setShowChemistryCheckboxes] = useState(false);
     const [showCheckboxes, setShowCheckboxes] = useState(false);
     const [selectedCrop, setSelectedCrop] = useState('');
     const [selectedTypeState, setTypeCheckboxState] = useState('');
     const [selectedChemistryState, setCheckboxChemistryState] = useState('');
+    const [showCultureButton, setShowCultureButton] = useState(false);
+    const [showChemistryButton, setShowChemistryButton] = useState(false);
+    const [showTypeButton, setShowTypeButton] = useState(false);
+
+    useEffect(() => {
+        cultureFilter && setShowCultureButton(true);
+        chemistryFilter && setShowChemistryButton(true);
+        typeFilter && setShowTypeButton(true);
+    }, [cultureFilter, chemistryFilter, typeFilter]);
 
     const handleToggleCheckboxes = () => {
         setShowCheckboxes((prevState) => !prevState);
@@ -142,7 +155,10 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter }) 
                         />
                         <p>Помідори</p>
                     </label>
-                    <button className={styles.resetButton} onClick={() => handleResetCulture()}>Скинути</button>
+                    <div className={styles.buttonWrapper}>
+                        <button className={styles.resetButton} onClick={() => handleResetCulture()}>Скинути</button>
+                        {showCultureButton && <button className={`${styles.resetButton} ${styles.showButton}`} onClick={() => handleSideBar()}>Показати</button>}
+                    </div>
                 </div>
             </div>
 
@@ -220,7 +236,10 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter }) 
                         />
                         <p>Добрива</p>
                     </label>
-                    <button className={styles.resetButton} onClick={() => handleResetChemistry()}>Скинути</button>
+                    <div className={styles.buttonWrapper}>
+                        <button className={styles.resetButton} onClick={() => handleResetChemistry()}>Скинути</button>
+                        {showChemistryButton && <button className={`${styles.resetButton} ${styles.showButton}`} onClick={() => handleSideBar()}>Показати</button>}
+                    </div>
                 </div>
             </div>
 
@@ -253,7 +272,10 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter }) 
                         />
                         <p>Фермерське</p>
                     </label>
-                    <button className={styles.resetButton} onClick={() => handleResetType()}>Скинути</button>
+                    <div className={styles.buttonWrapper}>
+                        <button className={styles.resetButton} onClick={() => handleResetType()}>Скинути</button>
+                        {showTypeButton && <button className={`${styles.resetButton} ${styles.showButton}`} onClick={() => handleSideBar()}>Показати</button>}
+                    </div>
                 </div>
             </div>
         </div>

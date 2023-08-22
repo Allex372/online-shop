@@ -15,3 +15,7 @@ footer {
     z-index: 2;
     /* Додаткові стилі для оформлення footer */
 }
+
+body {
+    background-color: #f5f5f5;
+}
