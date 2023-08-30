@@ -196,7 +196,7 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                                 type="checkbox"
                                 name="гербіциди"
                                 className={styles.checkboxColor}
-                                checked={selectedChemistryState === 'гербіциди' || chemistryFilter === 'гербіциди' || chemistry === 'гербіциди'}
+                                checked={selectedChemistryState === 'гербіциди' || chemistryFilter === 'гербіциди' || chemistry?.toLowerCase() === 'гербіциди'}
                                 onChange={handleTypeChemistryChange}
                             />
                             <p>Гербіциди</p>
@@ -205,7 +205,7 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                             <input
                                 type="checkbox"
                                 name="фунгіциди"
-                                checked={selectedChemistryState === 'фунгіциди' || chemistryFilter === 'фунгіциди' || chemistry === 'фунгіциди'}
+                                checked={selectedChemistryState === 'фунгіциди' || chemistryFilter === 'фунгіциди' || chemistry?.toLowerCase() === 'фунгіциди'}
                                 onChange={handleTypeChemistryChange}
                             />
                             <p>Фунгіциди</p>
@@ -214,7 +214,7 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                             <input
                                 type="checkbox"
                                 name="інсектециди"
-                                checked={selectedChemistryState === 'інсектециди' || chemistryFilter === 'інсектециди' || chemistry === 'інсектециди'}
+                                checked={selectedChemistryState === 'інсектециди' || chemistryFilter === 'інсектециди' || chemistry?.toLowerCase() === 'інсектециди'}
                                 onChange={handleTypeChemistryChange}
                             />
                             <p>Інсектециди</p>
@@ -223,7 +223,7 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                             <input
                                 type="checkbox"
                                 name="протруйники"
-                                checked={selectedChemistryState === 'протруйники' || chemistryFilter === 'протруйники' || chemistry === 'протруйники'}
+                                checked={selectedChemistryState === 'протруйники' || chemistryFilter === 'протруйники' || chemistry?.toLowerCase() === 'протруйники'}
                                 onChange={handleTypeChemistryChange}
                             />
                             <p>Протруйники</p>
@@ -232,7 +232,7 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                             <input
                                 type="checkbox"
                                 name="десиканти"
-                                checked={selectedChemistryState === 'десиканти' || chemistryFilter === 'десиканти' || chemistry === 'десиканти'}
+                                checked={selectedChemistryState === 'десиканти' || chemistryFilter === 'десиканти' || chemistry?.toLowerCase() === 'десиканти'}
                                 onChange={handleTypeChemistryChange}
                             />
                             <p>Десиканти</p>
@@ -241,7 +241,7 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                             <input
                                 type="checkbox"
                                 name="ад'юванти"
-                                checked={selectedChemistryState === "ад'юванти" || chemistryFilter === "ад'юванти" || chemistry === "ад'юванти"}
+                                checked={selectedChemistryState === "ад'юванти" || chemistryFilter === "ад'юванти" || chemistry?.toLowerCase() === "ад'юванти"}
                                 onChange={handleTypeChemistryChange}
                             />
                             <p>Ад`юванти</p>
@@ -250,7 +250,7 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                             <input
                                 type="checkbox"
                                 name="добрива"
-                                checked={selectedChemistryState === 'добрива' || chemistryFilter === 'добрива' || chemistry === 'добрива'}
+                                checked={selectedChemistryState === 'добрива' || chemistryFilter === 'добрива' || chemistry?.toLowerCase() === 'добрива'}
                                 onChange={handleTypeChemistryChange}
                             />
                             <p>Добрива</p>
