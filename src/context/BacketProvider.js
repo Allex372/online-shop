@@ -13,8 +13,8 @@ const BacketProvider = ({ children }) => {
         setItems([...items, item]);
     };
 
-    const removeItemFromBacket = (id) => {
-        const updatedItems = items.filter((item) => item.id !== id);
+    const removeItemFromBacket = (url) => {
+        const updatedItems = items.filter((item) => item.url !== url);
         setItems(updatedItems);
     }
 

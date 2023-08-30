@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useResult } from '../../context/SearchResultProvider';
-// import { StaticImage } from 'gatsby-plugin-image';
 import { useView } from '../../context/ViewProvider';
+import { useFilter } from "../../context/FilterProvider";
 
 import * as styles from './ProductHeaderFilters.module.css';
 
@@ -9,8 +9,12 @@ import searchIcon from '../../images/search.svg';
 import close from '../../images/close.png';
 import grid from '../../images/views/grid.svg';
 import list from '../../images/views/list.svg';
+import filter from '../../images/filter.svg';
 
 export const ProductHeaderFilters = ({ result }) => {
+    const resultFilterContext = useFilter();
+    const { handleOpenFilterModal } = resultFilterContext ? resultFilterContext : {};
+
     const viewContext = useView();
     const { viewOptions, changeGridView } = viewContext ? viewContext : {};
 
@@ -25,13 +29,24 @@ export const ProductHeaderFilters = ({ result }) => {
         changeSearchResult('');
     }
 
-    console.log(viewOptions);
+    const handleOpenClick = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        handleOpenFilterModal(true)
+    }
 
     return (
         <div className={styles.container}>
+            <div className={styles.filterWrapper}>
+                <button onClick={() => handleOpenClick()} className={styles.filtersButton}>
+                    <img src={filter} alt='filter' />
+                    <p>Фільтри</p>
+                </button>
+            </div>
+
             <div className={styles.resultBlock}>
                 <p>Знайдено: {result}</p>
             </div>
+
             <div className={styles.searchContainer}>
                 <div>
                     <input
@@ -42,12 +57,22 @@ export const ProductHeaderFilters = ({ result }) => {
                         value={searchResult}
                     />
                 </div>
-                <img
-                    src={searchIcon}
-                    className={styles.searchIcon}
-                    alt="Search Icon"
-                />
+                {searchResult?.length > 0 ?
+                    <img
+                        src={close}
+                        className={styles.clearIcon}
+                        alt="clear"
+                        onClick={() => handleClearSearch()}
+                    />
+                    :
+                    <img
+                        src={searchIcon}
+                        className={styles.searchIcon}
+                        alt="Search Icon"
+                    />
+                }
             </div>
+
             <div className={styles.rightWrapper}>
                 <div className={`${searchResult?.length ? styles.helperDiv : styles.dNone}`}>
                     <p>{searchResult}</p>
@@ -62,7 +87,6 @@ export const ProductHeaderFilters = ({ result }) => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };

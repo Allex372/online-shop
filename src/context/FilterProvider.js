@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 const Context = createContext();
 
 const FilterProvider = ({ children }) => {
+    const [openFilterModal, setOpenFilterModal] = useState(false);
     const [cultureFilter, setCultureFilter] = useState(null);
     const [chemistryFilter, setChemistryFilter] = useState(null);
     const [typeFilter, setTypeFilter] = useState(null);
@@ -81,7 +82,11 @@ const FilterProvider = ({ children }) => {
         setTypeFilter(result);
     }
 
-    return <Context.Provider value={{ cultureFilter, chemistryFilter, typeFilter, sortOptions, handleSortOptionChange, changeCultureFilter, changeChemistryFilter, changeTypeFilter }}>{children}</Context.Provider>;
+    const handleOpenFilterModal = (boolean) => {
+        setOpenFilterModal(boolean)
+    }
+
+    return <Context.Provider value={{ openFilterModal, cultureFilter, chemistryFilter, typeFilter, sortOptions, handleSortOptionChange, changeCultureFilter, changeChemistryFilter, changeTypeFilter, handleOpenFilterModal }}>{children}</Context.Provider>;
 }
 
 export default FilterProvider;

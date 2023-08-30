@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { SortComponent, FilterComponent } from '../index';
+// import { SortComponent, FilterComponent } from '../index';
 import { useBacket } from "../../context/BacketProvider";
-import { useFilter } from "../../context/FilterProvider";
+// import { useFilter } from "../../context/FilterProvider";
 import { useSideBar } from "../../context/SideBarProvider";
 import { navigate } from "gatsby";
 
@@ -19,8 +19,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export const Header = () => {
-  const resultFilterContext = useFilter();
-  const { cultureFilter, chemistryFilter, typeFilter } = resultFilterContext ? resultFilterContext : {};
+  // const resultFilterContext = useFilter();
+  // const { cultureFilter, chemistryFilter, typeFilter } = resultFilterContext ? resultFilterContext : {};
 
   const backetContext = useBacket();
   const { handleOpenBacket, items } = backetContext ? backetContext : {};
@@ -100,12 +100,12 @@ export const Header = () => {
       <div>
         <div className={style}>
           <div className={styles.sidebarWrapper}>
-            <div className={styles.filterWrapper}>
+            {/* <div className={styles.filterWrapper}>
               <SortComponent />
-            </div>
-            <div className={styles.filterWrapper}>
+            </div> */}
+            {/* <div className={styles.filterWrapper}>
               <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} />
-            </div>
+            </div> */}
             <div className={styles.contactsMobile}>
               <div className={styles.socialMobile}>
                 <img alt="social" src={tg} />
