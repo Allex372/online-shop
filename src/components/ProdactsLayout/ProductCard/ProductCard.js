@@ -68,7 +68,7 @@ export const ProductCard = ({ product, viewStyle }) => {
                         :
                         <p className={styles.productName}>{product?.attributes?.name}</p>
                 }
-                <p className={styles.chemistryType}>Тип препарату: {product?.attributes?.chemistry}</p>
+                <p className={styles.chemistryType}>Тип препарату: {product?.attributes?.chemistries?.data?.[0]?.attributes?.name}</p>
                 <p className={styles.chemistryType}>Діюча речовина: діюча речовина</p>
                 <p className={styles.price}>Ціна: {product?.attributes?.price}₴</p>
                 {
