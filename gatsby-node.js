@@ -1,174 +1,30 @@
 const path = require('path');
 
-const ProductsArray = [
-    {
-        id: 1,
-        name: 'АЕДЯН ЕКСТРА',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['помідори', 'яблуко'],
-        chemistry: 'фунгіциди',
-        size: 'фермерське',
-        // img: big,
-        price: 200,
-        isAvailable: true,
-    },
-    {
-        id: 2,
-        name: 'БЕДЯН ЕКСТРА TURBO',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['соняшник', 'соя'],
-        chemistry: 'гербіциди',
-        size: 'фермерське',
-        activeIng: 'test',
-        // img: big,
-        price: 300,
-        isAvailable: true,
-    },
-    {
-        id: 3,
-        name: 'ВЕДЯН ЕКСТРА TURBO',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['соняшник', 'соя'],
-        chemistry: 'гербіциди',
-        size: 'фермерське',
-        // img: big,
-        price: 400,
-        isAvailable: true,
-    },
-    {
-        id: 4,
-        name: 'ГЕДЯН ЕКСТРА TURBO',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['соняшник', 'соя'],
-        chemistry: 'гербіциди',
-        size: 'фермерське',
-        // img: small,
-        price: 500,
-        isAvailable: true,
-    },
-    {
-        id: 5,
-        name: 'ДЕДЯН ЕКСТРА',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['помідори', 'яблуко'],
-        chemistry: 'гербіциди',
-        size: 'присадибне',
-        // img: small,
-        price: 600,
-        isAvailable: true,
-    },
-    {
-        id: 6,
-        name: 'МЕДЯН ЕКСТРА',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['помідори', 'яблуко'],
-        chemistry: 'фунгіциди',
-        size: 'присадибне',
-        // img: small,
-        price: 700,
-        isAvailable: true,
-    },
-    {
-        id: 7,
-        name: 'МЕДЯН ЕКСТРА',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['помідори', 'яблуко'],
-        chemistry: 'фунгіциди',
-        size: 'присадибне',
-        // img: small,
-        price: 800,
-        isAvailable: false,
-    },
-    {
-        id: 8,
-        name: 'МЕДЯН ЕКСТРА',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['помідори', 'яблуко'],
-        chemistry: 'фунгіциди',
-        size: 'присадибне',
-        // img: small,
-        price: 900,
-        isAvailable: false,
-    },
-    {
-        id: 9,
-        name: 'МЕДЯН ЕКСТРА',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['помідори', 'яблуко'],
-        chemistry: 'фунгіциди',
-        size: 'присадибне',
-        // img: small,
-        price: 100,
-        isAvailable: false,
-    },
-    {
-        id: 10,
-        name: 'МЕДЯН ЕКСТРА',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['помідори', 'яблуко'],
-        chemistry: 'фунгіциди',
-        size: 'присадибне',
-        // img: small,
-        price: 1000,
-        isAvailable: false,
-    },
-    {
-        id: 11,
-        name: 'МЕДЯН ЕКСТРА Фунгіцид',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['помідори', 'яблуко'],
-        chemistry: 'фунгіциди',
-        size: 'присадибне',
-        // img: small,
-        price: 1100,
-        isAvailable: false,
-    },
-    {
-        id: 12,
-        name: 'МЕДЯН ЕКСТРА',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['помідори', 'яблуко'],
-        chemistry: 'фунгіциди',
-        size: 'присадибне',
-        // img: small,
-        price: 1200,
-        isAvailable: false,
-    },
-    {
-        id: 13,
-        name: 'МЕДЯН ЕКСТРА',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['помідори', 'яблуко', 'ріпак'],
-        chemistry: 'фунгіциди',
-        size: 'присадибне',
-        // img: small,
-        price: 1300,
-        isAvailable: false,
-    },
-    {
-        id: 14,
-        name: 'МЕДЯН ЕКСТРА',
-        description: 'Системний післясходовий гербіцид для контролю однорічних широколистих',
-        culture: ['помідори', 'соя'],
-        chemistry: 'фунгіциди',
-        size: 'присадибне',
-        // img: small,
-        price: 1400,
-        isAvailable: true,
-    },
-];
+exports.createPages = async ({ actions, graphql }) => {
+    const { data } = await graphql(`
+        query {
+            rest {
+                products (pagination: {limit: 300}){
+                    data {
+                        attributes {
+                            name
+                            url
+                        }
+                        id
+                    }
+                }
+            }
+        }
+      `)
 
 
-exports.createPages = async ({ actions }) => {
-    const { createPage } = actions;
-
-    ProductsArray?.forEach(node => {
-        const { id, name } = node;
-        createPage({
-            path: `products/${id}/${name}`,
+    data?.rest?.products?.data?.forEach(node => {
+        console.log(node.id);
+        const { url } = node.attributes;
+        actions.createPage({
+            path: `products/${url}/${node.id}`,
             component: path.resolve('./src/templates/single-product.js'),
-            // context: { url }
-            context: { productData: node }
+            context: { url }
         })
     });
 };

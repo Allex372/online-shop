@@ -1,26 +1,31 @@
 import React, { useState, useEffect } from "react";
+import { graphql } from "gatsby";
 import { Layout, Backet } from "../components";
 import { useBacket } from "../context/BacketProvider";
 import { navigate } from 'gatsby';
 import { StaticImage } from "gatsby-plugin-image";
 
-import big from '../images/bigBotltle.png';
-
 import * as styles from './single-product.module.css';
 
-const SingleProduct = ({ pageContext }) => {
-    const { productData } = pageContext;
+const SingleProduct = ({ data }) => {
+    const productData = data?.rest?.products?.data?.[0]?.attributes;
+
+    const id = data?.rest?.products?.data?.[0]?.id;
 
     const {
-        id,
         name,
         description,
-        culture,
+        cultures,
+        img,
         // chemistry,
         // size,
         activeIng,
         price
     } = productData
+
+    console.log(cultures);
+
+    const productImg = img?.data?.attributes?.url;
 
     const backetContext = useBacket();
     const { addItemToBacket, items, handleOpenBacket } = backetContext ? backetContext : {};
@@ -48,7 +53,6 @@ const SingleProduct = ({ pageContext }) => {
     return (
         <Layout>
             <Backet />
-            {/* <Seo title={isFetchedServiceNew ? fetchedServices?.attributes?.title : seoTitle} description={isFetchedServiceNew ? fetchedServices?.attributes?.description : seoDescription} /> */}
             <div className={styles.wrapper}>
                 <div className={styles.menuIcon} onClick={() => navigate('/products')}>
                     <StaticImage height={20} width={20} alt="back" src='../images/arrow-left.png' />
@@ -56,7 +60,7 @@ const SingleProduct = ({ pageContext }) => {
                 <div className={styles.infoWrapper}>
                     <div className={styles.imgWrapper}>
                         <p className={styles.productName}>{name}</p>
-                        <img src={big} alt='bottle' />
+                        <img src={productImg} alt='bottle' />
                         {isInBacket ?
                             <button className={styles.buyButtonAdded} onClick={() => handleClickButtonBuy()}>В корзині</button>
                             :
@@ -80,8 +84,8 @@ const SingleProduct = ({ pageContext }) => {
                         </p>
 
                         <p className={styles.descriptionText}>Типи культур:
-                            {culture.map((el) => (
-                                <span key={el}> {el} </span>
+                            {cultures?.data?.map((el) => (
+                                <span key={el}>{el?.attributes?.name}</span>
                             ))}
                         </p>
                     </div>
@@ -112,3 +116,40 @@ const SingleProduct = ({ pageContext }) => {
 // );
 
 export default SingleProduct;
+
+export const query = graphql`
+  query($url: String) {
+      rest {
+        products(filters: {url: {eq: $url}}) {
+            data {
+                attributes {
+                url
+                name
+                chemistry
+                createdAt
+                cultures {
+                    data {
+                        attributes {
+                               name
+                           }
+                    }
+                }
+                description
+                img {
+                    data {
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                isAvailable
+                price
+                size
+                updatedAt
+                }
+                id
+            }
+        }
+      }
+    }
+`;

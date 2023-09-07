@@ -78,8 +78,16 @@ body {
     color: #EDDDDD;
 }
 
+.sortWrapper {
+    width: 213px;
+}
+
 @media screen and (max-width: 768px) {
     .filterWrapper {
+        display: none;
+    }
+
+    .sortWrapper {
         display: none;
     }
 }

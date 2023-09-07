@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useBacket } from "../../../context/BacketProvider";
 
 import * as styles from './BacketItem.module.css';
@@ -18,22 +18,23 @@ export const BacketItem = ({ items }) => {
         const newCount = Math.max((count || 1) - 1, 1);
         updateItemCount(id, newCount);
     };
+
     return (
         <>
             {
                 items?.length ?
                     (items.map((item) => {
-                        const { img, name, price, description, id, count } = item;
+                        const { img, name, price, description, id, count, url } = item;
                         return (
                             <div className={styles.wrapper} key={id}>
                                 <div className={styles.productWrapper}>
-                                    <div className={styles.imgWrapper} onClick={() => removeItemFromBacket(id)}>
+                                    <div className={styles.imgWrapper} onClick={() => removeItemFromBacket(url)}>
                                         <img src={closeIcon} alt='close' />
                                     </div>
                                     <div className={styles.contentWrapper}>
                                         <div className={styles.content}>
                                             <div className={styles.productImageWrapper}>
-                                                <img src={img} alt='item' />
+                                                <img src={img?.data?.attributes?.url} alt='item' />
                                             </div>
                                             <div className={styles.textWrapper}>
                                                 <p className={styles.name}>{name}</p>

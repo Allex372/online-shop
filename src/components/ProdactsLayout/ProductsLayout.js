@@ -17,7 +17,7 @@ export const ProductsLayout = ({ array, viewStyle }) => {
                 {array.map((el) => {
                     const { id } = el;
                     return (
-                        <ProductCard viewStyle={viewStyle} product={el} key={id} />
+                        <ProductCard viewStyle={viewStyle} product={el} key={+id} />
                     )
                 })}
 
