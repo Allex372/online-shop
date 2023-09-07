@@ -23,7 +23,7 @@ const SingleProduct = ({ data }) => {
         price
     } = productData
 
-    console.log(cultures);
+    // console.log(cultures);
 
     const productImg = img?.data?.attributes?.url;
 
@@ -125,7 +125,14 @@ export const query = graphql`
                 attributes {
                 url
                 name
-                chemistry
+                chemistries
+                    {
+                        data {
+                            attributes {
+                                name
+                            }
+                        }
+                    }
                 createdAt
                 cultures {
                     data {
@@ -144,7 +151,14 @@ export const query = graphql`
                 }
                 isAvailable
                 price
-                size
+                sizes
+                    {
+                        data {
+                            attributes {
+                                name
+                            }
+                        }
+                    }
                 updatedAt
                 }
                 id

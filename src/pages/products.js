@@ -38,13 +38,25 @@ const ProductsPage = () => {
                             }
                             url
                             name
-                            chemistry
+                            chemistries{
+                                    data {
+                                        attributes {
+                                            name
+                                        }
+                                    }
+                                }
                             createdAt
                             updatedAt
                             description
                             isAvailable
                             price
-                            size
+                            sizes{
+                                data {
+                                    attributes {
+                                        name
+                                    }
+                                }
+                            }
                             img {
                                 data {
                                     attributes {
@@ -61,10 +73,12 @@ const ProductsPage = () => {
 
     const Products = data?.rest?.products?.data;
 
+    // console.log(Products);
+
     const filteredElements = Products?.filter((el) => {
-        const isChemistryMatch = !chemistryFilter || el?.attributes?.chemistry === chemistryFilter.toLowerCase();
-        const isTypeMatch = !typeFilter || el?.attributes?.size === typeFilter;
-        const isCultureMatch = !cultureFilter || el?.attributes?.cultures?.data.some(culture => culture?.attributes?.name === cultureFilter);
+        const isChemistryMatch = !chemistryFilter || el?.attributes?.chemistries?.data?.[0]?.attributes?.name === chemistryFilter.toLowerCase();
+        const isTypeMatch = !typeFilter || el?.attributes?.sizes?.data?.[0]?.attributes?.name === typeFilter;
+        const isCultureMatch = !cultureFilter || el?.attributes?.cultures?.data.some(culture => culture?.attributes?.name === cultureFilter.toLowerCase());
         const isAvailableMatch = !sortOptions?.availability || el?.attributes?.isAvailable === sortOptions?.availability;
 
         return isChemistryMatch && isTypeMatch && isCultureMatch && isAvailableMatch;

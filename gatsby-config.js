@@ -31,9 +31,9 @@ module.exports = {
       options: {
         typeName: 'REST',
         fieldName: 'rest',
-        url: 'http://localhost:1337/graphql',
+        url: 'https://peaceful-coast-71162-5ba9b4106dad.herokuapp.com/graphql',
         headers: {
-          Authorization: 'Bearer 43c956c0b60e4cd018f03f7b4c4e36483b9ff9710841169e272543142483e3e20949885af0c919e0b297fd06228febba32148e1343e9b318e67645275de7f52c4fb84852e330ccb5cf5f86288365ef6d3e13a899b466cfa51b33c396b5e141da2ac80a249df3559f6166738b89326e407a6cd4fcad520bf6d02d274db82ffdd6',
+          Authorization: 'Bearer 598c65b5c2e0234c080b12404dfcba4b333c4d5fa1501e4fa4169b40b5e92cae300513c57fa814be66a1a5a5c4554ae128b8ba75670df5e2b3dc1de3ea0556d5b262104b201276c68e349a09b207f2b89385f8dcdc3240d77eaeebceb70ee748ef23b2af86715f185c9cae121a3c32f4d66982be0da5569f23ed86944904700e',
         },
       },
     },

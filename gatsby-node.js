@@ -19,7 +19,6 @@ exports.createPages = async ({ actions, graphql }) => {
 
 
     data?.rest?.products?.data?.forEach(node => {
-        console.log('tets');
         const { url } = node.attributes;
         actions.createPage({
             path: `products/${url}/${node.id}`,
