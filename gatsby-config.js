@@ -31,9 +31,9 @@ module.exports = {
       options: {
         typeName: 'REST',
         fieldName: 'rest',
-        url: 'https://peaceful-coast-71162-5ba9b4106dad.herokuapp.com/graphql',
+        url: 'https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com/graphql',
         headers: {
-          Authorization: 'Bearer 598c65b5c2e0234c080b12404dfcba4b333c4d5fa1501e4fa4169b40b5e92cae300513c57fa814be66a1a5a5c4554ae128b8ba75670df5e2b3dc1de3ea0556d5b262104b201276c68e349a09b207f2b89385f8dcdc3240d77eaeebceb70ee748ef23b2af86715f185c9cae121a3c32f4d66982be0da5569f23ed86944904700e',
+          Authorization: 'Bearer f98b10acb8958a3d9ba99650cbf0480ebd5e93222f49a844e98c560a8d178711d159d6e4ca8e7428b85d8967b94acf24e9dc31429b80eeadb4f0e08d5ef14564b8fa923ed239d233936f079f720f2796f94f50b9cc0f2bf90234b85be8220a96a8c92391deeccb98bf50cbb54018d81604da4315d23d020925ffff15e22167d4',
         },
       },
     },
