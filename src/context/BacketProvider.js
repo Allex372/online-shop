@@ -13,6 +13,10 @@ const BacketProvider = ({ children }) => {
         setItems([...items, item]);
     };
 
+    const clearBacket = () => {
+        setItems([]);
+    }
+
     const removeItemFromBacket = (url) => {
         const updatedItems = items.filter((item) => item.url !== url);
         setItems(updatedItems);
@@ -62,7 +66,7 @@ const BacketProvider = ({ children }) => {
         return null;
     }
 
-    return <Context.Provider value={{ showBacket, handleOpenBacket, items, addItemToBacket, updateItemCount, itemsWithSum, totalSum, removeItemFromBacket }}>{children}</Context.Provider>;
+    return <Context.Provider value={{ showBacket, handleOpenBacket, items, addItemToBacket, updateItemCount, itemsWithSum, totalSum, removeItemFromBacket, clearBacket }}>{children}</Context.Provider>;
 }
 
 export default BacketProvider;

@@ -5,7 +5,7 @@ import * as styles from './BacketItem.module.css';
 
 import closeIcon from '../../../images/close.png';
 
-export const BacketItem = ({ items }) => {
+export const BacketItem = ({ items, statusCode, clearStatusCode }) => {
     const backetContext = useBacket();
     const { updateItemCount, removeItemFromBacket, handleOpenBacket } = backetContext ? backetContext : {};
 
@@ -18,6 +18,11 @@ export const BacketItem = ({ items }) => {
         const newCount = Math.max((count || 1) - 1, 1);
         updateItemCount(id, newCount);
     };
+
+    const handleButtonBackClick = () => {
+        clearStatusCode();
+        handleOpenBacket();
+    }
 
     return (
         <>
@@ -59,10 +64,23 @@ export const BacketItem = ({ items }) => {
                         )
                     }))
                     :
-                    <div className={styles.clearBacket}>
-                        <p>В корзині немає товарів</p>
-                        <button className={styles.buttonBack} onClick={() => handleOpenBacket()}>До покупок</button>
-                    </div>
+                    null
+            }
+
+            {
+                (!items?.length && statusCode != 200) &&
+                <div className={styles.clearBacket}>
+                    <p>В корзині немає товарів</p>
+                    <button className={styles.buttonBack} onClick={() => handleOpenBacket()}>До покупок</button>
+                </div>
+            }
+
+            {
+                (!items?.length && statusCode == 200) &&
+                <div className={styles.clearBacket}>
+                    <p>Замовлення успішно оформлено, очікуйте на дзвінок</p>
+                    <button className={styles.buttonBack} onClick={() => handleButtonBackClick()}>До покупок</button>
+                </div>
             }
         </>
     );

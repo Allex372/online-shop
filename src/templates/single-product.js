@@ -19,11 +19,9 @@ const SingleProduct = ({ data }) => {
         img,
         // chemistry,
         // size,
-        activeIng,
+        Active_substance,
         price
     } = productData
-
-    // console.log(cultures);
 
     const productImg = img?.data?.attributes?.url;
 
@@ -32,7 +30,8 @@ const SingleProduct = ({ data }) => {
 
     const [isInBacket, setIsInBacket] = useState(null);
 
-    const handleAddItem = (currentProduct) => {
+    const handleAddItem = (currentProduct, id) => {
+        currentProduct.id = id;
         addItemToBacket(currentProduct);
     }
 
@@ -64,20 +63,22 @@ const SingleProduct = ({ data }) => {
                         {isInBacket ?
                             <button className={styles.buyButtonAdded} onClick={() => handleClickButtonBuy()}>В корзині</button>
                             :
-                            <button className={styles.buyButton} onClick={() => handleAddItem(productData)}>Купити</button>
+                            <button className={styles.buyButton} onClick={() => handleAddItem(productData, id)}>Купити</button>
                         }
                     </div>
 
                     <div className={styles.description}>
-                        <p className={styles.descriptionText}>{description}</p>
+                        <p className={styles.descriptionText}>Тара:
+                            <span>{description}</span>
+                        </p>
 
                         <p className={styles.descriptionText}>Діюча речовина:
-                            <span>{activeIng}</span>
+                            <span>{Active_substance}</span>
                         </p>
 
-                        <p className={styles.descriptionText}>Препаративна форма:
+                        {/* <p className={styles.descriptionText}>Препаративна форма:
                             <span>Текучий концентрат для обробки насіння</span>
-                        </p>
+                        </p> */}
 
                         <p className={styles.descriptionText}>Ціна:
                             <span>{price}₴</span>
@@ -122,9 +123,11 @@ export const query = graphql`
       rest {
         products(filters: {url: {eq: $url}}) {
             data {
+                id
                 attributes {
                 url
                 name
+                Active_substance
                 chemistries
                     {
                         data {
@@ -161,7 +164,6 @@ export const query = graphql`
                     }
                 updatedAt
                 }
-                id
             }
         }
       }

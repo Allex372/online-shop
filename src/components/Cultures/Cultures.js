@@ -9,7 +9,7 @@ import 'swiper/css/navigation';
 // import required modules
 import { Navigation } from 'swiper/modules';
 
-import помідор from '../../images/cultures/Помідор.svg';
+import помідор from '../../images/cultures/Помідор.png';
 import пшениця from '../../images/cultures/пшениця.svg';
 import ріпак from '../../images/cultures/ріпак_1.svg';
 import соняшник from '../../images/cultures/соняшник.svg';
@@ -23,7 +23,7 @@ import * as styles from './Culture.module.css';
 const CultureArray = [
     {
         id: 1,
-        name: 'пшениця',
+        name: 'зернові (пшениця, ячмінь)',
         img: пшениця,
     },
     {
@@ -38,7 +38,7 @@ const CultureArray = [
     },
     {
         id: 4,
-        name: 'яблуко',
+        name: 'cади, ягоди',
         img: яблуко,
     },
     {
@@ -48,9 +48,24 @@ const CultureArray = [
     },
     {
         id: 6,
-        name: "помідори",
+        name: "овочі",
         img: помідор,
     },
+    {
+        id: 7,
+        name: 'картопля',
+        img: помідор,
+    },
+    {
+        id: 8,
+        name: 'кукурудза',
+        img: помідор,
+    },
+    {
+        id: 9,
+        name: 'буряки цукрові',
+        img: помідор,
+    }
 ]
 
 const inlineStyles = {

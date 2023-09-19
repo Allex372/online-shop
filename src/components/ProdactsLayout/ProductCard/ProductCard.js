@@ -18,6 +18,7 @@ export const ProductCard = ({ product, viewStyle }) => {
     const [isInBacket, setIsInBacket] = useState(null);
 
     const handleAddItem = (currentProduct) => {
+        currentProduct.attributes.id = currentProduct.id;
         addItemToBacket(currentProduct.attributes);
     }
 
@@ -35,52 +36,37 @@ export const ProductCard = ({ product, viewStyle }) => {
     }, [items]);
 
     return (
-        <div key={product?.id}
-            className={`${(view?.gridView && product?.attributes?.isAvailable) && styles.productCard}
-        ${(view?.gridView && !product?.attributes?.isAvailable) && styles.notAvailable}
-        ${(view?.listView && product?.attributes?.isAvailable) && styles.productCardListStyle}
-        ${(view?.listView && !product?.attributes?.isAvailable) && styles.notAvailableList}
-        `}
-        >
-
+        <div key={product?.id} className={`${view?.gridView && styles.productCard} ${view?.listView && styles.productCardListStyle}`}>
+            {!product?.attributes?.isAvailable &&
+                <div className={styles.notification}>{view?.listView ? `Під замовлення (до 3-ох робочих днів)` : `Під замовлення`}</div>
+            }
             <div className={styles.imageWrapper}>
                 {
                     product?.attributes?.img?.data?.attributes?.url &&
-                    (product?.attributes?.isAvailable ?
-                        <Link className={styles.link} to={`/products/${product?.attributes?.url}/${product?.id}`}>
-                            < img src={product?.attributes?.img?.data?.attributes?.url} alt={product?.attributes?.name} />
-                        </Link >
-                        :
+
+                    <Link className={styles.link} to={`/products/${product?.attributes?.url}/${product?.id}`}>
                         < img src={product?.attributes?.img?.data?.attributes?.url} alt={product?.attributes?.name} />
-                    )
+                    </Link >
+
                 }
             </div >
 
             <div className={`${viewStyle?.gridView ? styles.textStyleGrid : styles.textStyleList}`}>
-                {(viewStyle?.listView && !product?.attributes?.isAvailable) &&
-                    <div className={styles.notAvailableMessage}>Немає в наявності</div>
-                }
-                {
-                    product?.attributes?.isAvailable ?
-                        <Link className={styles.link} to={`/products/${product?.attributes?.url}/${product?.id}`}>
-                            <p className={styles.productName}>{product?.attributes?.name}</p>
-                        </Link>
-                        :
-                        <p className={styles.productName}>{product?.attributes?.name}</p>
-                }
-                <p className={styles.chemistryType}>Тип препарату: {product?.attributes?.chemistries?.data?.[0]?.attributes?.name}</p>
-                <p className={styles.chemistryType}>Діюча речовина: діюча речовина</p>
-                <p className={styles.price}>Ціна: {product?.attributes?.price}₴</p>
-                {
-                    product?.attributes?.isAvailable ?
-                        (
-                            isInBacket ?
-                                <button className={styles.buyButtonAdded} onClick={() => handleBuyProduct()}>В корзині</button>
-                                :
-                                <button className={styles.buyButton} onClick={() => handleAddItem(product)}>Купити</button>)
-                        :
-                        <button className={styles.buyButton}>Купити</button>
 
+
+                <Link className={styles.link} to={`/products/${product?.attributes?.url}/${product?.id}`}>
+                    <p className={styles.productName}>{product?.attributes?.name}</p>
+                </Link>
+
+
+                <p className={styles.chemistryType}>Тип препарату: {product?.attributes?.chemistries?.data?.[0]?.attributes?.name}</p>
+                <p className={styles.chemistryType}>Діюча речовина: {product?.attributes?.Active_substance}</p>
+                <p className={styles.price}>Ціна: {product?.attributes?.price}$</p>
+                {
+                    isInBacket ?
+                        <button className={styles.buyButtonAdded} onClick={() => handleBuyProduct()}>В корзині</button>
+                        :
+                        <button className={styles.buyButton} onClick={() => handleAddItem(product)}>Купити</button>
                 }
             </div>
         </div >

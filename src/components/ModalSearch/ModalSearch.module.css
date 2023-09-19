@@ -1,0 +1,95 @@
+.wrapperOpened {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    transition: height 0.3s ease-in-out;
+}
+
+.wrapperClosed {
+    /* height: 0; */
+    /* overflow: hidden; */
+    display: none;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.closeModal {
+    height: 25px;
+    width: 25px;
+    margin-right: 16px;
+}
+
+.title {
+    font-size: 38px;
+    font-family: 'Merriweather', serif;
+    margin-top: 16px;
+    color: #742021;
+    text-align: start;
+    margin-left: 16px;
+}
+
+.searchContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid #742021;
+    margin-right: 16px;
+    margin-left: 16px;
+    margin-top: 16px;
+}
+
+.searchInput {
+    width: 300px;
+    padding: 0;
+    border: none;
+    background: none;
+    outline: none;
+    padding: 12px;
+    transition: width 0.3s, opacity 0.3s;
+
+    font-size: 16px;
+    font-family: 'Merriweather', serif;
+}
+
+.searchIcon {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 12px;
+}
+
+.searchButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-family: 'Merriweather', serif;
+    background-color: #742021;
+    border: none;
+    width: 150px;
+    height: 30px;
+    border-radius: 20px;
+    color: white;
+    font-size: 18px;
+    padding: 4px;
+    margin: 12px auto 0 auto;
+}
+
+.clearIcon {
+    cursor: pointer;
+    position: absolute;
+    right: 4px;
+    top: 16px;
+    height: 16px;
+    filter: invert(98%) sepia(1%) saturate(950%) hue-rotate(314deg) brightness(98%) contrast(69%);
+}

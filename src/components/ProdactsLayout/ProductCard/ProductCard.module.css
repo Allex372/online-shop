@@ -5,9 +5,11 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    position: relative;
 }
 
 .productCardListStyle {
+    position: relative;
     display: flex;
     width: 100%;
 }
@@ -167,6 +169,18 @@
 .link {
     text-decoration: none;
     color: black;
+}
+
+.notification {
+    position: absolute;
+    background-color: #742021;
+    border-radius: 10px;
+    color: white;
+    font-size: 12px;
+    font-family: 'Merriweather', serif;
+    padding: 4px;
+    right: 4px;
+    top: 4px;
 }
 
 @media screen and (max-width: 768px) {

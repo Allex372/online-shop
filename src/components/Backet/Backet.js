@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useBacket } from '../../context/BacketProvider';
 import { BacketItem } from './BacketItem/BacketItem';
 
@@ -8,7 +9,7 @@ import closeIcon from '../../images/close.png'
 
 export const Backet = () => {
     const backetContext = useBacket();
-    const { showBacket, handleOpenBacket, items, totalSum } = backetContext ? backetContext : {};
+    const { showBacket, handleOpenBacket, items, totalSum, itemsWithSum, clearBacket } = backetContext ? backetContext : {};
     const [isOffered, setIsOffered] = useState({
         preparedToOffer: true,
         readyToOffer: false,
@@ -23,13 +24,65 @@ export const Backet = () => {
     });
 
     const [formDataValid, setFormDataValid] = useState(false);
+    const [statusCode, setStatusCode] = useState(null);
 
     useEffect(() => {
+        const newIsOffered = {
+            preparedToOffer: true,
+            readyToOffer: false,
+            offered: false,
+        };
         if (isOffered.offered && formDataValid) {
-            handleOffered('preparedToOffer');
-            handleOpenBacket();
+            const orderData = {
+                fullName: formData.name,
+                phoneNumber: formData.phone,
+                email: formData.email,
+                address: formData.address,
+                products: [],
+                totalAmount: 0,
+            };
+
+
+            itemsWithSum.forEach((item) => {
+                const productItem = {
+                    id: item.id,
+                    productName: item.name,
+                    quantity: item.count ? item.count : 1,
+                    price: item.price,
+                    totalAmount: item.sum,
+                };
+                orderData.products.push(productItem);
+                orderData.totalAmount = totalSum;
+            });
+
+            // https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com
+            // const authToken = 'f2b4b4c902a5bfef18210081047d68b5adb75c6b5e429b980bf7f05177b50ab6901b328028c390978f35633cc68222d1a45d92b9cc4b9ec16c2fcfc1180cecd36a87af249a1391a2de880488bdce6054e9b98245e1843d55b757da78e76dd7bb9644ff49d9dfb2acf14d1cd67950b09466022064f4f1e3a20ca638ed6de1bbb1'
+            // axios.post('http://localhost:1337/api/orders', orderData, {
+            //     headers: {
+            //         Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN_LOCAL}`,
+            //     },
+            // })
+            axios.post('https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com/api/orders', orderData, {
+                headers: {
+                    Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN_HEROKU}`,
+                },
+            })
+                .then(response => {
+                    // Обробити відповідь сервера, якщо потрібно
+                    setStatusCode(response.data);
+                    setIsOffered(newIsOffered);
+                })
+                .catch(error => {
+                    // Обробити помилку, якщо потрібно
+                    console.error('Помилка відправки на сервер Strapi:', error);
+                    setIsOffered(newIsOffered);
+                });
         }
     }, [isOffered]);
+
+    useEffect(() => {
+        statusCode == 200 && clearBacket();
+    }, [statusCode])
 
     useEffect(() => {
         if (showBacket) {
@@ -67,8 +120,6 @@ export const Backet = () => {
         }
 
         setIsOffered(newIsOffered);
-
-
     };
 
     const handleChangeInput = (event) => {
@@ -79,11 +130,17 @@ export const Backet = () => {
         }));
     };
 
+    const handleClearStatusCode = () => {
+        const modal = document.getElementById('modal');
+        modal.scrollTo({ top: 0, behavior: 'smooth' })
+        setStatusCode(null);
+    }
+
     return (
         <>
             {showBacket && (
                 <div className={`${styles.container} ${styles.open}`}>
-                    <div className={styles.modal}>
+                    <div className={styles.modal} id='modal'>
                         <div className={styles.backetHeaderWrapper}>
                             <p>Корзина</p>
                             <div className={styles.closeBntIconWrapper} onClick={() => handleOpenBacket()}>
@@ -91,7 +148,7 @@ export const Backet = () => {
                             </div>
                         </div>
                         <div className={styles.itemWrapper}>
-                            <BacketItem items={items} />
+                            <BacketItem items={items} statusCode={statusCode} clearStatusCode={handleClearStatusCode} />
                         </div>
                         <div className={`${styles.offerFormWrapper} ${isOffered.readyToOffer && items?.length ? styles.openForm : ''}`}>
                             <p className={styles.offeredText}>Оформлення замовлення:</p>
@@ -166,7 +223,7 @@ export const Backet = () => {
                                         {
                                             isOffered.readyToOffer &&
                                             <button className={styles.orderBtn} onClick={() => handleOffered('offered')}>
-                                                Замовити
+                                                {isOffered.offered ? <div className={styles.spinner} /> : 'Замовити'}
                                             </button>
                                         }
 
