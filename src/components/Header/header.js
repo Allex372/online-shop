@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-// import { SortComponent, FilterComponent } from '../index';
 import { useBacket } from "../../context/BacketProvider";
-// import { useFilter } from "../../context/FilterProvider";
+import { useResult } from "../../context/SearchResultProvider";
 import { useSideBar } from "../../context/SideBarProvider";
 import { navigate } from "gatsby";
+import { ModalSearch } from "../ModalSearch/ModalSearch";
 
 import * as styles from './header.module.css';
 
@@ -14,13 +14,14 @@ import wa from '../../images/social/wa.svg';
 import backet from '../../images/purchase.png';
 import burger from '../../images/burger-bar.png';
 import close from '../../images/close.png';
+import searchIcon from '../../images/search.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export const Header = () => {
-  // const resultFilterContext = useFilter();
-  // const { cultureFilter, chemistryFilter, typeFilter } = resultFilterContext ? resultFilterContext : {};
+  const resultContext = useResult();
+  const { changeSearchResult, searchResult } = resultContext ? resultContext : {};
 
   const backetContext = useBacket();
   const { handleOpenBacket, items } = backetContext ? backetContext : {};
@@ -29,6 +30,7 @@ export const Header = () => {
   const { menuStatus, handleSideBar, setMenuStatus } = sideBarContext ? sideBarContext : {};
 
   const [currentPath, setCurrentPath] = useState('');
+  const [mobileSeacrhModal, setMobileSearchModal] = useState(false);
 
   const [style, setStyle] = useState(styles.menu);
 
@@ -52,6 +54,20 @@ export const Header = () => {
     navigate('/');
   }
 
+  const handleSearch = (e) => {
+    changeSearchResult(e.target.value);
+  }
+
+  const handleClearSearch = () => {
+    changeSearchResult('');
+  }
+
+  const handleSetResult = () => {
+    if (searchResult.length) {
+      navigate('/products');
+    }
+  }
+
   return (
     <>
       <header className={styles.wrapper}>
@@ -66,6 +82,58 @@ export const Header = () => {
         </div>
         <div className={styles.socialsWrapper}>
 
+          {
+            currentPath !== '/products/' &&
+            <div className={styles.searchContainer}>
+              <div>
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder="Шукати"
+                  onChange={(e) => handleSearch(e)}
+                  value={searchResult}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSetResult();
+                    }
+                  }}
+                />
+              </div>
+              {searchResult?.length > 0 ?
+                <>
+                  <div className={styles.searchButton} onClick={() => handleSetResult()}>
+                    <p>Шукати</p>
+                  </div>
+                  <img
+                    src={close}
+                    className={styles.clearIcon}
+                    alt="clear"
+                    onClick={() => handleClearSearch()}
+                  />
+                </>
+                :
+                <img
+                  src={searchIcon}
+                  className={styles.searchIcon}
+                  alt="Search Icon"
+                />
+              }
+            </div>
+          }
+
+          {
+            currentPath !== '/products/' &&
+            <div className={styles.mobileSearchIcon} onClick={() => setMobileSearchModal(true)}>
+              <img
+                src={searchIcon}
+                className={styles.searchIcon}
+                alt="Search Icon"
+              />
+            </div>
+          }
+
+          {mobileSeacrhModal && <ModalSearch setMobileSearchModal={setMobileSearchModal} />}
+
           <div className={styles.social}>
             <img alt="social" src={tg} />
           </div>
@@ -78,12 +146,12 @@ export const Header = () => {
             <img alt="social" src={wa} />
           </div>
 
-          <button className={styles.btnCall}>Зателефонувати</button>
-          <div className={styles.iconPhoneWrapper}>
+          <button className={styles.btnCall}>
             <a href="tel:+380000000" target="_blank" rel="noreferrer">
               <FontAwesomeIcon icon={faPhone} size="lg" className={styles.iconPhone} />
             </a>
-          </div>
+            Зателефонувати
+          </button>
 
           <div className={styles.backet} onClick={() => handleOpenBacket()}>
             <img alt="backet" src={backet} />

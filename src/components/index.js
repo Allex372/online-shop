@@ -8,3 +8,4 @@ export * from './ProdactsLayout';
 export * from './FilterComponent';
 export * from './SortComponent';
 export * from './Backet';
+export * from './Footer';

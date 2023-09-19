@@ -123,12 +123,12 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                         <label className={styles.checkboxWrapper}>
                             <input
                                 type="checkbox"
-                                name="пшениця"
+                                name="зернові (пшениця, ячмінь)"
                                 className={styles.checkboxColor}
-                                checked={selectedCrop === 'пшениця' || cultureFilter === 'пшениця' || culture === 'пшениця'}
+                                checked={selectedCrop == 'зернові (пшениця, ячмінь)' || cultureFilter == 'зернові (пшениця, ячмінь)' || culture == 'зернові (пшениця, ячмінь)'}
                                 onChange={handleCropChange}
                             />
-                            <p>Пшениця</p>
+                            <p>Зернові (пшениця, ячмінь)</p>
                         </label>
                         <label className={styles.checkboxWrapper}>
                             <input
@@ -143,7 +143,7 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                             <input
                                 type="checkbox"
                                 name="соя"
-                                checked={selectedCrop === 'соя' || cultureFilter === 'соя' || culture === 'соя'}
+                                checked={selectedCrop == 'соя' || cultureFilter == 'соя' || culture == 'соя'}
                                 onChange={handleCropChange}
                             />
                             <p>Соя</p>
@@ -151,17 +151,17 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                         <label className={styles.checkboxWrapper}>
                             <input
                                 type="checkbox"
-                                name="яблуко"
-                                checked={selectedCrop === 'яблуко' || cultureFilter === 'яблуко' || culture === 'яблуко'}
+                                name="cади, ягоди"
+                                checked={selectedCrop == 'cади, ягоди' || cultureFilter == 'cади, ягоди' || culture == 'cади, ягоди'}
                                 onChange={handleCropChange}
                             />
-                            <p>Яблуко</p>
+                            <p>Сади, ягоди</p>
                         </label>
                         <label className={styles.checkboxWrapper}>
                             <input
                                 type="checkbox"
                                 name="ріпак"
-                                checked={selectedCrop === 'ріпак' || cultureFilter === 'ріпак' || culture === 'ріпак'}
+                                checked={selectedCrop == 'ріпак' || cultureFilter == 'ріпак' || culture == 'ріпак'}
                                 onChange={handleCropChange}
                             />
                             <p>Ріпак</p>
@@ -169,11 +169,38 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                         <label className={styles.checkboxWrapper}>
                             <input
                                 type="checkbox"
-                                name="помідори"
-                                checked={selectedCrop === 'помідори' || cultureFilter === 'помідори' || culture === 'помідори'}
+                                name="овочі"
+                                checked={selectedCrop == 'овочі' || cultureFilter == 'овочі' || culture == 'овочі'}
                                 onChange={handleCropChange}
                             />
-                            <p>Помідори</p>
+                            <p>Овочі</p>
+                        </label>
+                        <label className={styles.checkboxWrapper}>
+                            <input
+                                type="checkbox"
+                                name="картопля"
+                                checked={selectedCrop == 'картопля' || cultureFilter == 'картопля' || culture == 'картопля'}
+                                onChange={handleCropChange}
+                            />
+                            <p>Картопля</p>
+                        </label>
+                        <label className={styles.checkboxWrapper}>
+                            <input
+                                type="checkbox"
+                                name="кукурудза"
+                                checked={selectedCrop == 'кукурудза' || cultureFilter == 'кукурудза' || culture == 'кукурудза'}
+                                onChange={handleCropChange}
+                            />
+                            <p>Кукурудза</p>
+                        </label>
+                        <label className={styles.checkboxWrapper}>
+                            <input
+                                type="checkbox"
+                                name="буряки цукрові"
+                                checked={selectedCrop == 'буряки цукрові' || cultureFilter == 'буряки цукрові' || culture == 'буряки цукрові'}
+                                onChange={handleCropChange}
+                            />
+                            <p>Буряки цукрові</p>
                         </label>
                         <div className={styles.buttonWrapper}>
                             <button className={styles.resetButton} onClick={() => handleResetCulture()}>Скинути</button>
@@ -240,11 +267,11 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                         <label className={styles.checkboxWrapper}>
                             <input
                                 type="checkbox"
-                                name="ад'юванти"
-                                checked={selectedChemistryState === "ад'юванти" || chemistryFilter === "ад'юванти" || chemistry?.toLowerCase() === "ад'юванти"}
+                                name="Прилипачі (ад'юванти)"
+                                checked={selectedChemistryState === "Прилипачі (ад'юванти)" || chemistryFilter === "Прилипачі (ад'юванти)" || chemistry?.toLowerCase() === "Прилипачі (ад'юванти)"}
                                 onChange={handleTypeChemistryChange}
                             />
-                            <p>Ад`юванти</p>
+                            <p>Прилипачі (ад'юванти)</p>
                         </label>
                         <label className={styles.checkboxWrapper}>
                             <input
@@ -255,6 +282,16 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                             />
                             <p>Добрива</p>
                         </label>
+                        <label className={styles.checkboxWrapper}>
+                            <input
+                                type="checkbox"
+                                name="Стимулятори росту, мікродобрива"
+                                checked={selectedChemistryState === 'Стимулятори росту, мікродобрива' || chemistryFilter === 'Стимулятори росту, мікродобрива' || chemistry === 'Стимулятори росту, мікродобрива'}
+                                onChange={handleTypeChemistryChange}
+                            />
+                            <p>Стимулятори росту, мікродобрива</p>
+                        </label>
+
                         <div className={styles.buttonWrapper}>
                             <button className={styles.resetButton} onClick={() => handleResetChemistry()}>Скинути</button>
                         </div>

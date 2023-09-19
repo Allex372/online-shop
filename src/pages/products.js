@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { graphql, useStaticQuery } from "gatsby";
 
 import Seo from "../components/Seo/seo";
-import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, Backet } from '../components';
+import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, Backet, Footer } from '../components';
 import { FiltersModal } from "../components/FiltersModal";
 import { useResult } from "../context/SearchResultProvider";
 import { useFilter } from "../context/FilterProvider";
@@ -36,6 +36,7 @@ const ProductsPage = () => {
                                     }
                                 }
                             }
+                            Active_substance
                             url
                             name
                             chemistries{
@@ -73,12 +74,10 @@ const ProductsPage = () => {
 
     const Products = data?.rest?.products?.data;
 
-    // console.log(Products);
-
     const filteredElements = Products?.filter((el) => {
-        const isChemistryMatch = !chemistryFilter || el?.attributes?.chemistries?.data?.[0]?.attributes?.name === chemistryFilter.toLowerCase();
+        const isChemistryMatch = !chemistryFilter || el?.attributes?.chemistries?.data?.[0]?.attributes?.name.toLowerCase() === chemistryFilter.toLowerCase();
         const isTypeMatch = !typeFilter || el?.attributes?.sizes?.data?.[0]?.attributes?.name === typeFilter;
-        const isCultureMatch = !cultureFilter || el?.attributes?.cultures?.data.some(culture => culture?.attributes?.name === cultureFilter.toLowerCase());
+        const isCultureMatch = !cultureFilter || el?.attributes?.cultures?.data.some(culture => culture?.attributes?.name.toLowerCase() === cultureFilter.toLowerCase());
         const isAvailableMatch = !sortOptions?.availability || el?.attributes?.isAvailable === sortOptions?.availability;
 
         return isChemistryMatch && isTypeMatch && isCultureMatch && isAvailableMatch;
@@ -86,11 +85,12 @@ const ProductsPage = () => {
 
     const searchedElements = searchResult
         ? filteredElements.filter((el) =>
-            el?.attributes?.name?.toLowerCase().includes(searchResult.toLowerCase()) ||
-            el?.attributes?.description?.toLowerCase().includes(searchResult.toLowerCase()) ||
-            el?.attributes?.cultures?.data?.some(culture => culture?.attributes?.name.toLowerCase().includes(searchResult.toLowerCase())) ||
-            el?.attributes?.chemistry?.toLowerCase().includes(searchResult.toLowerCase()) ||
-            el?.attributes?.size?.toLowerCase().includes(searchResult.toLowerCase())
+            el?.attributes?.name?.toLowerCase().includes(searchResult?.toLowerCase()) ||
+            el?.attributes?.Active_substance?.toLowerCase().includes(searchResult?.toLowerCase()) ||
+            el?.attributes?.description?.toLowerCase().includes(searchResult?.toLowerCase()) ||
+            el?.attributes?.cultures?.data?.some(culture => culture?.attributes?.name.toLowerCase().includes(searchResult?.toLowerCase())) ||
+            el?.attributes?.chemistries?.data?.some(culture => culture?.attributes?.name.toLowerCase().includes(searchResult?.toLowerCase())) ||
+            el?.attributes?.sizes?.data?.some(culture => culture?.attributes?.name.toLowerCase().includes(searchResult?.toLowerCase()))
         )
         : filteredElements;
 
@@ -133,47 +133,50 @@ const ProductsPage = () => {
     }, [cultureFilter, chemistryFilter, typeFilter, sortOptions, searchResult]);
 
     return (
-        <Layout>
-            <Backet />
-            <FiltersModal isOpen={openFilterModal} result={searchedElements?.length} />
-            <div className={styles.wrapper}>
-                <ProductHeaderFilters result={searchedElements.length} />
-                <div className={styles.flexColumnWrapper}>
-                    <div className={styles.mainWrapper}>
-                        <div className={styles.filterWrapper}>
-                            <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} resultLength={searchedElements.length} />
-                        </div>
+        <>
+            <Layout>
+                <Backet />
+                <FiltersModal isOpen={openFilterModal} result={searchedElements?.length} />
+                <div className={styles.wrapper}>
+                    <ProductHeaderFilters result={searchedElements.length} />
+                    <div className={styles.flexColumnWrapper}>
+                        <div className={styles.mainWrapper}>
+                            <div className={styles.filterWrapper}>
+                                <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} resultLength={searchedElements.length} />
+                            </div>
 
-                        <ProductsLayout array={searchedElements.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} viewStyle={viewOptions} />
-                        <div className={styles.sortWrapper}>
-                            {/* <SortComponent /> */}
+                            <ProductsLayout array={searchedElements.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} viewStyle={viewOptions} />
+                            <div className={styles.sortWrapper}>
+                                {/* <SortComponent /> */}
+                            </div>
                         </div>
-                    </div>
-                    {/* Пагінація */}
-                    <div className={styles.paginationWrapper}>
-                        {currentPage > 1 && (
-                            <div onClick={() => handlePageChange(currentPage - 1)} className={styles.paginationButton}>
-                                <img src={arrow} alt='arrow' />
-                            </div>
-                        )}
-                        {getDisplayedPages().map((page, index) => (
-                            <button
-                                key={index}
-                                onClick={() => handlePageChange(page)}
-                                className={`${styles.paginationButton} ${page === currentPage ? styles.active : ''}`}
-                            >
-                                {page}
-                            </button>
-                        ))}
-                        {currentPage < totalPages && (
-                            <div onClick={() => handlePageChange(currentPage + 1)} className={styles.paginationButton}>
-                                <img src={arrow} alt='arrow' />
-                            </div>
-                        )}
+                        {/* Пагінація */}
+                        <div className={styles.paginationWrapper}>
+                            {currentPage > 1 && (
+                                <div onClick={() => handlePageChange(currentPage - 1)} className={styles.paginationButton}>
+                                    <img src={arrow} alt='arrow' />
+                                </div>
+                            )}
+                            {getDisplayedPages().map((page, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handlePageChange(page)}
+                                    className={`${styles.paginationButton} ${page === currentPage ? styles.active : ''}`}
+                                >
+                                    {page}
+                                </button>
+                            ))}
+                            {currentPage < totalPages && (
+                                <div onClick={() => handlePageChange(currentPage + 1)} className={styles.paginationButton}>
+                                    <img src={arrow} alt='arrow' />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Layout>
+            </Layout>
+            <Footer />
+        </>
     )
 }
 

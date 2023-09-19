@@ -16,11 +16,12 @@
     padding: 8px;
     border-radius: 10px;
     border: 1px solid #742021;
+    /* max-width: 130px; */
 }
 
-.imageWrapper {
+/* .imageWrapper {
     height: 56px;
-}
+} */
 
 .imageWrapper img {
     height: 100%;
@@ -91,6 +92,7 @@
 
     .elemWrapper {
         border: none;
+        height: 180px;
     }
 
     .sliderСontroler .swiperButtonNext {

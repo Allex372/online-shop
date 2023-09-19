@@ -36,7 +36,6 @@
 
 .imageWrapper img:hover {
     transform: scale(1.2);
-    filter: hue-rotate(180deg);
     opacity: 0.8;
     transition: all 0.3s ease-in-out;
 }
@@ -65,8 +64,6 @@
     .swiperSlide {
         text-align: center;
         font-size: 18px;
-        background: #fff;
-
         /* Center slide text vertically */
         display: flex;
         justify-content: center;

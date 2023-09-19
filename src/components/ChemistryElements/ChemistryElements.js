@@ -7,8 +7,13 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, EffectCoverflow, Navigation } from 'swiper/modules';
 
+import adiuvant from '../../images/chemistry-elements/adiuvant.svg';
+import desuc from '../../images/chemistry-elements/desuc.svg';
+import dobruv from '../../images/chemistry-elements/dobruv.svg';
+import fung from '../../images/chemistry-elements/fung.svg';
 import insect from '../../images/chemistry-elements/insect.svg';
 import gerb from '../../images/chemistry-elements/gerb.svg';
+import protrui from '../../images/chemistry-elements/protrui.svg';
 
 import * as styles from './ChemistryElements.module.css';
 
@@ -16,44 +21,42 @@ const ChemistryArray = [
     {
         id: 1,
         name: 'Гербіциди',
-        // linkTo: 'gerbicydy',
-        img: insect,
+        img: gerb,
     },
     {
         id: 2,
         name: 'Фунгіциди',
-        // linkTo: 'fungicydy',
-        img: gerb,
+        img: fung,
     },
     {
         id: 3,
         name: 'Інсектециди',
-        // linkTo: 'inectecydy',
         img: insect,
     },
     {
         id: 4,
         name: 'Протруйники',
-        // linkTo: 'protruinyky',
-        img: insect,
+        img: protrui,
     },
     {
         id: 5,
         name: 'Десиканти',
-        // linkTo: 'desucanty',
-        img: insect,
+        img: desuc,
     },
     {
         id: 6,
-        name: "Ад'юванти",
-        // linkTo: 'adiuvanty',
-        img: insect,
+        name: "Прилипачі (ад'юванти)",
+        img: adiuvant,
     },
     {
         id: 7,
         name: 'Добрива',
-        // linkTo: 'dobryva',
-        img: insect,
+        img: dobruv,
+    },
+    {
+        id: 7,
+        name: 'Стимулятори росту, мікродобрива',
+        img: dobruv,
     },
 ]
 
