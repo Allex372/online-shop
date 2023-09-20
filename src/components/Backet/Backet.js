@@ -64,7 +64,7 @@ export const Backet = () => {
             // })
             axios.post('https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com/api/orders', orderData, {
                 headers: {
-                    Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN_HEROKU}`,
+                    Authorization: `Bearer ${process.env.API_KEY}`,
                 },
             })
                 .then(response => {
