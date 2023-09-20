@@ -32,6 +32,7 @@ export const Footer = () => {
                     Зателефонувати
                 </button>
                 <p>agrozakhyst.vovk@gmail.com</p>
+                {/* <p className={styles.dillers}>Виробники: argohumtech</p> */}
             </div>
         </div>
     )
