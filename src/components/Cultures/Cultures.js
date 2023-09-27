@@ -15,6 +15,9 @@ import ріпак from '../../images/cultures/ріпак_1.svg';
 import соняшник from '../../images/cultures/соняшник.svg';
 import соя from '../../images/cultures/соя.svg';
 import яблуко from '../../images/cultures/яблуко_1.svg';
+import буряк from '../../images/cultures/Буряк.svg';
+import картопля from '../../images/cultures/картопля.svg';
+import кукурудза from '../../images/cultures/кукурудза.svg';
 
 import * as styles from './Culture.module.css';
 
@@ -54,17 +57,17 @@ const CultureArray = [
     {
         id: 7,
         name: 'картопля',
-        img: помідор,
+        img: картопля,
     },
     {
         id: 8,
         name: 'кукурудза',
-        img: помідор,
+        img: кукурудза,
     },
     {
         id: 9,
         name: 'буряки цукрові',
-        img: помідор,
+        img: буряк,
     }
 ]
 

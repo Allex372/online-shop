@@ -4,6 +4,9 @@ import { Layout, Backet } from "../components";
 import { useBacket } from "../context/BacketProvider";
 import { navigate } from 'gatsby';
 import { StaticImage } from "gatsby-plugin-image";
+import { ImageModal } from "../components";
+import closeIcon from '../images/close.png';
+
 
 import * as styles from './single-product.module.css';
 
@@ -17,10 +20,10 @@ const SingleProduct = ({ data }) => {
         description,
         cultures,
         img,
-        // chemistry,
-        // size,
+        isAvailable,
         Active_substance,
-        price
+        price,
+        Table
     } = productData
 
     const productImg = img?.data?.attributes?.url;
@@ -29,6 +32,9 @@ const SingleProduct = ({ data }) => {
     const { addItemToBacket, items, handleOpenBacket } = backetContext ? backetContext : {};
 
     const [isInBacket, setIsInBacket] = useState(null);
+    const [openImageModal, setOpenImageModal] = useState(null);
+
+    const Currencie = data?.rest?.currencies?.data[0]?.attributes.value;
 
     const handleAddItem = (currentProduct, id) => {
         currentProduct.id = id;
@@ -48,7 +54,6 @@ const SingleProduct = ({ data }) => {
         handleOpenBacket();
     }
 
-
     return (
         <Layout>
             <Backet />
@@ -58,7 +63,10 @@ const SingleProduct = ({ data }) => {
                 </div>
                 <div className={styles.infoWrapper}>
                     <div className={styles.imgWrapper}>
-                        <p className={styles.productName}>{name}</p>
+                        <div className={styles.titleWrapper}>
+                            <p className={styles.productName}>{name}</p>
+                            {!isAvailable && <p className={styles.notAvailable}>Під замовлення (до 3-ох робочих днів)</p>}
+                        </div>
                         <img src={productImg} alt='bottle' />
                         {isInBacket ?
                             <button className={styles.buyButtonAdded} onClick={() => handleClickButtonBuy()}>В корзині</button>
@@ -76,12 +84,8 @@ const SingleProduct = ({ data }) => {
                             <span>{Active_substance}</span>
                         </p>
 
-                        {/* <p className={styles.descriptionText}>Препаративна форма:
-                            <span>Текучий концентрат для обробки насіння</span>
-                        </p> */}
-
                         <p className={styles.descriptionText}>Ціна:
-                            <span>{price}₴</span>
+                            <span>{(+price * Currencie).toFixed(2)} грн</span>
                         </p>
 
                         <p className={styles.descriptionText}>Типи культур:
@@ -105,7 +109,24 @@ const SingleProduct = ({ data }) => {
                     </ul>
                 </div>
 
+                {
+                    Table?.data &&
+                    <div className={styles.use}>
+                        <p className={styles.useTitle}>Регламент застосування</p>
+                        <img
+                            src={Table?.data?.attributes?.url}
+                            alt='Регламент застосування'
+                            className={styles.tableImg}
+                            onClick={() => setOpenImageModal(true)} />
+                    </div>
+                }
+
             </div >
+            <ImageModal isOpen={openImageModal} data={Table?.data?.attributes?.url}>
+                <div className={styles.closeBtnWrapper} onClick={() => setOpenImageModal(false)}>
+                    <img src={closeIcon} alt='Закрити' className={styles.closeIcon} />
+                </div>
+            </ImageModal >
         </Layout>
     )
 }
@@ -120,6 +141,15 @@ export default SingleProduct;
 
 export const query = graphql`
   query($url: String) {
+        rest {
+                currencies {
+                    data {
+                        attributes {
+                            value
+                        }
+                    }
+                }
+            }
       rest {
         products(filters: {url: {eq: $url}}) {
             data {
@@ -137,6 +167,7 @@ export const query = graphql`
                         }
                     }
                 createdAt
+                isAvailable
                 cultures {
                     data {
                         attributes {
@@ -163,6 +194,13 @@ export const query = graphql`
                         }
                     }
                 updatedAt
+                Table {
+                        data {
+                            attributes {
+                                url
+                            }
+                        }
+                    }
                 }
             }
         }

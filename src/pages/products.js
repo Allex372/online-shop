@@ -51,6 +51,7 @@ const ProductsPage = () => {
                             description
                             isAvailable
                             price
+                            showProduct
                             sizes{
                                 data {
                                     attributes {
@@ -78,9 +79,8 @@ const ProductsPage = () => {
         const isChemistryMatch = !chemistryFilter || el?.attributes?.chemistries?.data?.[0]?.attributes?.name.toLowerCase() === chemistryFilter.toLowerCase();
         const isTypeMatch = !typeFilter || el?.attributes?.sizes?.data?.[0]?.attributes?.name === typeFilter;
         const isCultureMatch = !cultureFilter || el?.attributes?.cultures?.data.some(culture => culture?.attributes?.name.toLowerCase() === cultureFilter.toLowerCase());
-        const isAvailableMatch = !sortOptions?.availability || el?.attributes?.isAvailable === sortOptions?.availability;
 
-        return isChemistryMatch && isTypeMatch && isCultureMatch && isAvailableMatch;
+        return isChemistryMatch && isTypeMatch && isCultureMatch;
     });
 
     const searchedElements = searchResult
@@ -93,6 +93,18 @@ const ProductsPage = () => {
             el?.attributes?.sizes?.data?.some(culture => culture?.attributes?.name.toLowerCase().includes(searchResult?.toLowerCase()))
         )
         : filteredElements;
+
+    searchedElements.sort((a, b) => {
+        const isAvailableA = a?.attributes?.isAvailable || false;
+        const isAvailableB = b?.attributes?.isAvailable || false;
+
+        if (isAvailableA && !isAvailableB) {
+            return -1;
+        } else if (!isAvailableA && isAvailableB) {
+            return 1;
+        }
+        return 0;
+    });
 
     // Параметри пагінації
     const itemsPerPage = 6; // Кількість елементів на одній сторінці

@@ -1,0 +1,115 @@
+.container {
+    background: white;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    visibility: hidden;
+    transition: all 0.25s ease;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    z-index: -1;
+}
+
+.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    position: absolute;
+    z-index: 2;
+    width: 90%;
+    height: 90%;
+    visibility: visible;
+    transition: all 0.25s ease;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    border-radius: 20px;
+}
+
+.imgWrapper {
+    width: 100%;
+    overflow: auto;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.imgTable {
+    width: 100%;
+    /* padding-left: 8px;
+    padding-right: 8px; */
+}
+
+.dNone {
+    display: none;
+}
+
+.bodyNoScroll {
+    overflow: hidden;
+}
+
+.bodyGrey {
+    background-color: gray;
+}
+
+.phoneWrapper {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 36px;
+    margin-bottom: 16px;
+}
+
+.phone {
+    height: 50px;
+    width: 100px;
+    border: 3px solid black;
+    border-radius: 10px;
+    animation: rotate 1.5s ease-in-out infinite alternate;
+    /* display: none; */
+}
+
+.message {
+    color: #742021;
+    font-size: 1em;
+    margin-top: 40px;
+    /* display: none; */
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    50% {
+        transform: rotate(-90deg)
+    }
+
+    100% {
+        transform: rotate(-90deg)
+    }
+}
+
+@media screen and (max-width: 812px) {
+    .phoneWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 36px;
+        margin-bottom: 16px;
+    }
+
+}
+
+@media only screen and (max-device-width: 812px) and (orientation: landscape) {
+
+    .phone,
+    .message {
+        display: block;
+    }
+}
