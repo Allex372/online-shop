@@ -56,17 +56,17 @@ export const Backet = () => {
             });
 
             // https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com
-            // const authToken = 'f2b4b4c902a5bfef18210081047d68b5adb75c6b5e429b980bf7f05177b50ab6901b328028c390978f35633cc68222d1a45d92b9cc4b9ec16c2fcfc1180cecd36a87af249a1391a2de880488bdce6054e9b98245e1843d55b757da78e76dd7bb9644ff49d9dfb2acf14d1cd67950b09466022064f4f1e3a20ca638ed6de1bbb1'
-            // axios.post('http://localhost:1337/api/orders', orderData, {
-            //     headers: {
-            //         Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN_LOCAL}`,
-            //     },
-            // })
-            axios.post('https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com/api/orders', orderData, {
+            const authToken = 'f2b4b4c902a5bfef18210081047d68b5adb75c6b5e429b980bf7f05177b50ab6901b328028c390978f35633cc68222d1a45d92b9cc4b9ec16c2fcfc1180cecd36a87af249a1391a2de880488bdce6054e9b98245e1843d55b757da78e76dd7bb9644ff49d9dfb2acf14d1cd67950b09466022064f4f1e3a20ca638ed6de1bbb1'
+            axios.post('http://localhost:1337/api/orders', orderData, {
                 headers: {
-                    Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN_HEROKU}`,
+                    Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN_LOCAL}`,
                 },
             })
+                // axios.post('https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com/api/orders', orderData, {
+                //     headers: {
+                //         Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN_HEROKU}`,
+                //     },
+                // })
                 .then(response => {
                     // Обробити відповідь сервера, якщо потрібно
                     setStatusCode(response.data);

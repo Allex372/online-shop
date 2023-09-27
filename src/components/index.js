@@ -9,3 +9,4 @@ export * from './FilterComponent';
 export * from './SortComponent';
 export * from './Backet';
 export * from './Footer';
+export * from './ImageModal';

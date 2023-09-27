@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ProductCard } from './ProductCard';
 
 import * as styles from './ProductsLayout.module.css'

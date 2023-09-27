@@ -31,8 +31,10 @@ export const Footer = () => {
                     </a>
                     Зателефонувати
                 </button>
-                <p>agrozakhyst.vovk@gmail.com</p>
-                {/* <p className={styles.dillers}>Виробники: argohumtech</p> */}
+                <p className={styles.email}>agrozakhyst.vovk@gmail.com</p>
+                <p className={styles.dillers}>Виробники:
+                    <a href="https://agrohimteh.com.ua/" className={styles.link} target='blank'> Агрохімічні технології</a>
+                </p>
             </div>
         </div>
     )

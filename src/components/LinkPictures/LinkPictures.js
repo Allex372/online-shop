@@ -12,28 +12,21 @@ export const LinkPictures = () => {
                 <Link
                     className={styles.image1}
                     to="/products"
-                    onClick={() => changeTypeFilter('присадибне')}
+                    onClick={() => changeTypeFilter('фермерське')}
                 >
-                    {/* <div className={styles.image1}> */}
                     <div className={styles.viewMoreOne}>
-
-                        <p className={styles.title}>Присадибне</p>
+                        <p className={styles.title}>Фермерське</p>
                         <p className={styles.text}>Дивитися детальніше</p>
-
-
-                        {/* </div> */}
                     </div>
                 </Link>
                 <Link
                     className={styles.image2}
                     to="/products"
-                    onClick={() => changeTypeFilter('фермерське')}
+                    onClick={() => changeTypeFilter('присадибне')}
                 >
                     <div className={styles.viewMoreMany}>
-
-                        <p className={styles.title}>Фермерське</p>
+                        <p className={styles.title}>Присадибне</p>
                         <p className={styles.text}>Дивитися детальніше</p>
-
                     </div>
                 </Link>
             </div>

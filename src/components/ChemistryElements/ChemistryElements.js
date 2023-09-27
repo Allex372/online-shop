@@ -14,6 +14,7 @@ import fung from '../../images/chemistry-elements/fung.svg';
 import insect from '../../images/chemistry-elements/insect.svg';
 import gerb from '../../images/chemistry-elements/gerb.svg';
 import protrui from '../../images/chemistry-elements/protrui.svg';
+import stimul from '../../images/chemistry-elements/Стимулятори-росту.svg';
 
 import * as styles from './ChemistryElements.module.css';
 
@@ -56,7 +57,7 @@ const ChemistryArray = [
     {
         id: 7,
         name: 'Стимулятори росту, мікродобрива',
-        img: dobruv,
+        img: stimul,
     },
 ]
 
