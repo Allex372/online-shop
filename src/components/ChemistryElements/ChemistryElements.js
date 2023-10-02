@@ -31,7 +31,7 @@ const ChemistryArray = [
     },
     {
         id: 3,
-        name: 'Інсектециди',
+        name: 'Інсектициди',
         img: insect,
     },
     {
