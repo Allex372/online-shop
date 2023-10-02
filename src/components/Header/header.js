@@ -71,12 +71,12 @@ export const Header = () => {
   return (
     <>
       <header className={styles.wrapper}>
-        {
+        {/* {
           currentPath.includes("/products/") &&
           <div className={styles.burgerMenu} onClick={() => handleSideBar()}>
             <img src={menuStatus ? close : burger} alt='burger' />
           </div>
-        }
+        } */}
         <div className={styles.logoWrapper} onClick={() => handleLogoClick()}>
           <img alt='logo' src={logo} />
         </div>

@@ -95,7 +95,7 @@
     }
 }
 
-@media screen and (max-width: 749px) {
+@media screen and (max-width: 557px) {
     .phoneWrapper {
         display: flex;
         flex-direction: column;
@@ -105,7 +105,7 @@
     }
 }
 
-@media only screen and (max-width: 749px) and (orientation: landscape) {
+@media only screen and (max-width: 557px) and (orientation: landscape) {
 
     .phone,
     .message {
