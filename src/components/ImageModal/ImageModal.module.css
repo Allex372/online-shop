@@ -95,7 +95,7 @@
     }
 }
 
-@media screen and (max-width: 812px) {
+@media screen and (max-width: 557px) {
     .phoneWrapper {
         display: flex;
         flex-direction: column;
@@ -103,10 +103,9 @@
         margin-top: 36px;
         margin-bottom: 16px;
     }
-
 }
 
-@media only screen and (max-device-width: 812px) and (orientation: landscape) {
+@media only screen and (max-width: 557px) and (orientation: landscape) {
 
     .phone,
     .message {
