@@ -240,11 +240,11 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                         <label className={styles.checkboxWrapper}>
                             <input
                                 type="checkbox"
-                                name="інсектециди"
-                                checked={selectedChemistryState === 'інсектециди' || chemistryFilter === 'інсектециди' || chemistry?.toLowerCase() === 'інсектециди'}
+                                name="інсектициди"
+                                checked={selectedChemistryState === 'інсектициди' || chemistryFilter === 'інсектициди' || chemistry?.toLowerCase() === 'інсектициди'}
                                 onChange={handleTypeChemistryChange}
                             />
-                            <p>Інсектециди</p>
+                            <p>Інсектициди</p>
                         </label>
                         <label className={styles.checkboxWrapper}>
                             <input
