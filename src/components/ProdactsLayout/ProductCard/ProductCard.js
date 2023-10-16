@@ -33,6 +33,16 @@ export const ProductCard = ({ product, viewStyle }) => {
 
     const Currencie = data?.rest?.currencies?.data[0]?.attributes.value;
 
+    const handleChangeName = (name) => {
+        console.log(name);
+        if (name === 'Гербіциди') return 'Гербіцид';
+        if (name === 'Фунгіциди') return 'Фунгіцид';
+        if (name === 'Інсектециди') return 'Інсектецид';
+        if (name === 'Протруйники') return 'Протруйник';
+        if (name === 'Десиканти') return 'Десикант';
+        if (name === 'Десиканти') return 'Десикант';
+    }
+
     const handleAddItem = (currentProduct) => {
         currentProduct.attributes.id = currentProduct.id;
         addItemToBacket(currentProduct.attributes);
@@ -78,7 +88,7 @@ export const ProductCard = ({ product, viewStyle }) => {
                         </Link>
 
 
-                        <p className={styles.chemistryType}>{product?.attributes?.chemistries?.data?.[0]?.attributes?.name}</p>
+                        <p className={styles.chemistryType}>{handleChangeName(product?.attributes?.chemistries?.data?.[0]?.attributes?.name)}</p>
                         <p className={styles.chemistryType}>Діюча речовина: {product?.attributes?.Active_substance}</p>
                         <p className={styles.price}>Ціна: {(+product?.attributes?.price * Currencie).toFixed(2)} грн</p>
                         {
