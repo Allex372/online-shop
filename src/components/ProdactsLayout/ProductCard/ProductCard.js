@@ -78,7 +78,7 @@ export const ProductCard = ({ product, viewStyle }) => {
                         </Link>
 
 
-                        <p className={styles.chemistryType}>Тип препарату: {product?.attributes?.chemistries?.data?.[0]?.attributes?.name}</p>
+                        <p className={styles.chemistryType}>{product?.attributes?.chemistries?.data?.[0]?.attributes?.name}</p>
                         <p className={styles.chemistryType}>Діюча речовина: {product?.attributes?.Active_substance}</p>
                         <p className={styles.price}>Ціна: {(+product?.attributes?.price * Currencie).toFixed(2)} грн</p>
                         {
