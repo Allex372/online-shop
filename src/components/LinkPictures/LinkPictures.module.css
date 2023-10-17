@@ -6,163 +6,144 @@
 .imageWrapper {
     display: flex;
     width: 100%;
-    height: 500px;
-}
-
-.image1 {
-    width: 50%;
-    transition: width 0.5s;
-    z-index: 1;
+    justify-content: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
     position: relative;
-    background-image: url('../../images/one.png');
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
-.linkedText {
+.fermerBtn,
+.oneBtn {
     text-decoration: none;
 }
 
-.image2 {
-    width: 50%;
-    transition: width 0.5s;
-    z-index: 1;
-    position: relative;
-    background-image: url('../../images/many.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: right;
-}
+.fermerBtn {
 
-.image1:hover {
-    width: 450%;
-    z-index: 2;
-}
+    width: 290px;
+    display: inline-flex;
+    padding: 8px 0px 8px 0px;
+    justify-content: center;
+    align-items: center;
+    font-family: Merriweather;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #742021;
 
-.image2:hover {
-    width: 450%;
-    z-index: 2;
-}
+    border-radius: 10px;
+    border: 1px solid #742021;
 
-.title {
-    font-family: 'Merriweather', serif;
-    font-size: 50px;
-}
-
-.text {
-    font-family: 'Merriweather', serif;
-    font-size: 18px;
-    text-decoration: underline;
-}
-
-.viewMoreOne,
-.viewMoreMany {
-    /* text-align: center; */
+    background: #FFF;
     cursor: pointer;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    transition: color 0.3s, background-color 0.3s;
 }
 
-.viewMoreOne .linkedText {
-    text-align: left;
+.fermerBtn:hover {
+    color: #FFF;
+    background-color: #742021;
 }
 
-.viewMoreOne .text {
-    color: #F3EF83;
+.oneBtn {
+    width: 290px;
+    display: inline-flex;
+    padding: 8px 0px 8px 0px;
+    justify-content: center;
+    align-items: center;
+    font-family: Merriweather;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #FFF;
+
+    border-radius: 10px;
+    border: 1px solid #000;
+
+    background: #742021;
+    cursor: pointer;
+
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-left: 58px;
+    transition: color 0.3s, background-color 0.3s;
 }
 
-.viewMoreOne .title {
-    color: #F3EF83;
+.oneBtn:hover {
+    color: #742021;
+    background-color: #fff;
 }
 
-.viewMoreMany .text {
-    color: white;
-}
-
-.viewMoreMany .title {
-    color: white;
-}
-
-.viewMoreMany .linkedText {
-    text-align: right;
-}
-
-.viewMoreOne {
+.fLineWrapper {
+    width: 240px;
     position: absolute;
-    left: 40px;
-    top: 20px
+    top: 87px;
+    left: 0;
 }
 
-.viewMoreMany {
+.sLineWrapper {
+    width: 240px;
     position: absolute;
-    right: 40px;
-    top: 20px
+    bottom: 87px;
+    left: 45px;
+}
+
+.lineImg {
+    height: 100%;
+    width: 100%;
+}
+
+.tLineWrapper {
+    width: 240px;
+    position: absolute;
+    top: 87px;
+    right: 0;
+}
+
+.fourthLineWrapper {
+    width: 240px;
+    position: absolute;
+    bottom: 87px;
+    right: 45px;
+}
+
+@media screen and (max-width: 1412px) {
+    .sLineWrapper {
+        display: none;
+    }
+
+    .lineImg {
+        display: none;
+    }
+
+    .tLineWrapper {
+        display: none;
+    }
+
+    .fourthLineWrapper {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 768px) {
     .imageWrapper {
         flex-direction: column;
-        height: 400px;
+        align-items: center;
+        padding-top: 25px;
+        padding-bottom: 25px;
     }
 
-    .title {
-        font-size: 30px;
+    .fermerBtn {
+        width: 240px;
+        padding: 8px 8px 11px 24px;
+        font-size: 18px;
     }
 
-    .image1 {
-        width: 100%;
-        height: 100%;
-        transition: width 0.5s;
-        z-index: 1;
-        position: relative;
-        background-image: url('../../images/one.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-
-    .image2 {
-        width: 100%;
-        height: 100%;
-        transition: width 0.5s;
-        z-index: 1;
-        position: relative;
-        background-image: url('../../images/many.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: right;
-    }
-
-    .viewMoreOne {
-        position: absolute;
-        left: 20%;
-        top: 20%
-    }
-
-    .viewMoreMany {
-        position: absolute;
-        left: 13%;
-        top: 20%
-    }
-
-    .viewMoreOne .text {
-        color: #742021;
-    }
-
-    .viewMoreOne .title {
-        color: #742021;
-    }
-
-    .viewMoreMany .text {
-        color: black;
-    }
-
-    .viewMoreMany .title {
-        color: black;
-    }
-
-    .image1:hover {
-        width: 100%;
-    }
-
-    .image2:hover {
-        width: 100%;
+    .oneBtn {
+        width: 240px;
+        padding: 8px 8px 11px 24px;
+        font-size: 18px;
+        margin-left: 0;
+        margin-top: 25px;
     }
 }

@@ -86,12 +86,13 @@ export const ProductCard = ({ product, viewStyle }) => {
 
                         <Link className={styles.link} to={`/products/${product?.attributes?.url}/${product?.id}`}>
                             <p className={styles.productName}>{product?.attributes?.name}</p>
+                            <p>{product?.attributes?.description}</p>
                         </Link>
 
 
                         <p className={styles.chemistryType}>{handleChangeName(product?.attributes?.chemistries?.data?.[0]?.attributes?.name)}</p>
                         <p className={styles.chemistryType}>Діюча речовина: {product?.attributes?.Active_substance}</p>
-                        <p className={styles.price}>Ціна: {(+product?.attributes?.price * Currencie).toFixed(2)} грн</p>
+                        <p className={styles.price}>Ціна: {(+product?.attributes?.price * Currencie).toFixed(2)} грн/л(кг)</p>
                         {
                             isInBacket ?
                                 <button className={styles.buyButtonAdded} onClick={() => handleBuyProduct()}>В корзині</button>
