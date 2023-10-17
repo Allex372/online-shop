@@ -151,8 +151,8 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                         <label className={styles.checkboxWrapper}>
                             <input
                                 type="checkbox"
-                                name="cади, ягоди"
-                                checked={selectedCrop == 'cади, ягоди' || cultureFilter == 'cади, ягоди' || culture == 'cади, ягоди'}
+                                name="сади, ягоди"
+                                checked={selectedCrop == 'сади, ягоди' || cultureFilter == 'сади, ягоди' || culture == 'сади, ягоди'}
                                 onChange={handleCropChange}
                             />
                             <p>Сади, ягоди</p>
