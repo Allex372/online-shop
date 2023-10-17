@@ -85,14 +85,21 @@ const SingleProduct = ({ data }) => {
                         </p>
 
                         <p className={styles.descriptionText}>Ціна:
-                            <span>{(+price * Currencie).toFixed(2)} грн</span>
+                            <span>{(+price * Currencie).toFixed(2)} грн/л(кг)</span>
                         </p>
 
-                        <p className={styles.descriptionText}>Типи культур:
-                            {cultures?.data?.map((el) => (
-                                <span key={el}>{el?.attributes?.name}</span>
-                            ))}
-                        </p>
+                        <p className={styles.descriptionText}>Типи культур:</p>
+                        <div className={styles.listWrapper}>
+                            {cultures?.data?.map((el, index) => (
+                                <span className={styles.listElem} key={el}>
+                                    {el?.attributes?.name}
+                                    {index < cultures.data.length - 1 ? ',' : ''}
+                                    {' '}
+                                </span>
+                            ))
+                            }
+                        </div>
+
                     </div>
 
 

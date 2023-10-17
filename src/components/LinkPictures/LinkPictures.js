@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'gatsby';
+
 import { useFilter } from '../../context/FilterProvider';
+
 import * as styles from './LinkPictures.module.css';
+
+import line from '../../images/RedLine.svg';
 
 export const LinkPictures = () => {
     const resultContext = useFilter();
@@ -9,26 +13,35 @@ export const LinkPictures = () => {
     return (
         <div className={styles.container}>
             <div className={styles.imageWrapper}>
-                <Link
-                    className={styles.image1}
-                    to="/products"
+
+                <div className={styles.fLineWrapper}>
+                    <img src={line} alt='line' className={styles.lineImg} />
+                </div>
+
+                <div className={styles.sLineWrapper}>
+                    <img src={line} alt='line' className={styles.lineImg} />
+                </div>
+
+                <Link to="/products"
                     onClick={() => changeTypeFilter('фермерське')}
-                >
-                    <div className={styles.viewMoreOne}>
-                        <p className={styles.title}>Фермерське</p>
-                        <p className={styles.text}>Дивитися детальніше</p>
-                    </div>
+                    className={styles.fermerBtn}>
+                    Фермерське
                 </Link>
-                <Link
-                    className={styles.image2}
-                    to="/products"
+
+                <Link to="/products"
                     onClick={() => changeTypeFilter('присадибне')}
-                >
-                    <div className={styles.viewMoreMany}>
-                        <p className={styles.title}>Присадибне</p>
-                        <p className={styles.text}>Дивитися детальніше</p>
-                    </div>
+                    className={styles.oneBtn}>
+                    Присадибне
                 </Link>
+
+                <div className={styles.tLineWrapper}>
+                    <img src={line} alt='line' className={styles.lineImg} />
+                </div>
+
+                <div className={styles.fourthLineWrapper}>
+                    <img src={line} alt='line' className={styles.lineImg} />
+                </div>
+
             </div>
         </div>
     )
