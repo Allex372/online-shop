@@ -34,13 +34,14 @@ export const ProductCard = ({ product, viewStyle }) => {
     const Currencie = data?.rest?.currencies?.data[0]?.attributes.value;
 
     const handleChangeName = (name) => {
-        console.log(name);
+        // console.log(name);
         if (name === 'Гербіциди') return 'Гербіцид';
         if (name === 'Фунгіциди') return 'Фунгіцид';
-        if (name === 'Інсектециди') return 'Інсектецид';
+        if (name === 'Інсектициди') return 'Інсектицид';
         if (name === 'Протруйники') return 'Протруйник';
         if (name === 'Десиканти') return 'Десикант';
-        if (name === 'Десиканти') return 'Десикант';
+        if (name === "Прилипачі (ад'юванти)") return "Прилипач (ад'юванти)";
+
     }
 
     const handleAddItem = (currentProduct) => {

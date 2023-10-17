@@ -78,7 +78,7 @@ const ProductsPage = () => {
     const filteredElements = Products?.filter((el) => {
         const isChemistryMatch = !chemistryFilter || el?.attributes?.chemistries?.data?.[0]?.attributes?.name.toLowerCase() === chemistryFilter.toLowerCase();
         const isTypeMatch = !typeFilter || el?.attributes?.sizes?.data?.[0]?.attributes?.name === typeFilter;
-        const isCultureMatch = !cultureFilter || el?.attributes?.cultures?.data.some(culture => culture?.attributes?.name.toLowerCase() === cultureFilter.toLowerCase());
+        const isCultureMatch = !cultureFilter || el?.attributes?.cultures?.data.some(culture => culture?.attributes?.name?.toLocaleLowerCase().trim().includes(cultureFilter?.toLocaleLowerCase()));
 
         return isChemistryMatch && isTypeMatch && isCultureMatch;
     });
