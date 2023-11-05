@@ -106,21 +106,28 @@ const ProductsPage = () => {
         return 0;
     });
 
-    // Параметри пагінації
-    const itemsPerPage = 6; // Кількість елементів на одній сторінці
-    const [currentPage, setCurrentPage] = useState(1); // Поточна сторінка
+    const itemsPerPage = 6;
+    const [currentPage, setCurrentPage] = useState(1);
 
-    // Обчислюємо загальну кількість сторінок на основі кількості елементів і кількості елементів на сторінці
+    useEffect(() => {
+        const page = localStorage.getItem('currentPage');
+        console.log(page);
+        if (!page) {
+            setCurrentPage(1);
+        } else {
+            setCurrentPage(page);
+        }
+    }, []);
+
     const totalPages = Math.ceil(searchedElements.length / itemsPerPage);
 
-    // Функція для зміни поточної сторінки
     const handlePageChange = (page) => {
         setCurrentPage(page);
+        localStorage.setItem('currentPage', page);
     };
 
-    // Функція для отримання списку сторінок для відображення в пагінації
     const getDisplayedPages = () => {
-        const maxDisplayedPages = 3; // Максимальна кількість сторінок, які відображаються
+        const maxDisplayedPages = 3;
         const halfDisplayedPages = Math.floor(maxDisplayedPages / 2);
         const displayedPages = [];
 
@@ -173,7 +180,7 @@ const ProductsPage = () => {
                                 <button
                                     key={index}
                                     onClick={() => handlePageChange(page)}
-                                    className={`${styles.paginationButton} ${page === currentPage ? styles.active : ''}`}
+                                    className={`${styles.paginationButton} ${page.toString() === currentPage.toString() ? styles.active : ''}`}
                                 >
                                     {page}
                                 </button>
