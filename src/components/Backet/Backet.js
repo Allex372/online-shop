@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { graphql, useStaticQuery } from 'gatsby';
 import { useBacket } from '../../context/BacketProvider';
 import { BacketItem } from './BacketItem/BacketItem';
 
@@ -26,6 +27,22 @@ export const Backet = () => {
     const [formDataValid, setFormDataValid] = useState(false);
     const [statusCode, setStatusCode] = useState(null);
 
+    const data = useStaticQuery(graphql`
+        query {
+            rest {
+                currencies {
+                    data {
+                        attributes {
+                            value
+                        }
+                    }
+                }
+            }
+        }
+    `);
+
+    const Currencie = data?.rest?.currencies?.data[0]?.attributes.value;
+
     useEffect(() => {
         const newIsOffered = {
             preparedToOffer: true,
@@ -42,38 +59,28 @@ export const Backet = () => {
                 totalAmount: 0,
             };
 
-
             itemsWithSum.forEach((item) => {
                 const productItem = {
-                    id: item.id,
+                    id: +item.id,
                     productName: item.name,
                     quantity: item.count ? item.count : 1,
-                    price: item.price,
-                    totalAmount: item.sum,
+                    price: +(item.price * Currencie).toFixed(2),
+                    totalAmount: +(item.sum * Currencie).toFixed(2),
                 };
                 orderData.products.push(productItem);
-                orderData.totalAmount = totalSum;
+                orderData.totalAmount = +(totalSum * Currencie).toFixed(2);
             });
 
-            // https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com
-            // const authToken = 'f2b4b4c902a5bfef18210081047d68b5adb75c6b5e429b980bf7f05177b50ab6901b328028c390978f35633cc68222d1a45d92b9cc4b9ec16c2fcfc1180cecd36a87af249a1391a2de880488bdce6054e9b98245e1843d55b757da78e76dd7bb9644ff49d9dfb2acf14d1cd67950b09466022064f4f1e3a20ca638ed6de1bbb1'
-            // axios.post('http://localhost:1337/api/orders', orderData, {
-            //     headers: {
-            //         Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN_LOCAL}`,
-            //     },
-            // })
             axios.post('https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com/api/orders', orderData, {
                 headers: {
                     Authorization: `Bearer f98b10acb8958a3d9ba99650cbf0480ebd5e93222f49a844e98c560a8d178711d159d6e4ca8e7428b85d8967b94acf24e9dc31429b80eeadb4f0e08d5ef14564b8fa923ed239d233936f079f720f2796f94f50b9cc0f2bf90234b85be8220a96a8c92391deeccb98bf50cbb54018d81604da4315d23d020925ffff15e22167d4`,
                 },
             })
                 .then(response => {
-                    // Обробити відповідь сервера, якщо потрібно
                     setStatusCode(response.data);
                     setIsOffered(newIsOffered);
                 })
                 .catch(error => {
-                    // Обробити помилку, якщо потрібно
                     console.error('Помилка відправки на сервер Strapi:', error);
                     setIsOffered(newIsOffered);
                 });
@@ -148,7 +155,7 @@ export const Backet = () => {
                             </div>
                         </div>
                         <div className={styles.itemWrapper}>
-                            <BacketItem items={items} statusCode={statusCode} clearStatusCode={handleClearStatusCode} />
+                            <BacketItem items={items} statusCode={statusCode} clearStatusCode={handleClearStatusCode} currencie={Currencie} />
                         </div>
                         <div className={`${styles.offerFormWrapper} ${isOffered.readyToOffer && items?.length ? styles.openForm : ''}`}>
                             <p className={styles.offeredText}>Оформлення замовлення:</p>
@@ -213,7 +220,7 @@ export const Backet = () => {
 
                                 <div className={styles.summBlockWrapper}>
                                     <div className={styles.summBlock}>
-                                        <p className={styles.sumText}>{totalSum}₴</p>
+                                        <p className={styles.sumText}>{(totalSum * Currencie).toFixed(1)}₴</p>
                                         {
                                             isOffered.preparedToOffer &&
                                             <button className={styles.orderBtn} onClick={() => handleOffered('readyToOffer')}>

@@ -111,7 +111,6 @@ const ProductsPage = () => {
 
     useEffect(() => {
         const page = localStorage.getItem('currentPage');
-        console.log(page);
         if (!page) {
             setCurrentPage(1);
         } else {

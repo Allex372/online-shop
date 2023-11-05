@@ -49,14 +49,13 @@ const BacketProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        // При зміні items, перераховуємо поля sum для кожного об'єкту
         const updatedItems = items.map((item) => {
             const { price, count } = item;
-            const countValue = count || 1; // Якщо count не вказано, то приймаємо його як 1
+            const countValue = count || 1;
             const sum = price * countValue;
             return { ...item, sum };
         });
-        setItemsWithSum(updatedItems); // Оновлюємо стан itemsWithSum замість items
+        setItemsWithSum(updatedItems);
 
         const total = updatedItems.reduce((acc, item) => acc + item.sum, 0);
         setTotalSum(total);

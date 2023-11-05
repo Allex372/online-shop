@@ -5,7 +5,7 @@ import * as styles from './BacketItem.module.css';
 
 import closeIcon from '../../../images/close.png';
 
-export const BacketItem = ({ items, statusCode, clearStatusCode }) => {
+export const BacketItem = ({ items, statusCode, clearStatusCode, currencie }) => {
     const backetContext = useBacket();
     const { updateItemCount, removeItemFromBacket, handleOpenBacket } = backetContext ? backetContext : {};
 
@@ -58,7 +58,7 @@ export const BacketItem = ({ items, statusCode, clearStatusCode }) => {
                                         </div>
                                         <button onClick={() => handleIncrement(id, count)}>+</button>
                                     </div>
-                                    <p className={styles.itemPrice}>{price}₴</p>
+                                    <p className={styles.itemPrice}>{(price * currencie).toFixed(2)}₴</p>
                                 </div>
                             </div>
                         )
