@@ -63,7 +63,7 @@ const ChemistryArray = [
 
 const inlineStyles = {
     btnStyles: {
-        color: '#742021',
+        color: '#0d8041',
     }
 }
 

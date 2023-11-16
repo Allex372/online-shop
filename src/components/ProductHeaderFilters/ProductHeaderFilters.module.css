@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    border-bottom: 1px solid #742021;
+    border-bottom: 1px solid #0d8041;
 }
 
 .searchInput {
@@ -113,7 +113,7 @@
 }
 
 .viewIconActive {
-    filter: invert(16%) sepia(87%) saturate(1644%) hue-rotate(334deg) brightness(80%) contrast(94%);
+    filter: invert(31%) sepia(61%) saturate(7492%) hue-rotate(146deg) brightness(88%) contrast(90%);
     height: 20px;
     cursor: pointer;
 }
@@ -133,7 +133,7 @@
 .filtersButton {
     display: flex;
     align-items: center;
-    background-color: #742021;
+    background-color: #0d8041;
     height: 36px;
     width: 164px;
     justify-content: center;

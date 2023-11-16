@@ -33,7 +33,7 @@
     font-size: 38px;
     font-family: 'Merriweather', serif;
     margin-top: 16px;
-    color: #742021;
+    color: #0d8041;
     text-align: start;
     margin-left: 16px;
 }
@@ -42,7 +42,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    border-bottom: 1px solid #742021;
+    border-bottom: 1px solid #0d8041;
     margin-right: 16px;
     margin-left: 16px;
     margin-top: 16px;
@@ -74,7 +74,7 @@
     justify-content: center;
     cursor: pointer;
     font-family: 'Merriweather', serif;
-    background-color: #742021;
+    background-color: #0d8041;
     border: none;
     width: 150px;
     height: 30px;

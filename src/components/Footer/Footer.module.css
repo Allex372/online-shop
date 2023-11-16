@@ -1,6 +1,6 @@
 .wrapper {
     /* width: 100%; */
-    background-color: #742021;
+    background-color: #0d8041;
     padding: 32px 16px;
     display: flex;
     align-items: center;
@@ -8,7 +8,7 @@
 }
 
 .iconPhone {
-    color: #742021;
+    color: #0d8041;
     margin-right: 16px;
 }
 
@@ -21,7 +21,7 @@
     color: white;
     font-size: 18px;
     cursor: pointer;
-    color: #742021;
+    color: #0d8041;
 }
 
 .logo {

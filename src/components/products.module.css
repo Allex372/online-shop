@@ -40,8 +40,8 @@ body {
     height: 40px;
     margin: 0 4px;
     border-radius: 50%;
-    background-color: #EDDDDD;
-    color: #742021;
+    background-color: #ddeddf;
+    color: #0d8041;
     font-size: 18px;
     border: none;
     cursor: pointer;
@@ -61,22 +61,22 @@ body {
 }
 
 .paginationButton:hover {
-    background-color: #742021;
-    color: #EDDDDD;
+    background-color: #0d8041;
+    color: #ddeddf;
 }
 
 .paginationButton:first-child:hover {
-    background-color: #efb4b4;
+    background-color: #a3c932;
 }
 
 .paginationButton:last-child:hover {
-    background-color: #efb4b4;
+    background-color: #a3c932;
 
 }
 
 .active {
-    background-color: #742021;
-    color: #EDDDDD;
+    background-color: #0d8041;
+    color: #ddeddf;
 }
 
 .sortWrapper {

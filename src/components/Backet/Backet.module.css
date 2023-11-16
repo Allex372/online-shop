@@ -63,7 +63,7 @@
 .backetHeaderWrapper p {
     font-family: 'Merriweather', serif;
     font-size: 24px;
-    color: rgba(116, 32, 33, 1);
+    color: #0d8041;
     margin-left: 25px;
 }
 
@@ -88,8 +88,8 @@
     justify-content: space-around;
     width: 340px;
     height: 72px;
-    background-color: rgba(252, 204, 204, 1);
-    border: 1px solid rgba(116, 32, 33, 1);
+    background-color: #ddeddf;
+    border: 1px solid #0d8041;
     border-radius: 10px;
     align-items: center;
 }
@@ -102,7 +102,7 @@
 .orderBtn {
     width: 180px;
     height: 46px;
-    background-color: rgba(116, 32, 33, 1);
+    background-color: #0d8041;
     border-radius: 10px;
     font-family: 'Merriweather', serif;
     font-size: 14px;
