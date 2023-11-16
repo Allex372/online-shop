@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useBacket } from "../../context/BacketProvider";
 import { useResult } from "../../context/SearchResultProvider";
 import { useSideBar } from "../../context/SideBarProvider";
+import { useFilter } from "../../context/FilterProvider";
 import { navigate } from "gatsby";
 import { ModalSearch } from "../ModalSearch/ModalSearch";
 
@@ -12,14 +13,17 @@ import tg from '../../images/social/tg.svg';
 import vib from '../../images/social/vib.svg';
 import wa from '../../images/social/wa.svg';
 import backet from '../../images/purchase.png';
-import burger from '../../images/burger-bar.png';
 import close from '../../images/close.png';
 import searchIcon from '../../images/search.svg';
+import newLogo from '../../images/newLogo.jpg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export const Header = () => {
+  const resultFilterContext = useFilter();
+  const { changeCultureFilter, changeChemistryFilter, changeTypeFilter } = resultFilterContext ? resultFilterContext : {};
+
   const resultContext = useResult();
   const { changeSearchResult, searchResult } = resultContext ? resultContext : {};
 
@@ -27,7 +31,7 @@ export const Header = () => {
   const { handleOpenBacket, items } = backetContext ? backetContext : {};
 
   const sideBarContext = useSideBar();
-  const { menuStatus, handleSideBar, setMenuStatus } = sideBarContext ? sideBarContext : {};
+  const { menuStatus, setMenuStatus } = sideBarContext ? sideBarContext : {};
 
   const [currentPath, setCurrentPath] = useState('');
   const [mobileSeacrhModal, setMobileSearchModal] = useState(false);
@@ -50,6 +54,9 @@ export const Header = () => {
   }, [menuStatus]);
 
   const handleLogoClick = () => {
+    changeCultureFilter(null);
+    changeChemistryFilter(null);
+    changeTypeFilter(null);
     setMenuStatus(false);
     navigate('/');
   }
@@ -78,7 +85,7 @@ export const Header = () => {
           </div>
         } */}
         <div className={styles.logoWrapper} onClick={() => handleLogoClick()}>
-          <img alt='logo' src={logo} />
+          <img alt='logo' src={newLogo} />
         </div>
         <div className={styles.socialsWrapper}>
 

@@ -15,7 +15,7 @@
     background-color: white;
     padding: 8px;
     border-radius: 10px;
-    border: 1px solid #742021;
+    border: 1px solid #0d8041;
     /* max-width: 130px; */
 }
 
@@ -30,7 +30,7 @@
 
 .text {
     font-weight: 20px;
-    color: #742021;
+    color: black;
     line-height: 30px;
     text-transform: capitalize;
     font-family: 'Merriweather', serif;
@@ -73,7 +73,7 @@
     .swiperSlide {
         width: 10rem;
         position: relative;
-        border: 1px solid #742021;
+        border: 1px solid #0d8041;
         border-radius: 10px;
         margin-top: 12px;
     }

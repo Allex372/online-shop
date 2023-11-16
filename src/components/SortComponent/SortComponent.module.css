@@ -26,7 +26,7 @@
     font-family: 'Merriweather', serif;
     font-size: 18px;
     line-height: 30px;
-    color: #742021;
+    color: #0d8041;
     margin-left: 16px;
     margin-right: 24px;
 }
@@ -67,7 +67,7 @@
     margin-bottom: 12px;
     border: none;
     background-color: #f5f5f5;
-    color: #742021;
+    color: #0d8041;
     font-size: 16px;
     user-select: none;
     text-align: left;
@@ -92,7 +92,7 @@
 
 @media screen and (max-width: 768px) {
     .show {
-        border-bottom: 1px solid #742021;
+        border-bottom: 1px solid #0d8041;
     }
 
     .container {
@@ -100,7 +100,7 @@
     }
 
     .resetButton {
-        background-color: #742021;
+        background-color: #0d8041;
         font-family: 'Merriweather', serif;
         color: #fff;
         font-size: 12px;

@@ -7,7 +7,7 @@
     padding-top: 16px;
     padding-bottom: 16px;
     justify-content: space-between;
-    border-bottom: 2px solid #742021;
+    border-bottom: 2px solid #0d8041;
 }
 
 .logoWrapper {
@@ -39,7 +39,7 @@
 .btnCall {
     width: 280px;
     height: 40px;
-    background-color: #742021;
+    background-color: #0d8041;
     border: none;
     border-radius: 20px;
     color: white;
@@ -74,7 +74,7 @@
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background-color: #742021;
+    background-color: #0d8041;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -147,7 +147,7 @@
     font-size: 24px;
     margin-top: 16px;
     font-family: 'Merriweather', serif;
-    color: #742021;
+    color: #0d8041;
     width: 100%;
 }
 
@@ -172,7 +172,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    border-bottom: 1px solid #742021;
+    border-bottom: 1px solid #0d8041;
     margin-right: 20px;
 }
 
@@ -202,7 +202,7 @@
     right: 30px;
     top: 14px;
     font-family: 'Merriweather', serif;
-    background-color: #742021;
+    background-color: #0d8041;
     border: none;
     border-radius: 20px;
     color: white;

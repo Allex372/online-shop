@@ -26,7 +26,7 @@
     font-family: 'Merriweather', serif;
     font-size: 18px;
     line-height: 30px;
-    color: #742021;
+    color: black;
     margin-left: 16px;
     margin-right: 24px;
 }
@@ -60,7 +60,7 @@
     font-family: 'Merriweather', serif;
     font-size: 18px;
     line-height: 24px;
-    color: #742021;
+    color: black;
     margin-left: 16px;
 }
 
@@ -75,7 +75,7 @@
 }
 
 .show {
-    border-bottom: 1px solid #742021;
+    border-bottom: 1px solid #0d8041;
     max-height: 377px;
     visibility: visible;
     opacity: 1;
@@ -92,7 +92,7 @@
 
 .checkboxWrapper p {
     margin-left: 12px;
-    color: #742021;
+    color: black;
     font-size: 16px;
     user-select: none;
 }
@@ -114,11 +114,11 @@ input[type='checkbox'] {
 
 input[type='checkbox']:checked:after {
     content: '✔';
-    color: #742021;
+    color: #0d8041;
 }
 
 .resetButton {
-    background-color: #742021;
+    background-color: #0d8041;
     font-family: 'Merriweather', serif;
     color: #fff;
     font-size: 12px;
@@ -133,7 +133,7 @@ input[type='checkbox']:checked:after {
 }
 
 .resetButton:active {
-    background-color: #8d2a29;
+    background-color: #0d8041;
     cursor: pointer;
 }
 
