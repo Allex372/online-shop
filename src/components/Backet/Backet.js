@@ -77,7 +77,7 @@ export const Backet = () => {
                 },
             })
                 .then(response => {
-                    setStatusCode(response.data);
+                    setStatusCode(+response.data);
                     setIsOffered(newIsOffered);
                 })
                 .catch(error => {
@@ -85,11 +85,11 @@ export const Backet = () => {
                     setIsOffered(newIsOffered);
                 });
         }
-    }, [isOffered]);
+    }, [isOffered, Currencie, formData, formDataValid, itemsWithSum, totalSum]);
 
     useEffect(() => {
-        statusCode == 200 && clearBacket();
-    }, [statusCode])
+        statusCode === 200 && clearBacket();
+    }, [statusCode, clearBacket])
 
     useEffect(() => {
         if (showBacket) {
@@ -150,7 +150,15 @@ export const Backet = () => {
                     <div className={styles.modal} id='modal'>
                         <div className={styles.backetHeaderWrapper}>
                             <p>Корзина</p>
-                            <div className={styles.closeBntIconWrapper} onClick={() => handleOpenBacket()}>
+                            <div
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        handleOpenBacket();
+                                    }
+                                }}
+                                role="button"
+                                tabIndex={0}
+                                className={styles.closeBntIconWrapper} onClick={() => handleOpenBacket()}>
                                 <img src={closeIcon} alt='close' />
                             </div>
                         </div>
@@ -162,8 +170,9 @@ export const Backet = () => {
                             <div className={`${isOffered.readyToOffer ? styles.formContainer : styles.displayNone}`}>
                                 <div className={styles.inputsWrapper}>
                                     <div className={styles.inputWrapper}>
-                                        <label className={styles.label}>Прізвище, і'мя, по батькові</label>
+                                        <label htmlFor="name" className={styles.label}>Прізвище, і'мя, по батькові</label>
                                         <input
+                                            id="name"
                                             className={styles.input}
                                             type="text"
                                             placeholder="ПІП"
@@ -173,8 +182,9 @@ export const Backet = () => {
                                         />
                                     </div>
                                     <div className={styles.inputWrapper}>
-                                        <label className={styles.label}>Електронна пошта</label>
+                                        <label htmlFor="email" className={styles.label}>Електронна пошта</label>
                                         <input
+                                            id="email"
                                             className={styles.input}
                                             type="text"
                                             placeholder="Введіть електронну пошту"
@@ -187,8 +197,9 @@ export const Backet = () => {
 
                                 <div className={styles.inputsWrapper}>
                                     <div className={styles.inputWrapper}>
-                                        <label className={styles.label}>Номер телефону</label>
+                                        <label htmlFor="phone" className={styles.label}>Номер телефону</label>
                                         <input
+                                            id="phone"
                                             className={styles.input}
                                             type="text"
                                             placeholder="Введіть номер телефону"
@@ -198,8 +209,9 @@ export const Backet = () => {
                                         />
                                     </div>
                                     <div className={styles.inputWrapper}>
-                                        <label className={styles.label}>Адреса доставки</label>
+                                        <label htmlFor="address" className={styles.label}>Адреса доставки</label>
                                         <input
+                                            id="address"
                                             className={styles.input}
                                             type="text"
                                             placeholder="Введіть вашу адресу"

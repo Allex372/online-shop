@@ -114,15 +114,20 @@ const ProductsPage = () => {
         if (!page) {
             setCurrentPage(1);
         } else {
-            setCurrentPage(page);
+            setCurrentPage(+page);
         }
     }, []);
 
     const totalPages = Math.ceil(searchedElements.length / itemsPerPage);
 
     const handlePageChange = (page) => {
-        setCurrentPage(page);
-        localStorage.setItem('currentPage', page);
+        if (page !== '...') {
+            setCurrentPage(page);
+            localStorage.setItem('currentPage', page);
+        } else {
+            setCurrentPage(currentPage);
+        }
+
     };
 
     const getDisplayedPages = () => {
@@ -137,8 +142,24 @@ const ProductsPage = () => {
             startPage = Math.max(1, endPage - maxDisplayedPages + 1);
         }
 
+        if (startPage > 1) {
+            displayedPages.push(1);
+        }
+
+        if (startPage > 2) {
+            displayedPages.push('...');
+        }
+
         for (let i = startPage; i <= endPage; i++) {
             displayedPages.push(i);
+        }
+
+        if (endPage < totalPages - 1) {
+            displayedPages.push('...');
+        }
+
+        if (endPage < totalPages) {
+            displayedPages.push(totalPages);
         }
 
         return displayedPages;
