@@ -5,8 +5,8 @@ import { useBacket } from "../context/BacketProvider";
 import { navigate } from 'gatsby';
 import { StaticImage } from "gatsby-plugin-image";
 import { ImageModal } from "../components";
-import closeIcon from '../images/close.png';
 
+import closeIcon from '../images/close.png';
 
 import * as styles from './single-product.module.css';
 
@@ -47,7 +47,7 @@ const SingleProduct = ({ data }) => {
 
     useEffect(() => {
         setIsInBacket(items.some((item) => item.id === id));
-    }, [items]);
+    }, [items, id]);
 
     const handleClickButtonBuy = () => {
         handleClick();

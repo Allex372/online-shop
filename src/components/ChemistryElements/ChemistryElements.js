@@ -82,7 +82,7 @@ export const ChemistryElements = () => {
                                 to={`/products`}
                                 onClick={() => changeChemistryFilter(el.name)}
                             >
-                                <img alt='chemistry' className={styles.bankImg} src={el.img} />
+                                <img alt='chemistry' src={el.img} />
                                 <p className={styles.text}>{el.name}</p>
                             </Link>
                         )
@@ -119,7 +119,7 @@ export const ChemistryElements = () => {
                             >
                                 <div className={styles.elemWrapper} key={el.id}>
                                     <div className={styles.imageWrapper}>
-                                        <img alt='chemistry' className={styles.bankImg} src={el.img} />
+                                        <img alt='chemistry' src={el.img} />
                                     </div>
                                     <p className={styles.text}>{el.name}</p>
                                 </div>
@@ -127,7 +127,7 @@ export const ChemistryElements = () => {
                         </SwiperSlide>
                     );
                 })}
-                <div className={styles.sliderControler}>
+                <div>
                     <div className="swiper-button-prev" style={inlineStyles.btnStyles}>
                         <i class="fa-solid fa-chevron-left"></i>
                     </div>

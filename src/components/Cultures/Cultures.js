@@ -80,12 +80,6 @@ const inlineStyles = {
 export const Cultures = () => {
     const resultContext = useFilter();
     const { changeCultureFilter } = resultContext ? resultContext : {};
-    const handleViewMore = (filter) => {
-        // Виконуємо необхідні дії при кліку на "Дивитися детальніше"
-        // Наприклад, можна відправити фільтр в gatsby-node.js
-
-        // Виконуємо дії для фільтра filter
-    };
     return (
         <div className={styles.wrapper}>
 

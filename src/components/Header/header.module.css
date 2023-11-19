@@ -269,7 +269,7 @@
     .logoWrapper {
         height: 50px;
         z-index: 2;
-        width: 150px;
+        /* width: 150px; */
     }
 
     .burgerMenu {

@@ -8,7 +8,6 @@ import { ModalSearch } from "../ModalSearch/ModalSearch";
 
 import * as styles from './header.module.css';
 
-import logo from '../../images/logo.png';
 import tg from '../../images/social/tg.svg';
 import vib from '../../images/social/vib.svg';
 import wa from '../../images/social/wa.svg';
@@ -84,7 +83,16 @@ export const Header = () => {
             <img src={menuStatus ? close : burger} alt='burger' />
           </div>
         } */}
-        <div className={styles.logoWrapper} onClick={() => handleLogoClick()}>
+        <div
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleLogoClick();
+            }
+          }}
+          role="button"
+          tabIndex="0"
+          className={styles.logoWrapper}
+          onClick={() => handleLogoClick()}>
           <img alt='logo' src={newLogo} />
         </div>
         <div className={styles.socialsWrapper}>
@@ -95,6 +103,7 @@ export const Header = () => {
               <div>
                 <input
                   type="text"
+                  role="button"
                   className={styles.searchInput}
                   placeholder="Шукати"
                   onChange={(e) => handleSearch(e)}
@@ -182,19 +191,19 @@ export const Header = () => {
               <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} />
             </div> */}
             <div className={styles.contactsMobile}>
-              <div className={styles.socialMobile}>
+              <div>
                 <img alt="social" src={tg} />
               </div>
 
-              <div className={styles.socialMobile}>
+              <div>
                 <img alt="social" src={vib} />
               </div>
 
-              <div className={styles.socialMobile}>
+              <div>
                 <img alt="social" src={wa} />
               </div>
 
-              <div className={styles.iconPhoneWrapperMobile}>
+              <div>
                 <a href="tel:+380000000" target="_blank" rel="noreferrer">
                   <FontAwesomeIcon icon={faPhone} size="lg" className={styles.iconPhone} />
                 </a>

@@ -33,10 +33,19 @@ export const BacketItem = ({ items, statusCode, clearStatusCode, currencie }) =>
                         return (
                             <div className={styles.wrapper} key={id}>
                                 <div className={styles.productWrapper}>
-                                    <div className={styles.imgWrapper} onClick={() => removeItemFromBacket(url)}>
+                                    <div
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                handleOpenBacket();
+                                            }
+                                        }}
+                                        role="button"
+                                        tabIndex="0"
+                                        className={styles.imgWrapper}
+                                        onClick={() => removeItemFromBacket(url)}>
                                         <img src={closeIcon} alt='close' />
                                     </div>
-                                    <div className={styles.contentWrapper}>
+                                    <div>
                                         <div className={styles.content}>
                                             <div className={styles.productImageWrapper}>
                                                 <img src={img?.data?.attributes?.url} alt='item' />
@@ -68,7 +77,7 @@ export const BacketItem = ({ items, statusCode, clearStatusCode, currencie }) =>
             }
 
             {
-                (!items?.length && statusCode != 200) &&
+                (!items?.length && statusCode !== 200) &&
                 <div className={styles.clearBacket}>
                     <p>В корзині немає товарів</p>
                     <button className={styles.buttonBack} onClick={() => handleOpenBacket()}>До покупок</button>
@@ -76,7 +85,7 @@ export const BacketItem = ({ items, statusCode, clearStatusCode, currencie }) =>
             }
 
             {
-                (!items?.length && statusCode == 200) &&
+                (!items?.length && statusCode === 200) &&
                 <div className={styles.clearBacket}>
                     <p>Замовлення успішно оформлено, очікуйте на дзвінок</p>
                     <button className={styles.buttonBack} onClick={() => handleButtonBackClick()}>До покупок</button>
