@@ -19,6 +19,12 @@
     width: 80px
 }
 
+.logoImg {
+    height: auto;
+    width: 80px;
+    border-radius: 10px;
+}
+
 .socialsWrapper {
     display: flex;
     align-items: center;

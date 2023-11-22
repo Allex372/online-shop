@@ -92,7 +92,7 @@
 
     .elemWrapper {
         border: none;
-        height: 180px;
+        /* height: 180px; */
     }
 
     .sliderСontroler .swiperButtonNext {
