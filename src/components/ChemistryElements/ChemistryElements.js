@@ -121,7 +121,7 @@ export const ChemistryElements = () => {
                                     <div className={styles.imageWrapper}>
                                         <img alt='chemistry' src={el.img} />
                                     </div>
-                                    <p className={styles.text}>{el.name}</p>
+                                    <p className={styles.text}>{el.name.length > 13 ? el.name.slice(0, 10) + '...' : el.name}</p>
                                 </div>
                             </Link>
                         </SwiperSlide>

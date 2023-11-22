@@ -14,7 +14,7 @@ import wa from '../../images/social/wa.svg';
 import backet from '../../images/purchase.png';
 import close from '../../images/close.png';
 import searchIcon from '../../images/search.svg';
-import newLogo from '../../images/newLogo.jpg';
+import newLogo from '../../images/logo.jpg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
@@ -93,7 +93,7 @@ export const Header = () => {
           tabIndex="0"
           className={styles.logoWrapper}
           onClick={() => handleLogoClick()}>
-          <img alt='logo' src={newLogo} />
+          <img alt='logo' src={newLogo} className={styles.logoImg} />
         </div>
         <div className={styles.socialsWrapper}>
 
