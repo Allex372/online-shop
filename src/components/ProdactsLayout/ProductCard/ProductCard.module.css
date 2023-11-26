@@ -80,16 +80,20 @@
     box-sizing: border-box;
 }
 
-.imageWrapper {
+/* .imageWrapper {
     height: 200px;
     margin-top: 12px;
-}
+} */
 
-.imageWrapper img {
+/* .imageWrapper img {
     height: 100%;
-    width: 100%;
-    /* border-top-left-radius: 10px;
+    width: 100%; */
+/* border-top-left-radius: 10px;
     border-top-right-radius: 10px; */
+/* } */
+
+.productImg {
+    height: 200px;
 }
 
 .imageWrapper img:hover {
@@ -193,7 +197,7 @@
         width: 171px;
     }
 
-    .imageWrapper {
+    .productImg {
         height: 120px;
     }
 }
