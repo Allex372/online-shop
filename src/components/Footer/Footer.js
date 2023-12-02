@@ -1,5 +1,5 @@
 import * as React from "react";
-import logo from '../../images/logo.jpg';
+import logo from '../../images/logo.png';
 import tg from '../../images/social/tg.svg';
 import vib from '../../images/social/vib.svg';
 import wa from '../../images/social/wa.svg';
