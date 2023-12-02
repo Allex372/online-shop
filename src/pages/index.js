@@ -10,9 +10,6 @@ const IndexPage = () => (
       <ChemistryElements />
       <LinkPictures />
       <Cultures />
-      {/* <footer>
-      footer
-    </footer> */}
     </Layout>
     <Footer />
   </>

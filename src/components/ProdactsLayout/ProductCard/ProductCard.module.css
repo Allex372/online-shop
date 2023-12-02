@@ -178,14 +178,12 @@
 
 .notification {
     position: absolute;
-    background-color: #0d8041;
-    border-radius: 10px;
+    background-color: red;
     color: white;
-    font-size: 12px;
+    font-size: 14px;
     font-family: 'Merriweather', serif;
     padding: 4px;
-    right: 4px;
-    top: 4px;
+    top: 0px;
 }
 
 @media screen and (max-width: 768px) {

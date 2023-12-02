@@ -94,6 +94,12 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
     return (
         <>
             <div className={styles.container}>
+
+                <div className={`${cultureFilter || chemistryFilter || typeFilter ? styles.buttonResetAllWrapper : styles.displayNone}`}>
+                    <button className={styles.resetButton} onClick={() => handleResetAll()}>Скасувати всі фільтри</button>
+                </div>
+
+
                 <div className={styles.titleWrapper}>
                     <div
                         onKeyDown={(e) => {
@@ -337,10 +343,6 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                             <button className={styles.resetButton} onClick={() => handleResetType()}>Скинути</button>
                         </div>
                     </div>
-                </div>
-
-                <div className={`${cultureFilter || chemistryFilter || typeFilter ? styles.buttonResetAllWrapper : styles.displayNone}`}>
-                    <button className={styles.resetButton} onClick={() => handleResetAll()}>Скасувати всі фільтри</button>
                 </div>
 
 
