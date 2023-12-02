@@ -75,7 +75,7 @@ export const ProductCard = ({ product, viewStyle }) => {
                             product?.attributes?.img?.data?.attributes?.url &&
 
                             <Link className={styles.link} to={`/products/${product?.attributes?.url}/${product?.id}`}>
-                                < img src={product?.attributes?.img?.data?.attributes?.url} alt={product?.attributes?.name} />
+                                < img src={product?.attributes?.img?.data?.attributes?.url} alt={product?.attributes?.name} className={styles.productImg} />
                             </Link >
 
                         }

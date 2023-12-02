@@ -26,7 +26,8 @@
 
 .logo {
     height: auto;
-    width: 80px;
+    height: 100%;
+    width: 170px;
     border-radius: 10px;
 }
 

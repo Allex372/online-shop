@@ -14,7 +14,7 @@ import wa from '../../images/social/wa.svg';
 import backet from '../../images/purchase.png';
 import close from '../../images/close.png';
 import searchIcon from '../../images/search.svg';
-import newLogo from '../../images/logo.jpg';
+import newLogo from '../../images/logo.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
