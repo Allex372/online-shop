@@ -3,10 +3,10 @@ import { Link } from 'gatsby';
 import { useFilter } from "../../context/FilterProvider";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
+
 import 'swiper/css';
 import 'swiper/css/navigation';
-// import required modules
+
 import { Navigation } from 'swiper/modules';
 
 import помідор from '../../images/cultures/Помідор.png';
@@ -41,7 +41,7 @@ const CultureArray = [
     },
     {
         id: 4,
-        name: 'cади, ягоди',
+        name: 'сади, ягоди',
         img: яблуко,
     },
     {

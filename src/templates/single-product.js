@@ -10,6 +10,45 @@ import closeIcon from '../images/close.png';
 
 import * as styles from './single-product.module.css';
 
+const CultureArray = [
+    {
+        id: 1,
+        name: 'зернові (пшениця, ячмінь)',
+    },
+    {
+        id: 2,
+        name: 'соняшник',
+    },
+    {
+        id: 3,
+        name: 'соя',
+    },
+    {
+        id: 4,
+        name: 'сади, ягоди',
+    },
+    {
+        id: 5,
+        name: 'ріпак',
+    },
+    {
+        id: 6,
+        name: "овочі",
+    },
+    {
+        id: 7,
+        name: 'картопля',
+    },
+    {
+        id: 8,
+        name: 'кукурудза',
+    },
+    {
+        id: 9,
+        name: 'буряки цукрові',
+    }
+]
+
 const SingleProduct = ({ data }) => {
     const productData = data?.rest?.products?.data?.[0]?.attributes;
 
@@ -54,6 +93,10 @@ const SingleProduct = ({ data }) => {
         handleOpenBacket();
     }
 
+    const selectedCultures = cultures?.data?.map(el => el?.attributes?.name.toLowerCase()) || [];
+
+    const isAllCultures = CultureArray.every(culture => selectedCultures.includes(culture.name.toLowerCase()));
+
     return (
         <Layout>
             <Backet />
@@ -90,14 +133,17 @@ const SingleProduct = ({ data }) => {
 
                         <p className={styles.descriptionText}>Типи культур:</p>
                         <div className={styles.listWrapper}>
-                            {cultures?.data?.map((el, index) => (
-                                <span className={styles.listElem} key={el}>
-                                    {el?.attributes?.name}
-                                    {index < cultures.data.length - 1 ? ',' : ''}
-                                    {' '}
-                                </span>
-                            ))
-                            }
+                            {isAllCultures ? (
+                                <span className={styles.listElem}>Всі культури</span>
+                            ) : (
+                                selectedCultures.map((name, index) => (
+                                    <span className={styles.listElem} key={index}>
+                                        {name}
+                                        {index < selectedCultures.length - 1 ? ',' : ''}
+                                        {' '}
+                                    </span>
+                                ))
+                            )}
                         </div>
 
                     </div>
