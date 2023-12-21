@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-import { Navigation } from 'swiper/modules';
+import { Navigation, EffectCoverflow } from 'swiper/modules';
 
 import помідор from '../../images/cultures/Помідор.png';
 import пшениця from '../../images/cultures/пшениця.svg';
@@ -25,24 +25,24 @@ import * as styles from './Culture.module.css';
 
 const CultureArray = [
     {
-        id: 1,
-        name: 'зернові (пшениця, ячмінь)',
-        img: пшениця,
-    },
-    {
-        id: 2,
-        name: 'соняшник',
-        img: соняшник,
-    },
-    {
         id: 3,
         name: 'соя',
         img: соя,
     },
     {
+        id: 1,
+        name: 'зернові (пшениця, ячмінь)',
+        img: пшениця,
+    },
+    {
         id: 4,
         name: 'сади, ягоди',
         img: яблуко,
+    },
+    {
+        id: 2,
+        name: 'соняшник',
+        img: соняшник,
     },
     {
         id: 5,
@@ -106,8 +106,19 @@ export const Cultures = () => {
                 prevEl: '.swiper-button-prev',
                 clickable: true,
             }}
-                modules={[Navigation]}
+                modules={[EffectCoverflow, Navigation]}
                 className={styles.swiper}
+                initialSlide={1}
+                coverflowEffect={{
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 2.5,
+                }}
+                grabCursor={true}
+                centeredSlides={true}
+                slidesPerView="auto"
+                effect="coverflow"
             >
 
                 {

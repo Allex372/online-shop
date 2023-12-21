@@ -107,6 +107,7 @@ export const ChemistryElements = () => {
                 }}
                 modules={[EffectCoverflow, Pagination, Navigation]}
                 className={styles.swiperContainer}
+                initialSlide={1}
             >
                 {ChemistryArray?.map((el) => {
                     return (

@@ -84,14 +84,15 @@ const ProductsPage = () => {
     });
 
     const searchedElements = searchResult
-        ? filteredElements.filter((el) =>
-            el?.attributes?.name?.toLowerCase().includes(searchResult?.toLowerCase()) ||
-            el?.attributes?.Active_substance?.toLowerCase().includes(searchResult?.toLowerCase()) ||
-            el?.attributes?.description?.toLowerCase().includes(searchResult?.toLowerCase()) ||
-            el?.attributes?.cultures?.data?.some(culture => culture?.attributes?.name.toLowerCase().includes(searchResult?.toLowerCase())) ||
-            el?.attributes?.chemistries?.data?.some(culture => culture?.attributes?.name.toLowerCase().includes(searchResult?.toLowerCase())) ||
-            el?.attributes?.sizes?.data?.some(culture => culture?.attributes?.name.toLowerCase().includes(searchResult?.toLowerCase()))
-        )
+        ? filteredElements
+            .filter((el) =>
+                el?.attributes?.name?.toLowerCase().includes(searchResult?.toLowerCase()) ||
+                el?.attributes?.Active_substance?.toLowerCase().includes(searchResult?.toLowerCase()) ||
+                el?.attributes?.description?.toLowerCase().includes(searchResult?.toLowerCase()) ||
+                el?.attributes?.cultures?.data?.some(culture => culture?.attributes?.name.toLowerCase().includes(searchResult?.toLowerCase())) ||
+                el?.attributes?.chemistries?.data?.some(culture => culture?.attributes?.name.toLowerCase().includes(searchResult?.toLowerCase())) ||
+                el?.attributes?.sizes?.data?.some(culture => culture?.attributes?.name.toLowerCase().includes(searchResult?.toLowerCase()))
+            )
         : filteredElements;
 
     searchedElements.sort((a, b) => {
@@ -171,6 +172,26 @@ const ProductsPage = () => {
         };
     }, [cultureFilter, chemistryFilter, typeFilter, sortOptions, searchResult]);
 
+    const getSortedElements = () => {
+        let sortedElements = [...searchedElements];
+
+        sortedElements.sort((a, b) => {
+            const isAvailableA = a?.attributes?.isAvailable || false;
+            const isAvailableB = b?.attributes?.isAvailable || false;
+
+            if (isAvailableA && !isAvailableB) {
+                return -1;
+            } else if (!isAvailableA && isAvailableB) {
+                return 1;
+            }
+
+            // If both items have the same availability status, sort alphabetically by name.
+            return a.attributes.name.localeCompare(b.attributes.name);
+        });
+
+        return sortedElements;
+    };
+
     return (
         <>
             <Layout>
@@ -184,12 +205,10 @@ const ProductsPage = () => {
                                 <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} resultLength={searchedElements.length} />
                             </div>
 
-                            <ProductsLayout array={searchedElements.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} viewStyle={viewOptions} />
+                            <ProductsLayout array={getSortedElements().slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} viewStyle={viewOptions} />
                             <div className={styles.sortWrapper}>
-                                {/* <SortComponent /> */}
                             </div>
                         </div>
-                        {/* Пагінація */}
                         <div className={styles.paginationWrapper}>
                             {currentPage > 1 && (
                                 <div onClick={() => handlePageChange(currentPage - 1)} className={styles.paginationButton}>
