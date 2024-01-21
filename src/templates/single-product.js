@@ -6,6 +6,7 @@ import { navigate } from 'gatsby';
 import { StaticImage } from "gatsby-plugin-image";
 import { ImageModal } from "../components";
 
+import Seo from "../components/Seo/seo";
 import closeIcon from '../images/close.png';
 
 import * as styles from './single-product.module.css';
@@ -62,8 +63,11 @@ const SingleProduct = ({ data }) => {
         isAvailable,
         Active_substance,
         price,
+        chemistries,
         Table
     } = productData
+
+    const chemistry = chemistries.data[0].attributes.name;
 
     const productImg = img?.data?.attributes?.url;
 
@@ -98,61 +102,63 @@ const SingleProduct = ({ data }) => {
     const isAllCultures = CultureArray.every(culture => selectedCultures.includes(culture.name.toLowerCase()));
 
     return (
-        <Layout>
-            <Backet />
-            <div className={styles.wrapper}>
-                <div className={styles.menuIcon} onClick={() => navigate('/products')}>
-                    <StaticImage height={20} width={20} alt="back" src='../images/arrow-left.png' />
-                </div>
-                <div className={styles.infoWrapper}>
-                    <div className={styles.imgWrapper}>
-                        <div className={styles.titleWrapper}>
-                            <p className={styles.productName}>{name}</p>
-                            {!isAvailable && <p className={styles.notAvailable}>Під замовлення (до 3-ох робочих днів)</p>}
-                        </div>
-                        <img src={productImg} alt='bottle' />
-                        {isInBacket ?
-                            <button className={styles.buyButtonAdded} onClick={() => handleClickButtonBuy()}>В корзині</button>
-                            :
-                            <button className={styles.buyButton} onClick={() => handleAddItem(productData, id)}>Купити</button>
-                        }
+        <>
+            <Seo title={name} description={chemistry} />
+            <Layout>
+                <Backet />
+                <div className={styles.wrapper}>
+                    <div className={styles.menuIcon} onClick={() => navigate('/products')}>
+                        <StaticImage height={20} width={20} alt="back" src='../images/arrow-left.png' />
                     </div>
-
-                    <div className={styles.description}>
-                        <p className={styles.descriptionText}>Тара:
-                            <span>{description}</span>
-                        </p>
-
-                        <p className={styles.descriptionText}>Діюча речовина:
-                            <span>{Active_substance}</span>
-                        </p>
-
-                        <p className={styles.descriptionText}>Ціна:
-                            <span>{(+price * Currencie).toFixed(2)} грн/л(кг)</span>
-                        </p>
-
-                        <p className={styles.descriptionText}>Типи культур:</p>
-                        <div className={styles.listWrapper}>
-                            {isAllCultures ? (
-                                <span className={styles.listElem}>Всі культури</span>
-                            ) : (
-                                selectedCultures.map((name, index) => (
-                                    <span className={styles.listElem} key={index}>
-                                        {name}
-                                        {index < selectedCultures.length - 1 ? ',' : ''}
-                                        {' '}
-                                    </span>
-                                ))
-                            )}
+                    <div className={styles.infoWrapper}>
+                        <div className={styles.imgWrapper}>
+                            <div className={styles.titleWrapper}>
+                                <p className={styles.productName}>{name}</p>
+                                {!isAvailable && <p className={styles.notAvailable}>Під замовлення (до 3-ох робочих днів)</p>}
+                            </div>
+                            <img src={productImg} alt='bottle' />
+                            {isInBacket ?
+                                <button className={styles.buyButtonAdded} onClick={() => handleClickButtonBuy()}>В корзині</button>
+                                :
+                                <button className={styles.buyButton} onClick={() => handleAddItem(productData, id)}>Купити</button>
+                            }
                         </div>
 
+                        <div className={styles.description}>
+                            <p className={styles.descriptionText}>Тара:
+                                <span>{description}</span>
+                            </p>
+
+                            <p className={styles.descriptionText}>Діюча речовина:
+                                <span>{Active_substance}</span>
+                            </p>
+
+                            <p className={styles.descriptionText}>Ціна:
+                                <span>{(+price * Currencie).toFixed(2)} грн/л(кг)</span>
+                            </p>
+
+                            <p className={styles.descriptionText}>Типи культур:</p>
+                            <div className={styles.listWrapper}>
+                                {isAllCultures ? (
+                                    <span className={styles.listElem}>Всі культури</span>
+                                ) : (
+                                    selectedCultures.map((name, index) => (
+                                        <span className={styles.listElem} key={index}>
+                                            {name}
+                                            {index < selectedCultures.length - 1 ? ',' : ''}
+                                            {' '}
+                                        </span>
+                                    ))
+                                )}
+                            </div>
+
+                        </div>
+
+
+
                     </div>
 
-
-
-                </div>
-
-                {/* <div className={styles.advantages}>
+                    {/* <div className={styles.advantages}>
                     <p>Переваги товару </p>
                     <ul>
                         <li>Ефективно знищує як однорічні, так і багаторічні бур'яни.</li>
@@ -162,25 +168,26 @@ const SingleProduct = ({ data }) => {
                     </ul>
                 </div> */}
 
-                {
-                    Table?.data &&
-                    <div className={styles.use}>
-                        <p className={styles.useTitle}>Регламент застосування</p>
-                        <img
-                            src={Table?.data?.attributes?.url}
-                            alt='Регламент застосування'
-                            className={styles.tableImg}
-                            onClick={() => setOpenImageModal(true)} />
-                    </div>
-                }
+                    {
+                        Table?.data &&
+                        <div className={styles.use}>
+                            <p className={styles.useTitle}>Регламент застосування</p>
+                            <img
+                                src={Table?.data?.attributes?.url}
+                                alt='Регламент застосування'
+                                className={styles.tableImg}
+                                onClick={() => setOpenImageModal(true)} />
+                        </div>
+                    }
 
-            </div >
-            <ImageModal isOpen={openImageModal} data={Table?.data?.attributes?.url}>
-                <div className={styles.closeBtnWrapper} onClick={() => setOpenImageModal(false)}>
-                    <img src={closeIcon} alt='Закрити' className={styles.closeIcon} />
-                </div>
-            </ImageModal >
-        </Layout>
+                </div >
+                <ImageModal isOpen={openImageModal} data={Table?.data?.attributes?.url}>
+                    <div className={styles.closeBtnWrapper} onClick={() => setOpenImageModal(false)}>
+                        <img src={closeIcon} alt='Закрити' className={styles.closeIcon} />
+                    </div>
+                </ImageModal >
+            </Layout>
+        </>
     )
 }
 

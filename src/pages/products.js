@@ -51,6 +51,7 @@ const ProductsPage = () => {
                             description
                             isAvailable
                             price
+                            highPriority
                             showProduct
                             sizes{
                                 data {
@@ -107,71 +108,6 @@ const ProductsPage = () => {
         return 0;
     });
 
-    const itemsPerPage = 6;
-    const [currentPage, setCurrentPage] = useState(1);
-
-    useEffect(() => {
-        const page = localStorage.getItem('currentPage');
-        if (!page) {
-            setCurrentPage(1);
-        } else {
-            setCurrentPage(+page);
-        }
-    }, []);
-
-    const totalPages = Math.ceil(searchedElements.length / itemsPerPage);
-
-    const handlePageChange = (page) => {
-        if (page !== '...') {
-            setCurrentPage(page);
-            localStorage.setItem('currentPage', page);
-        } else {
-            setCurrentPage(currentPage);
-        }
-
-    };
-
-    const getDisplayedPages = () => {
-        const maxDisplayedPages = 3;
-        const halfDisplayedPages = Math.floor(maxDisplayedPages / 2);
-        const displayedPages = [];
-
-        let startPage = Math.max(1, currentPage - halfDisplayedPages);
-        let endPage = Math.min(totalPages, startPage + maxDisplayedPages - 1);
-
-        if (endPage - startPage < maxDisplayedPages - 1) {
-            startPage = Math.max(1, endPage - maxDisplayedPages + 1);
-        }
-
-        if (startPage > 1) {
-            displayedPages.push(1);
-        }
-
-        if (startPage > 2) {
-            displayedPages.push('...');
-        }
-
-        for (let i = startPage; i <= endPage; i++) {
-            displayedPages.push(i);
-        }
-
-        if (endPage < totalPages - 1) {
-            displayedPages.push('...');
-        }
-
-        if (endPage < totalPages) {
-            displayedPages.push(totalPages);
-        }
-
-        return displayedPages;
-    };
-
-    useEffect(() => {
-        if ((cultureFilter || chemistryFilter || typeFilter || sortOptions?.availability || searchResult) && currentPage !== 1) {
-            handlePageChange(1);
-        };
-    }, [cultureFilter, chemistryFilter, typeFilter, sortOptions, searchResult]);
-
     const getSortedElements = () => {
         let sortedElements = [...searchedElements];
 
@@ -185,12 +121,43 @@ const ProductsPage = () => {
                 return 1;
             }
 
-            // If both items have the same availability status, sort alphabetically by name.
             return a.attributes.name.localeCompare(b.attributes.name);
         });
 
+        const highPriorityElements = sortedElements.filter(el => el?.attributes?.highPriority === true);
+        const nonHighPriorityElements = sortedElements.filter(el => el?.attributes?.highPriority !== true);
+
+        sortedElements = [...highPriorityElements, ...nonHighPriorityElements];
+
         return sortedElements;
     };
+
+
+    const [scrollPosition, setScrollPosition] = useState(0);
+
+    useEffect(() => {
+        const storedPosition = localStorage.getItem('scrollPosition');
+        if (storedPosition) {
+            window.scrollTo(0, +storedPosition);
+        }
+    }, []);
+
+    const handleScroll = () => {
+        const position = window.scrollY || window.pageYOffset;
+        setScrollPosition(position);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('scrollPosition', scrollPosition.toString());
+    }, [scrollPosition]);
 
     return (
         <>
@@ -205,30 +172,9 @@ const ProductsPage = () => {
                                 <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} resultLength={searchedElements.length} />
                             </div>
 
-                            <ProductsLayout array={getSortedElements().slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)} viewStyle={viewOptions} />
+                            <ProductsLayout array={getSortedElements()} viewStyle={viewOptions} />
                             <div className={styles.sortWrapper}>
                             </div>
-                        </div>
-                        <div className={styles.paginationWrapper}>
-                            {currentPage > 1 && (
-                                <div onClick={() => handlePageChange(currentPage - 1)} className={styles.paginationButton}>
-                                    <img src={arrow} alt='arrow' />
-                                </div>
-                            )}
-                            {getDisplayedPages().map((page, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => handlePageChange(page)}
-                                    className={`${styles.paginationButton} ${page.toString() === currentPage.toString() ? styles.active : ''}`}
-                                >
-                                    {page}
-                                </button>
-                            ))}
-                            {currentPage < totalPages && (
-                                <div onClick={() => handlePageChange(currentPage + 1)} className={styles.paginationButton}>
-                                    <img src={arrow} alt='arrow' />
-                                </div>
-                            )}
                         </div>
                     </div>
                 </div>
@@ -238,6 +184,6 @@ const ProductsPage = () => {
     )
 }
 
-export const Head = () => <Seo title="Products" />
+export const Head = () => <Seo title="Вікторія Захід Трейд  | Товари" />
 
 export default ProductsPage
