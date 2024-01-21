@@ -67,7 +67,7 @@ const SingleProduct = ({ data }) => {
         Table
     } = productData
 
-    const chemistry = chemistries.data[0].attributes.name;
+    const chemistry = chemistries?.data[0]?.attributes?.name;
 
     const productImg = img?.data?.attributes?.url;
 
