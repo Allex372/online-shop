@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby";
 
 function Seo({ description, title, children }) {
   const { site } = useStaticQuery(
@@ -31,6 +31,7 @@ function Seo({ description, title, children }) {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="google-site-verification" content="ifSgDQ23bhVcvvaevOLkHuNiME68d2gcW23tptIhpBA" />
+      <link rel="icon" href="../../images/logo.png" type="image/jpg" />
       {children}
     </>
   )
