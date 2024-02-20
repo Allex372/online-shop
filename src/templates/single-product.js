@@ -52,7 +52,6 @@ const CultureArray = [
 
 const SingleProduct = ({ data }) => {
     const productData = data?.rest?.products?.data?.[0]?.attributes;
-
     const id = data?.rest?.products?.data?.[0]?.id;
 
     const {
