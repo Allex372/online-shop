@@ -74,7 +74,7 @@ export const ProductHeaderFilters = ({ result }) => {
             </div>
 
             <div className={styles.rightWrapper}>
-                <div className={`${searchResult?.length ? styles.helperDiv : styles.dNone}`}>
+                {/* <div className={`${searchResult?.length ? styles.helperDiv : styles.dNone}`}>
                     <p>{searchResult}</p>
                     <img src={close} alt='Close' className={styles.closeImg} onClick={() => handleClearSearch()} />
                 </div>
@@ -85,7 +85,7 @@ export const ProductHeaderFilters = ({ result }) => {
                     <div onClick={() => changeGridView('list')}>
                         <img className={`${viewOptions?.listView ? styles.viewIconActive : styles.viewIcon}`} alt="table" src={list} />
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );

@@ -179,7 +179,7 @@ const ProductsPage = () => {
                     </div>
                 </div>
             </Layout>
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

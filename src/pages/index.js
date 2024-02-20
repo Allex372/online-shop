@@ -11,7 +11,7 @@ const IndexPage = () => (
       <LinkPictures />
       <Cultures />
     </Layout>
-    <Footer />
+    {/* <Footer /> */}
   </>
 )
 
