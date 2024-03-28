@@ -150,7 +150,7 @@ export const Header = () => {
 
           {mobileSeacrhModal && <ModalSearch setMobileSearchModal={setMobileSearchModal} />}
 
-          <div className={styles.social}>
+          {/* <div className={styles.social}>
             <img alt="social" src={tg} />
           </div>
 
@@ -160,10 +160,10 @@ export const Header = () => {
 
           <div className={styles.social}>
             <img alt="social" src={wa} />
-          </div>
+          </div> */}
 
           <button className={styles.btnCall}>
-            <a href="tel:+380000000" target="_blank" rel="noreferrer">
+            <a href="tel:+380674711434" target="_blank" rel="noreferrer">
               <FontAwesomeIcon icon={faPhone} size="lg" className={styles.iconPhone} />
             </a>
             Зателефонувати
@@ -191,7 +191,7 @@ export const Header = () => {
               <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} />
             </div> */}
             <div className={styles.contactsMobile}>
-              <div>
+              {/* <div>
                 <img alt="social" src={tg} />
               </div>
 
@@ -201,10 +201,10 @@ export const Header = () => {
 
               <div>
                 <img alt="social" src={wa} />
-              </div>
+              </div> */}
 
               <div>
-                <a href="tel:+380000000" target="_blank" rel="noreferrer">
+                <a href="tel:+380674711434" target="_blank" rel="noreferrer">
                   <FontAwesomeIcon icon={faPhone} size="lg" className={styles.iconPhone} />
                 </a>
               </div>

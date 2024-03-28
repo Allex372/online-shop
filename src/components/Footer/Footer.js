@@ -17,16 +17,16 @@ export const Footer = () => {
                 <img src={logo} alt='logo' className={styles.logo} />
             </div>
             <div className={styles.socialWrapper}>
-                <p>Ми у месенджері:</p>
+                {/* <p>Ми у месенджері:</p>
                 <div className={styles.iconWrapper}>
                     <img src={tg} alt='telegram icon' />
                     <img src={vib} alt='viber icon' />
                     <img src={wa} alt='whats up icon' />
-                </div>
+                </div> */}
             </div>
             <div className={styles.lastWrapper}>
                 <button className={styles.btnCall}>
-                    <a href="tel:+380000000" target="_blank" rel="noreferrer">
+                    <a href="tel:+380674711434" target="_blank" rel="noreferrer">
                         <FontAwesomeIcon icon={faPhone} size="lg" className={styles.iconPhone} />
                     </a>
                     Зателефонувати
