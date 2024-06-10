@@ -79,12 +79,6 @@ export const Header = () => {
   return (
     <>
       <header className={styles.wrapper}>
-        {/* {
-          currentPath.includes("/products/") &&
-          <div className={styles.burgerMenu} onClick={() => handleSideBar()}>
-            <img src={menuStatus ? close : burger} alt='burger' />
-          </div>
-        } */}
         <div
           onKeyDown={e => {
             if (e.key === "Enter" || e.key === " ") {
@@ -98,118 +92,124 @@ export const Header = () => {
         >
           <img alt="logo" src={newLogo} className={styles.logoImg} />
         </div>
-        <div className={styles.socialsWrapper}>
-          {currentPath !== "/products/" && (
-            <div className={styles.searchContainer}>
-              <div>
-                <input
-                  type="text"
-                  role="button"
-                  className={styles.searchInput}
-                  placeholder="Шукати"
-                  onChange={e => handleSearch(e)}
-                  value={searchResult}
-                  onKeyDown={e => {
-                    if (e.key === "Enter") {
-                      handleSetResult()
-                    }
-                  }}
-                />
-              </div>
-              {searchResult?.length > 0 ? (
-                <>
-                  <div
-                    className={styles.searchButton}
-                    onClick={() => handleSetResult()}
-                  >
-                    <p>Шукати</p>
-                  </div>
-                  <img
-                    src={close}
-                    className={styles.clearIcon}
-                    alt="clear"
-                    onClick={() => handleClearSearch()}
+        <div className={styles.volWrapper}>
+          <div className={styles.socialsWrapper}>
+            {currentPath !== "/products/" && (
+              <div className={styles.searchContainer}>
+                <div>
+                  <input
+                    type="text"
+                    role="button"
+                    className={styles.searchInput}
+                    placeholder="Шукати"
+                    onChange={e => handleSearch(e)}
+                    value={searchResult}
+                    onKeyDown={e => {
+                      if (e.key === "Enter") {
+                        handleSetResult()
+                      }
+                    }}
                   />
-                </>
-              ) : (
+                </div>
+                {searchResult?.length > 0 ? (
+                  <>
+                    <div
+                      className={styles.searchButton}
+                      onClick={() => handleSetResult()}
+                    >
+                      <p>Шукати</p>
+                    </div>
+                    <img
+                      src={close}
+                      className={styles.clearIcon}
+                      alt="clear"
+                      onClick={() => handleClearSearch()}
+                    />
+                  </>
+                ) : (
+                  <img
+                    src={searchIcon}
+                    className={styles.searchIcon}
+                    alt="Search Icon"
+                  />
+                )}
+              </div>
+            )}
+
+            {currentPath !== "/products/" && (
+              <div
+                className={styles.mobileSearchIcon}
+                onClick={() => setMobileSearchModal(true)}
+              >
                 <img
                   src={searchIcon}
                   className={styles.searchIcon}
                   alt="Search Icon"
                 />
-              )}
-            </div>
-          )}
-
-          {currentPath !== "/products/" && (
-            <div
-              className={styles.mobileSearchIcon}
-              onClick={() => setMobileSearchModal(true)}
-            >
-              <img
-                src={searchIcon}
-                className={styles.searchIcon}
-                alt="Search Icon"
-              />
-            </div>
-          )}
-
-          {mobileSeacrhModal && (
-            <ModalSearch setMobileSearchModal={setMobileSearchModal} />
-          )}
-
-          <div className={styles.social}>
-            <a
-              href="https://t.me/+380674711434"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img alt="social" src={tg} />
-            </a>
-          </div>
-
-          <div className={styles.social}>
-            <a
-              href="viber://chat?number=%2B380674711434"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img alt="social" src={vib} />
-            </a>
-          </div>
-
-          <div className={styles.social}>
-            <a
-              href="https://wa.me/380674711434"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img alt="social" src={wa} />
-            </a>
-          </div>
-
-          <a
-            href="tel:+380674711434"
-            target="_blank"
-            rel="noreferrer"
-            className={styles.btnCall}
-          >
-            <FontAwesomeIcon
-              icon={faPhone}
-              size="lg"
-              className={styles.iconPhone}
-            />
-            Зателефонувати
-          </a>
-
-          <div className={styles.backet} onClick={() => handleOpenBacket()}>
-            <img alt="backet" src={backet} />
-            {items?.length >= 1 && (
-              <div className={styles.backetLength}>
-                <p>{items?.length}</p>
               </div>
             )}
+
+            {mobileSeacrhModal && (
+              <ModalSearch setMobileSearchModal={setMobileSearchModal} />
+            )}
+
+            <div className={styles.social}>
+              <a
+                href="https://t.me/+380674711434"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img alt="social" src={tg} />
+              </a>
+            </div>
+
+            <div className={styles.social}>
+              <a
+                href="viber://chat?number=%2B380674711434"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img alt="social" src={vib} />
+              </a>
+            </div>
+
+            <div className={styles.social}>
+              <a
+                href="https://wa.me/380674711434"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img alt="social" src={wa} />
+              </a>
+            </div>
+
+            <p className={styles.phoneNumberBig}>+380674711434</p>
+
+            <a
+              href="tel:+380674711434"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.btnCall}
+            >
+              <FontAwesomeIcon
+                icon={faPhone}
+                size="lg"
+                className={styles.iconPhone}
+              />
+              Зателефонувати
+            </a>
+
+            <div className={styles.backet} onClick={() => handleOpenBacket()}>
+              <img alt="backet" src={backet} />
+              {items?.length >= 1 && (
+                <div className={styles.backetLength}>
+                  <p>{items?.length}</p>
+                </div>
+              )}
+            </div>
+            
           </div>
+          <p className={styles.phoneNumber}>+380674711434</p>
         </div>
       </header>
 
