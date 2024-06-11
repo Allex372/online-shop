@@ -183,7 +183,7 @@ export const Header = () => {
               </a>
             </div>
 
-            <p className={styles.phoneNumberBig}>+380674711434</p>
+            <p className={styles.phoneNumberBig}>0674711434</p>
 
             <a
               href="tel:+380674711434"
@@ -209,7 +209,7 @@ export const Header = () => {
             </div>
             
           </div>
-          <p className={styles.phoneNumber}>+380674711434</p>
+          <p className={styles.phoneNumber}>0674711434</p>
         </div>
       </header>
 
