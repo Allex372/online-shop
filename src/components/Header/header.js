@@ -173,7 +173,7 @@ export const Header = () => {
               </a>
             </div>
 
-            <div className={styles.social}>
+            <div className={styles.socialLastChild}>
               <a
                 href="https://wa.me/380674711434"
                 target="_blank"
@@ -183,9 +183,23 @@ export const Header = () => {
               </a>
             </div>
 
-            <p className={styles.phoneNumberBig}>0674711434</p>
+            <div className={styles.phoneWrapper}>
+              <a
+                href="tel:+380674711434"
+                target="_blank"
+                rel="noreferrer"
+                className={styles.phoneWrapper}
+              >
+                <FontAwesomeIcon
+                  icon={faPhone}
+                  size="lg"
+                  className={styles.iconPhoneGreen}
+                />
+                <p className={styles.phoneNumberBig}>067 471 14 34</p>
+              </a>
+            </div>
 
-            <a
+            {/* <a
               href="tel:+380674711434"
               target="_blank"
               rel="noreferrer"
@@ -197,7 +211,7 @@ export const Header = () => {
                 className={styles.iconPhone}
               />
               Зателефонувати
-            </a>
+            </a> */}
 
             <div className={styles.backet} onClick={() => handleOpenBacket()}>
               <img alt="backet" src={backet} />
@@ -207,9 +221,23 @@ export const Header = () => {
                 </div>
               )}
             </div>
-            
           </div>
-          <p className={styles.phoneNumber}>0674711434</p>
+
+          <div className={styles.phoneWrapperSmall}>
+            <a
+              href="tel:+380674711434"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.phoneWrapperSmall}
+            >
+              <FontAwesomeIcon
+                icon={faPhone}
+                size="lg"
+                className={styles.iconPhoneGreen}
+              />
+              <p className={styles.phoneNumber}>067 471 14 34</p>
+            </a>
+          </div>
         </div>
       </header>
 

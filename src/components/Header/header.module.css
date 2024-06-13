@@ -45,6 +45,17 @@
   align-items: end;
 }
 
+.phoneWrapper {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.iconPhoneGreen {
+  color: #0d8041;
+  margin-right: 6px;
+}
+
 .socialsWrapper {
   display: flex;
   align-items: center;
@@ -54,6 +65,12 @@
   height: 25px;
   margin-right: 20px;
   cursor: pointer;
+}
+
+.socialLastChild{
+  margin-right: 46px;
+  cursor: pointer;
+  height: 25px;
 }
 
 .searchIcon {
@@ -76,11 +93,14 @@
   align-items: center;
 }
 
+.phoneWrapperSmall {
+  display: none;
+}
+
 .phoneNumber {
   color: #0d8041;
   font-size: 24px;
   font-weight: 500;
-  margin-top: 8px;
   display: none;
 }
 
@@ -265,7 +285,6 @@
   color: #0d8041;
   font-size: 24px;
   font-weight: 500;
-  margin-top: 8px;
   margin-right: 20px;
 }
 
@@ -291,6 +310,17 @@
     display: flex;
   }
 
+  .phoneWrapper {
+    display: none;
+  }
+
+  .phoneWrapperSmall {
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    text-decoration: none;
+  }
+
   .iconPhoneWrapper {
     display: block;
   }
@@ -300,6 +330,10 @@
   }
 
   .social {
+    display: none;
+  }
+
+  .socialLastChild{
     display: none;
   }
 
@@ -333,7 +367,6 @@
     color: #0d8041;
     font-size: 24px;
     font-weight: 500;
-    margin-top: 8px;
     display: block;
   }
 
