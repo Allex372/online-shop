@@ -98,6 +98,8 @@
 
 .productImg {
     height: 200px;
+    max-width: 200px;
+    object-fit: contain;
 }
 
 .imageWrapper img:hover {
