@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { graphql, useStaticQuery } from "gatsby";
 
 import Seo from "../components/Seo/seo";
-import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, Backet, Footer } from '../components';
+import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, Backet } from '../components';
 import { FiltersModal } from "../components/FiltersModal";
 import { useResult } from "../context/SearchResultProvider";
 import { useFilter } from "../context/FilterProvider";
@@ -10,14 +10,12 @@ import { useView } from "../context/ViewProvider";
 
 import * as styles from '../components/products.module.css';
 
-import arrow from '../images/sort-icons/arrow-down.svg';
-
 const ProductsPage = () => {
     const viewContext = useView();
     const { viewOptions } = viewContext ? viewContext : {};
 
     const resultFilterContext = useFilter();
-    const { cultureFilter, chemistryFilter, typeFilter, sortOptions, openFilterModal } = resultFilterContext ? resultFilterContext : {};
+    const { cultureFilter, chemistryFilter, typeFilter, openFilterModal } = resultFilterContext ? resultFilterContext : {};
 
     const resultContext = useResult();
     const { searchResult } = resultContext ? resultContext : {};
