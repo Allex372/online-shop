@@ -1,22 +1,16 @@
 import React from 'react';
 import { useResult } from '../../context/SearchResultProvider';
-import { useView } from '../../context/ViewProvider';
 import { useFilter } from "../../context/FilterProvider";
 
 import * as styles from './ProductHeaderFilters.module.css';
 
 import searchIcon from '../../images/search.svg';
 import close from '../../images/close.png';
-import grid from '../../images/views/grid.svg';
-import list from '../../images/views/list.svg';
 import filter from '../../images/filter.svg';
 
 export const ProductHeaderFilters = ({ result }) => {
     const resultFilterContext = useFilter();
     const { handleOpenFilterModal } = resultFilterContext ? resultFilterContext : {};
-
-    const viewContext = useView();
-    const { viewOptions, changeGridView } = viewContext ? viewContext : {};
 
     const resultContext = useResult();
     const { changeSearchResult, searchResult } = resultContext ? resultContext : {};
