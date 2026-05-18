@@ -3,6 +3,7 @@ require('dotenv').config()
 const path = require('path')
 const { submitOrder } = require('./lib/submit-order-handler')
 const { createStrapiImageResolvers } = require('./lib/create-strapi-image-resolvers')
+const { CHEMISTRY_CATEGORIES } = require('./src/lib/chemistryCategories')
 
 exports.createResolvers = (helpers) => {
   createStrapiImageResolvers(helpers)
@@ -54,6 +55,14 @@ exports.createPages = async ({ actions, graphql }) => {
             component: path.resolve('./src/templates/single-product.js'),
             context: { url }
         })
+    });
+
+    CHEMISTRY_CATEGORIES.forEach((category) => {
+        actions.createPage({
+            path: `kategoriya/${category.slug}`,
+            component: path.resolve('./src/templates/category.js'),
+            context: { slug: category.slug },
+        });
     });
 };
 

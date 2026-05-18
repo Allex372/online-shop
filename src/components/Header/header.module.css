@@ -6,14 +6,24 @@
   width: 100%;
 }
 
-.wrapper {
+.headerShell {
+  width: 100%;
+  background: var(--header-glass);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  border-bottom: 1px solid var(--header-glass-border);
+  box-shadow: 0 4px 24px rgba(21, 128, 61, 0.05);
+}
+
+.headerInner {
   align-items: center;
-  text-align: center;
   display: flex;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding: 12px var(--page-gutter);
   justify-content: space-between;
-  border-bottom: 2px solid #0d8041;
+  gap: 20px;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .rightWrapper {
@@ -74,8 +84,10 @@
 }
 
 .searchIcon {
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .btnCall {
@@ -134,7 +146,7 @@
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background-color: #0d8041;
+  background-color: var(--color-primary);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -232,28 +244,32 @@
   display: flex;
   align-items: center;
   position: relative;
-  border-bottom: 1px solid #0d8041;
-  margin-right: 20px;
+  flex: 1;
+  max-width: 420px;
+  margin: 0 12px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(229, 231, 235, 0.75);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  box-shadow: 0 1px 4px rgba(21, 128, 61, 0.04);
 }
 
 .searchInput {
-  width: 300px;
-  padding: 0;
+  width: 100%;
+  padding: 10px 36px 10px 8px;
   border: none;
   background: none;
   outline: none;
-  padding: 12px;
-  transition: width 0.3s, opacity 0.3s;
-
-  font-size: 16px;
-  font-family: "Merriweather", serif;
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
 }
 
-.searchIcon {
-  cursor: pointer;
+.searchContainer .searchIcon {
   position: absolute;
-  right: 0;
-  top: 12px;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .searchButton {
@@ -281,9 +297,10 @@
 }
 
 .clearIcon img {
-  height: 16px;
-  filter: invert(98%) sepia(1%) saturate(950%) hue-rotate(314deg)
-    brightness(98%) contrast(69%);
+  display: block;
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
 }
 
 .mobileSearchIcon {
@@ -294,10 +311,11 @@
 }
 
 .phoneNumberBig {
-  color: #0d8041;
-  font-size: 24px;
-  font-weight: 500;
-  margin-right: 20px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-right: 12px;
 }
 
 @media screen and (max-width: 1177px) {
@@ -318,7 +336,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .wrapper {
+  .headerInner {
     display: flex;
   }
 

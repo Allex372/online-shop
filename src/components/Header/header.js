@@ -76,7 +76,8 @@ export const Header = () => {
 
   return (
     <>
-      <header className={styles.wrapper}>
+      <header className={styles.headerShell}>
+        <div className={styles.headerInner}>
         <div
           onKeyDown={e => {
             if (e.key === "Enter" || e.key === " ") {
@@ -92,8 +93,7 @@ export const Header = () => {
         </div>
         <div className={styles.volWrapper}>
           <div className={styles.socialsWrapper}>
-            {currentPath !== "/products/" && (
-              <div className={styles.searchContainer}>
+            <div className={styles.searchContainer}>
                 <div>
                   <input
                     type="text"
@@ -135,7 +135,6 @@ export const Header = () => {
                   />
                 )}
               </div>
-            )}
 
             {currentPath !== "/products/" && (
               <button
@@ -152,9 +151,10 @@ export const Header = () => {
               </button>
             )}
 
-            {mobileSeacrhModal && (
-              <ModalSearch setMobileSearchModal={setMobileSearchModal} />
-            )}
+            <ModalSearch
+              isOpen={mobileSeacrhModal}
+              onClose={() => setMobileSearchModal(false)}
+            />
 
             <div className={styles.social}>
               <a
@@ -241,6 +241,7 @@ export const Header = () => {
               <p className={styles.phoneNumber}>067 471 14 34</p>
             </a>
           </div>
+        </div>
         </div>
       </header>
 

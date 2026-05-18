@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { navigate } from 'gatsby';
 import { useFilter } from '../../features/catalog';
 
 import filterIcon from '../../images/sort-icons/filter.svg';
@@ -6,7 +7,13 @@ import arrowDown from '../../images/sort-icons/arrow-down.svg';
 
 import * as styles from './FilterComponent.module.css';
 
-export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, result }) => {
+export const FilterComponent = ({
+    cultureFilter,
+    chemistryFilter,
+    typeFilter,
+    result,
+    categoryPageSlug = null,
+}) => {
     const resultFilterContext = useFilter();
     const { changeCultureFilter, changeChemistryFilter, changeTypeFilter, handleOpenFilterModal, cultureFilter: culture, chemistryFilter: chemistry, typeFilter: type } = resultFilterContext ? resultFilterContext : {};
 
@@ -38,9 +45,17 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
     };
 
     const handleTypeChemistryChange = (event) => {
-        const { name, checked } = event.target;
+        const { name, checked, value } = event.target;
+
+        if (categoryPageSlug) {
+            const nextValue = value || name;
+            setCheckboxChemistryState(nextValue);
+            changeChemistryFilter(nextValue);
+            return;
+        }
+
         if (checked) {
-            setCheckboxChemistryState(checked ? name : '');
+            setCheckboxChemistryState(name);
             changeChemistryFilter(name);
         } else {
             setCheckboxChemistryState('');
@@ -71,6 +86,9 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
     const handleResetChemistry = () => {
         setCheckboxChemistryState('');
         changeChemistryFilter(null);
+        if (categoryPageSlug) {
+            navigate('/products/');
+        }
     }
 
     const handleResetType = () => {
@@ -227,86 +245,59 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
                         <div className={styles.arrowWrapper}>
                             <img src={arrowDown} className={`${showChemistryCheckboxes && styles.rotateImage}`} alt='arrow' />
                         </div>
-                        <p className={styles.title}>Тип продукту</p>
+                        <p className={styles.title}>
+                            {categoryPageSlug ? 'Категорія' : 'Тип продукту'}
+                        </p>
                     </div>
                     <div
-                        className={`${styles.checkboxes} ${showChemistryCheckboxes ? styles.show : ''}`}
+                        className={`${styles.checkboxes} ${showChemistryCheckboxes ? styles.show : ''} ${categoryPageSlug ? styles.categoryPanel : ''}`}
                     >
-                        <label className={styles.checkboxWrapper}>
-                            <input
-                                type="checkbox"
-                                name="гербіциди"
-                                checked={selectedChemistryState === 'гербіциди' || chemistryFilter === 'гербіциди' || chemistry?.toLowerCase() === 'гербіциди'}
-                                onChange={handleTypeChemistryChange}
-                            />
-                            <p>Гербіциди</p>
-                        </label>
-                        <label className={styles.checkboxWrapper}>
-                            <input
-                                type="checkbox"
-                                name="фунгіциди"
-                                checked={selectedChemistryState === 'фунгіциди' || chemistryFilter === 'фунгіциди' || chemistry?.toLowerCase() === 'фунгіциди'}
-                                onChange={handleTypeChemistryChange}
-                            />
-                            <p>Фунгіциди</p>
-                        </label>
-                        <label className={styles.checkboxWrapper}>
-                            <input
-                                type="checkbox"
-                                name="інсектициди"
-                                checked={selectedChemistryState === 'інсектициди' || chemistryFilter === 'інсектициди' || chemistry?.toLowerCase() === 'інсектициди'}
-                                onChange={handleTypeChemistryChange}
-                            />
-                            <p>Інсектициди</p>
-                        </label>
-                        <label className={styles.checkboxWrapper}>
-                            <input
-                                type="checkbox"
-                                name="протруйники"
-                                checked={selectedChemistryState === 'протруйники' || chemistryFilter === 'протруйники' || chemistry?.toLowerCase() === 'протруйники'}
-                                onChange={handleTypeChemistryChange}
-                            />
-                            <p>Протруйники</p>
-                        </label>
-                        <label className={styles.checkboxWrapper}>
-                            <input
-                                type="checkbox"
-                                name="десиканти"
-                                checked={selectedChemistryState === 'десиканти' || chemistryFilter === 'десиканти' || chemistry?.toLowerCase() === 'десиканти'}
-                                onChange={handleTypeChemistryChange}
-                            />
-                            <p>Десиканти</p>
-                        </label>
-                        <label className={styles.checkboxWrapper}>
-                            <input
-                                type="checkbox"
-                                name="Прилипачі (ад'юванти)"
-                                checked={selectedChemistryState === "Прилипачі (ад'юванти)" || chemistryFilter === "Прилипачі (ад'юванти)" || chemistry?.toLowerCase() === "Прилипачі (ад'юванти)"}
-                                onChange={handleTypeChemistryChange}
-                            />
-                            <p>Прилипачі (ад'юванти)</p>
-                        </label>
-                        <label className={styles.checkboxWrapper}>
-                            <input
-                                type="checkbox"
-                                name="добрива"
-                                checked={selectedChemistryState === 'добрива' || chemistryFilter === 'добрива' || chemistry?.toLowerCase() === 'добрива'}
-                                onChange={handleTypeChemistryChange}
-                            />
-                            <p>Добрива</p>
-                        </label>
-                        <label className={styles.checkboxWrapper}>
-                            <input
-                                type="checkbox"
-                                name="Стимулятори росту, мікродобрива"
-                                checked={selectedChemistryState === 'Стимулятори росту, мікродобрива' || chemistryFilter === 'Стимулятори росту, мікродобрива' || chemistry === 'Стимулятори росту, мікродобрива'}
-                                onChange={handleTypeChemistryChange}
-                            />
-                            <p>Стимулятори росту, мікродобрива</p>
-                        </label>
+                        {categoryPageSlug && (
+                            <p className={styles.categoryHint}>
+                                Оберіть іншу категорію — відкриється відповідний розділ каталогу.
+                            </p>
+                        )}
+                        {[
+                            { value: 'гербіциди', label: 'Гербіциди' },
+                            { value: 'фунгіциди', label: 'Фунгіциди' },
+                            { value: 'інсектициди', label: 'Інсектициди' },
+                            { value: 'протруйники', label: 'Протруйники' },
+                            { value: 'десиканти', label: 'Десиканти' },
+                            { value: "Прилипачі (ад'юванти)", label: "Прилипачі (ад'юванти)" },
+                            { value: 'добрива', label: 'Добрива' },
+                            { value: 'Стимулятори росту, мікродобрива', label: 'Стимулятори росту, мікродобрива' },
+                        ].map(({ value, label }) => {
+                            const normalizedValue = value.toLowerCase();
+                            const isChecked =
+                                selectedChemistryState?.toLowerCase() === normalizedValue ||
+                                chemistryFilter?.toLowerCase() === normalizedValue ||
+                                chemistry?.toLowerCase() === normalizedValue;
 
-                        <div className={styles.buttonWrapper}>
-                            <button className={styles.resetButton} onClick={() => handleResetChemistry()}>Скинути</button>
+                            return (
+                                <label
+                                    key={value}
+                                    className={`${styles.checkboxWrapper} ${categoryPageSlug ? styles.categoryOption : ''} ${categoryPageSlug && isChecked ? styles.categoryOptionActive : ''}`}
+                                >
+                                    <input
+                                        type={categoryPageSlug ? 'radio' : 'checkbox'}
+                                        name={categoryPageSlug ? 'category-chemistry' : value}
+                                        value={value}
+                                        checked={isChecked}
+                                        onChange={handleTypeChemistryChange}
+                                    />
+                                    <span className={styles.optionLabel}>{label}</span>
+                                </label>
+                            );
+                        })}
+
+                        <div className={`${styles.buttonWrapper} ${categoryPageSlug ? styles.categoryActions : ''}`}>
+                            <button
+                                type="button"
+                                className={`${styles.resetButton} ${categoryPageSlug ? styles.categoryCatalogLink : ''}`}
+                                onClick={() => handleResetChemistry()}
+                            >
+                                {categoryPageSlug ? 'Увесь каталог' : 'Скинути'}
+                            </button>
                         </div>
                     </div>
                 </div>

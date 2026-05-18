@@ -78,6 +78,7 @@ export const StrapiImage = ({
         className={className}
         loading={variant === 'detail' ? 'eager' : 'lazy'}
         decoding="async"
+        style={variant === 'detail' ? { objectFit: 'contain' } : undefined}
       />
     )
   }

@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Link } from "gatsby"
+import Seo from "../components/Seo/seo"
 
 const pageStyles = {
     color: "#232129",
@@ -26,19 +27,19 @@ const codeStyles = {
 const NotFoundPage = () => {
     return (
         <main style={pageStyles}>
-            <h1 style={headingStyles}>Page not found</h1>
+            <h1 style={headingStyles}>Сторінку не знайдено</h1>
             <p style={paragraphStyles}>
-                Sorry 😔, we couldn’t find what you were looking for.
+                На жаль, такої сторінки немає.
                 <br />
                 {process.env.NODE_ENV === "development" ? (
                     <>
                         <br />
-                        Try creating a page in <code style={codeStyles}>src/pages/</code>.
+                        Спробуйте створити сторінку в <code style={codeStyles}>src/pages/</code>.
                         <br />
                     </>
                 ) : null}
                 <br />
-                <Link to="/">Go home</Link>.
+                <Link to="/">На головну</Link>.
             </p>
         </main>
     )
@@ -46,4 +47,10 @@ const NotFoundPage = () => {
 
 export default NotFoundPage
 
-export const Head = () => <title>Not found</title>
+export const Head = () => (
+  <Seo
+    title="Сторінку не знайдено | Вікторія Захід Трейд"
+    description="Запитана сторінка не існує. Перейдіть до каталогу засобів захисту рослин."
+    noindex
+  />
+)

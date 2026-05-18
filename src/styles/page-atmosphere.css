@@ -1,0 +1,41 @@
+/* М’який зелено-білий фон для всіх сторінок (без різких смуг) */
+.page-atmosphere {
+  position: relative;
+  isolation: isolate;
+}
+
+.page-atmosphere::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 55% at 50% -12%, rgba(187, 247, 208, 0.5), transparent 58%),
+    radial-gradient(ellipse 55% 40% at 95% 15%, rgba(134, 239, 172, 0.22), transparent 50%),
+    radial-gradient(ellipse 50% 35% at 5% 45%, rgba(209, 250, 229, 0.3), transparent 48%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(243, 244, 246, 0.9), transparent 55%),
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #fcfffe 6%,
+      #f6fdf9 18%,
+      #f0faf5 34%,
+      #eef8f3 50%,
+      #f2f7f5 72%,
+      #f7f9f8 88%,
+      #f9fafb 100%
+    );
+}
+
+.page-atmosphere::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
