@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "gatsby";
-import { useFilter } from "../../context/FilterProvider";
+import { useFilter } from "../../features/catalog";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';

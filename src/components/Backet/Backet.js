@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { graphql, useStaticQuery } from 'gatsby';
-import { useBacket } from '../../context/BacketProvider';
+import { useBacket } from '../../features/cart';
+import { useCurrencyRate } from '../../hooks/useCurrencyRate';
+import { submitOrder } from '../../lib/api/submitOrder';
 import { BacketItem } from './BacketItem/BacketItem';
 
 import * as styles from './Backet.module.css';
@@ -11,6 +11,7 @@ import closeIcon from '../../images/close.png'
 export const Backet = () => {
     const backetContext = useBacket();
     const { showBacket, handleOpenBacket, items, totalSum, itemsWithSum, clearBacket } = backetContext ? backetContext : {};
+    const currencyRate = useCurrencyRate();
     const [isOffered, setIsOffered] = useState({
         preparedToOffer: true,
         readyToOffer: false,
@@ -26,22 +27,6 @@ export const Backet = () => {
 
     const [formDataValid, setFormDataValid] = useState(false);
     const [statusCode, setStatusCode] = useState(null);
-
-    const data = useStaticQuery(graphql`
-        query {
-            rest {
-                currencies {
-                    data {
-                        attributes {
-                            value
-                        }
-                    }
-                }
-            }
-        }
-    `);
-
-    const Currencie = data?.rest?.currencies?.data[0]?.attributes.value;
 
     useEffect(() => {
         const newIsOffered = {
@@ -64,28 +49,24 @@ export const Backet = () => {
                     id: +item.id,
                     productName: item.name,
                     quantity: item.count ? item.count : 1,
-                    price: +(item.price * Currencie).toFixed(2),
-                    totalAmount: +(item.sum * Currencie).toFixed(2),
+                    price: +(item.price * currencyRate).toFixed(2),
+                    totalAmount: +(item.sum * currencyRate).toFixed(2),
                 };
                 orderData.products.push(productItem);
-                orderData.totalAmount = +(totalSum * Currencie).toFixed(2);
+                orderData.totalAmount = +(totalSum * currencyRate).toFixed(2);
             });
 
-            axios.post('https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com/api/orders', orderData, {
-                headers: {
-                    Authorization: `Bearer f98b10acb8958a3d9ba99650cbf0480ebd5e93222f49a844e98c560a8d178711d159d6e4ca8e7428b85d8967b94acf24e9dc31429b80eeadb4f0e08d5ef14564b8fa923ed239d233936f079f720f2796f94f50b9cc0f2bf90234b85be8220a96a8c92391deeccb98bf50cbb54018d81604da4315d23d020925ffff15e22167d4`,
-                },
-            })
-                .then(response => {
-                    setStatusCode(+response.data);
+            submitOrder(orderData)
+                .then(({ data }) => {
+                    setStatusCode(+data);
                     setIsOffered(newIsOffered);
                 })
                 .catch(error => {
-                    console.error('Помилка відправки на сервер Strapi:', error);
+                    console.error('Помилка відправки замовлення:', error);
                     setIsOffered(newIsOffered);
                 });
         }
-    }, [isOffered, Currencie, formData, formDataValid, itemsWithSum, totalSum]);
+    }, [isOffered, currencyRate, formData, formDataValid, itemsWithSum, totalSum]);
 
     useEffect(() => {
         statusCode === 200 && clearBacket();
@@ -163,7 +144,7 @@ export const Backet = () => {
                             </div>
                         </div>
                         <div className={styles.itemWrapper}>
-                            <BacketItem items={items} statusCode={statusCode} clearStatusCode={handleClearStatusCode} currencie={Currencie} />
+                            <BacketItem items={items} statusCode={statusCode} clearStatusCode={handleClearStatusCode} currencie={currencyRate} />
                         </div>
                         <div className={`${styles.offerFormWrapper} ${isOffered.readyToOffer && items?.length ? styles.openForm : ''}`}>
                             <p className={styles.offeredText}>Оформлення замовлення:</p>
@@ -232,7 +213,7 @@ export const Backet = () => {
 
                                 <div className={styles.summBlockWrapper}>
                                     <div className={styles.summBlock}>
-                                        <p className={styles.sumText}>{(totalSum * Currencie).toFixed(1)}₴</p>
+                                        <p className={styles.sumText}>{(totalSum * currencyRate).toFixed(1)}₴</p>
                                         {
                                             isOffered.preparedToOffer &&
                                             <button className={styles.orderBtn} onClick={() => handleOffered('readyToOffer')}>

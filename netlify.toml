@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "public"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/submit-order"
+  to = "/.netlify/functions/submit-order"
+  status = 200
+  force = true

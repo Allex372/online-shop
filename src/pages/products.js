@@ -3,10 +3,10 @@ import { graphql, useStaticQuery } from "gatsby";
 
 import Seo from "../components/Seo/seo";
 import { Layout, ProductHeaderFilters, ProductsLayout, FilterComponent, Backet } from '../components';
+import '../components/StrapiImage/StrapiImage';
 import { FiltersModal } from "../components/FiltersModal";
-import { useResult } from "../context/SearchResultProvider";
-import { useFilter } from "../context/FilterProvider";
-import { useView } from "../context/ViewProvider";
+import { useResult, useFilter, useView } from "../features/catalog";
+import { useCurrencyRate } from "../hooks/useCurrencyRate";
 
 import * as styles from '../components/products.module.css';
 
@@ -19,6 +19,7 @@ const ProductsPage = () => {
 
     const resultContext = useResult();
     const { searchResult } = resultContext ? resultContext : {};
+    const currencyRate = useCurrencyRate();
 
     const data = useStaticQuery(graphql`
         query {
@@ -61,7 +62,7 @@ const ProductsPage = () => {
                             img {
                                 data {
                                     attributes {
-                                        url
+                                        ...StrapiUploadFile
                                     }
                                 }
                             }
@@ -170,7 +171,7 @@ const ProductsPage = () => {
                                 <FilterComponent chemistryFilter={chemistryFilter?.toLowerCase()} cultureFilter={cultureFilter?.toLowerCase()} typeFilter={typeFilter?.toLowerCase()} resultLength={searchedElements.length} />
                             </div>
 
-                            <ProductsLayout array={getSortedElements()} viewStyle={viewOptions} />
+                            <ProductsLayout array={getSortedElements()} viewStyle={viewOptions} currencyRate={currencyRate} />
                             <div className={styles.sortWrapper}>
                             </div>
                         </div>

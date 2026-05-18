@@ -1,5 +1,5 @@
 import React from 'react';
-import { useBacket } from "../../../context/BacketProvider";
+import { useBacket } from "../../../features/cart";
 
 import * as styles from './BacketItem.module.css';
 

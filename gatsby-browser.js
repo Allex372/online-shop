@@ -4,25 +4,8 @@
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-browser/
  */
 
-// You can delete this file if you're not using it
+import { useCatalogStore } from './src/features/catalog'
 
-import React from "react"
-import SearchResultProvider from "./src/context/SearchResultProvider";
-import BacketProvider from "./src/context/BacketProvider";
-import FilterProvider from "./src/context/FilterProvider";
-import ViewProvider from "./src/context/ViewProvider";
-import SideBarProvider from "./src/context/SideBarProvider";
-
-export const wrapRootElement = ({ element }) => (
-    <SideBarProvider>
-        <FilterProvider>
-            <BacketProvider>
-                <SearchResultProvider>
-                    <ViewProvider>
-                        {element}
-                    </ViewProvider>
-                </SearchResultProvider>
-            </BacketProvider>
-        </FilterProvider>
-    </SideBarProvider>
-)
+export const onClientEntry = () => {
+  useCatalogStore.getState().changeGridView('grid')
+}

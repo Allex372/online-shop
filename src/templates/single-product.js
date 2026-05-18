@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { graphql } from "gatsby"
 import { Layout, Backet } from "../components"
-import { useBacket } from "../context/BacketProvider"
+import "../components/StrapiImage/StrapiImage"
+import { StrapiImage } from "../components/StrapiImage"
+import { useBacket } from "../features/cart"
 import { navigate } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 import { ImageModal } from "../components"
@@ -67,8 +69,6 @@ const SingleProduct = ({ data }) => {
   } = productData
 
   const chemistry = chemistries?.data[0]?.attributes?.name
-
-  const productImg = img?.data?.attributes?.url
 
   const backetContext = useBacket()
   const { addItemToBacket, items, handleOpenBacket } = backetContext
@@ -137,7 +137,11 @@ const SingleProduct = ({ data }) => {
                   </p>
                 )}
               </div>
-              <img src={productImg} alt="bottle" />
+              <StrapiImage
+                attributes={img?.data?.attributes}
+                alt={name || "product"}
+                variant="detail"
+              />
               {isInBacket ? (
                 <button
                   className={styles.buyButtonAdded}
@@ -235,8 +239,6 @@ export const query = graphql`
           }
         }
       }
-    }
-    rest {
       products(filters: { url: { eq: $url } }) {
         data {
           id
@@ -264,7 +266,7 @@ export const query = graphql`
             img {
               data {
                 attributes {
-                  url
+                  ...StrapiUploadFileDetail
                 }
               }
             }

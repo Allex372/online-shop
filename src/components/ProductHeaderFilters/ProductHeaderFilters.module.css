@@ -52,6 +52,12 @@
     position: absolute;
     right: 4px;
     top: 16px;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.clearIcon img {
     height: 16px;
     filter: invert(98%) sepia(1%) saturate(950%) hue-rotate(314deg) brightness(98%) contrast(69%);
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useFilter } from '../../context/FilterProvider';
-import { useSideBar } from '../../context/SideBarProvider';
+import { useFilter, useSideBar } from '../../features/catalog';
 
 import sortIcon from '../../images/sort-icons/sort.svg';
 import arrowDown from '../../images/sort-icons/arrow-down.svg';
@@ -28,26 +27,23 @@ export const SortComponent = () => {
         setShowCheckboxes((prevState) => !prevState);
     };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- initialize sort from localStorage once on mount
     useEffect(() => {
-        const isInLocalStorage = JSON.parse(localStorage.getItem('sortOption'));
-        if (!isInLocalStorage) {
-            handleSortOptionChange('alphabet');
-        } else {
-            handleSortOptionChange(isInLocalStorage);
-        }
+        const stored = JSON.parse(localStorage.getItem('sortOption'));
+        handleSortOptionChange(stored ?? 'alphabet');
     }, []);
 
     return (
         <div className={styles.container}>
-            <div className={styles.titleWrapper} onClick={handleToggleCheckboxes}>
+            <button type="button" className={styles.titleWrapper} onClick={handleToggleCheckboxes}>
                 <div className={styles.filterIconWrapper}>
                     <img src={sortIcon} alt='sort' />
                 </div>
                 <p className={styles.filterText}>Сортувати за</p>
                 <div className={styles.filterIconWrapper}>
-                    <img src={arrowDown} className={`${showCheckboxes && styles.rotateImage}`} alt='sort' />
+                    <img src={arrowDown} className={`${showCheckboxes && styles.rotateImage}`} alt='' />
                 </div>
-            </div>
+            </button>
 
             <div className={styles.dropdown}>
                 <div

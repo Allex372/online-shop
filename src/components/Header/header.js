@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { useBacket } from "../../context/BacketProvider"
-import { useResult } from "../../context/SearchResultProvider"
-import { useSideBar } from "../../context/SideBarProvider"
-import { useFilter } from "../../context/FilterProvider"
+import { useBacket } from "../../features/cart"
+import { useResult, useFilter, useSideBar } from "../../features/catalog"
 import { navigate } from "gatsby"
 import { ModalSearch } from "../ModalSearch/ModalSearch"
 
@@ -113,18 +111,21 @@ export const Header = () => {
                 </div>
                 {searchResult?.length > 0 ? (
                   <>
-                    <div
+                    <button
+                      type="button"
                       className={styles.searchButton}
                       onClick={() => handleSetResult()}
                     >
                       <p>Шукати</p>
-                    </div>
-                    <img
-                      src={close}
+                    </button>
+                    <button
+                      type="button"
                       className={styles.clearIcon}
-                      alt="clear"
                       onClick={() => handleClearSearch()}
-                    />
+                      aria-label="Очистити пошук"
+                    >
+                      <img src={close} alt="" />
+                    </button>
                   </>
                 ) : (
                   <img
@@ -137,16 +138,18 @@ export const Header = () => {
             )}
 
             {currentPath !== "/products/" && (
-              <div
+              <button
+                type="button"
                 className={styles.mobileSearchIcon}
                 onClick={() => setMobileSearchModal(true)}
+                aria-label="Відкрити пошук"
               >
                 <img
                   src={searchIcon}
                   className={styles.searchIcon}
-                  alt="Search Icon"
+                  alt=""
                 />
-              </div>
+              </button>
             )}
 
             {mobileSeacrhModal && (
@@ -213,14 +216,14 @@ export const Header = () => {
               Зателефонувати
             </a> */}
 
-            <div className={styles.backet} onClick={() => handleOpenBacket()}>
-              <img alt="backet" src={backet} />
+            <button type="button" className={styles.backet} onClick={() => handleOpenBacket()} aria-label="Кошик">
+              <img alt="" src={backet} />
               {items?.length >= 1 && (
                 <div className={styles.backetLength}>
                   <p>{items?.length}</p>
                 </div>
               )}
-            </div>
+            </button>
           </div>
 
           <div className={styles.phoneWrapperSmall}>

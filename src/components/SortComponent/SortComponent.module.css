@@ -10,6 +10,11 @@
     align-items: center;
     cursor: pointer;
     user-select: none;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
 }
 
 .filterIconWrapper {

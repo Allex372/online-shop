@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
-import { useFilter } from '../../context/FilterProvider';
+import { useFilter } from '../../features/catalog';
 
 import * as styles from './LinkPictures.module.css';
 

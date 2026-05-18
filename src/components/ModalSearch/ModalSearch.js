@@ -1,5 +1,5 @@
 import React from "react";
-import { useResult } from "../../context/SearchResultProvider";
+import { useResult } from "../../features/catalog";
 import { navigate } from "gatsby";
 import * as styles from './ModalSearch.module.css';
 
@@ -41,12 +41,14 @@ export const ModalSearch = ({ setMobileSearchModal }) => {
             <div className={styles.wrapper}>
                 <p className={styles.title}>Пошук</p>
                 <div>
-                    <img
-                        src={close}
+                    <button
+                        type="button"
                         className={styles.closeModal}
-                        alt="clear"
                         onClick={() => setMobileSearchModal(false)}
-                    />
+                        aria-label="Закрити пошук"
+                    >
+                        <img src={close} alt="" />
+                    </button>
                 </div>
             </div>
             <div className={styles.searchContainer}>
@@ -68,12 +70,14 @@ export const ModalSearch = ({ setMobileSearchModal }) => {
 
                 {searchResult?.length > 0 ?
                     <>
-                        <img
-                            src={close}
+                        <button
+                            type="button"
                             className={styles.clearIcon}
-                            alt="clear"
                             onClick={() => handleClearSearch()}
-                        />
+                            aria-label="Очистити пошук"
+                        >
+                            <img src={close} alt="" />
+                        </button>
                     </>
                     :
                     <img
@@ -87,9 +91,9 @@ export const ModalSearch = ({ setMobileSearchModal }) => {
             </div>
 
             {searchResult?.length > 0 &&
-                <div className={styles.searchButton} onClick={() => handleSetResult()}>
+                <button type="button" className={styles.searchButton} onClick={() => handleSetResult()}>
                     <p>Шукати</p>
-                </div>
+                </button>
             }
         </div>
     )

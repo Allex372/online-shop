@@ -1,4 +1,33 @@
-const path = require('path');
+require('dotenv').config()
+
+const path = require('path')
+const { submitOrder } = require('./lib/submit-order-handler')
+const { createStrapiImageResolvers } = require('./lib/create-strapi-image-resolvers')
+
+exports.createResolvers = (helpers) => {
+  createStrapiImageResolvers(helpers)
+}
+
+exports.onCreateDevServer = ({ app }) => {
+  app.post('/api/submit-order', (req, res) => {
+    let rawBody = ''
+
+    req.on('data', (chunk) => {
+      rawBody += chunk
+    })
+
+    req.on('end', async () => {
+      try {
+        const orderData = JSON.parse(rawBody || '{}')
+        const { statusCode, body } = await submitOrder(orderData)
+        res.status(statusCode).send(body)
+      } catch (error) {
+        console.error('submit-order dev handler error:', error)
+        res.status(500).json({ error: 'Failed to submit order' })
+      }
+    })
+  })
+}
 
 exports.createPages = async ({ actions, graphql }) => {
     const { data } = await graphql(`
@@ -27,3 +56,4 @@ exports.createPages = async ({ actions, graphql }) => {
         })
     });
 };
+

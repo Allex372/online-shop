@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useFilter } from '../../context/FilterProvider';
+import { useFilter } from '../../features/catalog';
 
 import filterIcon from '../../images/sort-icons/filter.svg';
 import arrowDown from '../../images/sort-icons/arrow-down.svg';
@@ -86,10 +86,10 @@ export const FilterComponent = ({ cultureFilter, chemistryFilter, typeFilter, re
     }
 
     useEffect(() => {
-        (cultureFilter || culture) && handleToggleCheckboxes();
-        (chemistryFilter || chemistry) && handleToggleChemistryChange();
-        (typeFilter || type) && handleToggleTypeCheckboxes();
-    }, []);
+        if (cultureFilter || culture) setShowCheckboxes(true);
+        if (chemistryFilter || chemistry) setShowChemistryCheckboxes(true);
+        if (typeFilter || type) setShowTypeCheckboxes(true);
+    }, [cultureFilter, culture, chemistryFilter, chemistry, typeFilter, type]);
 
     return (
         <>

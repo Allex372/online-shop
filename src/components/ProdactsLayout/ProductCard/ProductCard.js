@@ -1,47 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Link, graphql, useStaticQuery } from 'gatsby';
+import { Link } from 'gatsby';
 
-import { useBacket } from "../../../context/BacketProvider";
+import { useBacket } from "../../../features/cart";
+import { StrapiImage } from "../../StrapiImage";
 
 import * as styles from './ProductCard.module.css'
 
-export const ProductCard = ({ product, viewStyle }) => {
-    const [viewOptions, setViewOptions] = useState({
-        gridView: true,
-        listView: false,
-    });
+const DEFAULT_VIEW = { gridView: true, listView: false };
 
-    const view = viewStyle ? viewStyle : viewOptions;
+export const ProductCard = ({ product, viewStyle, currencyRate = 1 }) => {
+    const view = viewStyle ?? DEFAULT_VIEW;
     const backetContext = useBacket();
     const { addItemToBacket, items, handleOpenBacket } = backetContext ? backetContext : {};
 
     const [isInBacket, setIsInBacket] = useState(null);
 
-    const data = useStaticQuery(graphql`
-        query {
-            rest {
-                currencies {
-                    data {
-                        attributes {
-                            value
-                        }
-                    }
-                }
-            }
-        }
-    `);
-
-    const Currencie = data?.rest?.currencies?.data[0]?.attributes.value;
-
     const handleChangeName = (name) => {
-        // console.log(name);
         if (name === 'Гербіциди') return 'Гербіцид';
         if (name === 'Фунгіциди') return 'Фунгіцид';
         if (name === 'Інсектициди') return 'Інсектицид';
         if (name === 'Протруйники') return 'Протруйник';
         if (name === 'Десиканти') return 'Десикант';
         if (name === "Прилипачі (ад'юванти)") return "Прилипач (ад'юванти)";
-
     }
 
     const handleAddItem = (currentProduct) => {
@@ -60,7 +40,9 @@ export const ProductCard = ({ product, viewStyle }) => {
 
     useEffect(() => {
         setIsInBacket(items.some((item) => item.url === product?.attributes?.url));
-    }, [items]);
+    }, [items, product?.attributes?.url]);
+
+    const imageAttributes = product?.attributes?.img?.data?.attributes;
 
     return (
         <>
@@ -72,27 +54,25 @@ export const ProductCard = ({ product, viewStyle }) => {
                     }
                     <div className={styles.imageWrapper}>
                         {
-                            product?.attributes?.img?.data?.attributes?.url &&
-
+                            imageAttributes &&
                             <Link className={styles.link} to={`/products/${product?.attributes?.url}/${product?.id}`}>
-                                < img src={product?.attributes?.img?.data?.attributes?.url} alt={product?.attributes?.name} className={styles.productImg} />
+                                <StrapiImage
+                                    attributes={imageAttributes}
+                                    alt={product?.attributes?.name || ''}
+                                    className={styles.productImg}
+                                />
                             </Link >
-
                         }
                     </div >
 
                     <div className={`${viewStyle?.gridView ? styles.textStyleGrid : styles.textStyleList}`}>
-
-
                         <Link className={styles.link} to={`/products/${product?.attributes?.url}/${product?.id}`}>
                             <p className={styles.productName}>{product?.attributes?.name}</p>
                             <p>{product?.attributes?.description}</p>
                         </Link>
-
-
                         <p className={styles.chemistryType}>{handleChangeName(product?.attributes?.chemistries?.data?.[0]?.attributes?.name)}</p>
                         <p className={styles.chemistryType}>Діюча речовина: {product?.attributes?.Active_substance}</p>
-                        <p className={styles.price}>Ціна: {(+product?.attributes?.price * Currencie).toFixed(2)} грн/л(кг)</p>
+                        <p className={styles.price}>Ціна: {(+product?.attributes?.price * currencyRate).toFixed(2)} грн/л(кг)</p>
                         {
                             isInBacket ?
                                 <button className={styles.buyButtonAdded} onClick={() => handleBuyProduct()}>В корзині</button>
@@ -100,9 +80,8 @@ export const ProductCard = ({ product, viewStyle }) => {
                                 <button className={styles.buyButton} onClick={() => handleAddItem(product)}>Купити</button>
                         }
                     </div>
-                </div >
+                </div>
             }
         </>
-
     )
 }
