@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { navigate } from 'gatsby';
 import { useFilter } from '../../features/catalog';
+import { getCategoryByFilterValue, getCategoryPath } from '../../lib/chemistryCategories';
 
 import filterIcon from '../../images/sort-icons/filter.svg';
 import arrowDown from '../../images/sort-icons/arrow-down.svg';
@@ -51,6 +52,11 @@ export const FilterComponent = ({
             const nextValue = value || name;
             setCheckboxChemistryState(nextValue);
             changeChemistryFilter(nextValue);
+
+            const targetCategory = getCategoryByFilterValue(nextValue);
+            if (targetCategory && targetCategory.slug !== categoryPageSlug) {
+                navigate(getCategoryPath(targetCategory.slug));
+            }
             return;
         }
 

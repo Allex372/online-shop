@@ -48,13 +48,11 @@ export const ProductCard = ({ product, viewStyle, currencyRate = 1 }) => {
             </div>
 
             <Link to={`/products/${attrs.url}/${product.id}`} className={styles.imageLink}>
-                {imageAttributes && (
-                    <StrapiImage
-                        attributes={imageAttributes}
-                        alt={attrs.name || ''}
-                        className={styles.productImg}
-                    />
-                )}
+                <StrapiImage
+                    attributes={imageAttributes}
+                    alt={attrs.name || ''}
+                    className={styles.productImg}
+                />
             </Link>
 
             <div className={styles.body}>

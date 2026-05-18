@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { graphql, useStaticQuery, navigate } from 'gatsby';
-import { getCategoryByFilterValue, getCategoryPath } from '../../lib/chemistryCategories';
+import { graphql, useStaticQuery } from 'gatsby';
 import { Layout, ProductsLayout, FilterComponent, Backet, ChemistryElements } from '../index';
 import { CatalogToolbar } from './CatalogToolbar';
 import { CategoryIntro } from './CategoryIntro';
@@ -79,24 +78,12 @@ export const CatalogPage = ({ category = null }) => {
 
   const products = data?.rest?.products?.data;
 
-  // Синхронізуємо фільтр лише при вході на сторінку категорії (за slug)
+  // Синхронізуємо store з URL категорії (верхня панель і Link — без програмного navigate)
   useEffect(() => {
-    if (category?.filterValue) {
-      changeChemistryFilter?.(category.filterValue);
-    }
-  }, [category?.slug, category?.filterValue, changeChemistryFilter]);
-
-  // На сторінці категорії вибір іншої категорії в сайдбарі → перехід на відповідний URL
-  useEffect(() => {
-    if (!category || !chemistryFilter) return undefined;
-
-    const targetCategory = getCategoryByFilterValue(chemistryFilter);
-    if (targetCategory && targetCategory.slug !== category.slug) {
-      navigate(getCategoryPath(targetCategory.slug));
-    }
-
-    return undefined;
-  }, [chemistryFilter, category]);
+    if (!category?.filterValue) return;
+    if (chemistryFilter === category.filterValue) return;
+    changeChemistryFilter?.(category.filterValue);
+  }, [category?.slug, category?.filterValue, chemistryFilter, changeChemistryFilter]);
 
   const activeChemistryFilter = chemistryFilter ?? category?.filterValue;
 

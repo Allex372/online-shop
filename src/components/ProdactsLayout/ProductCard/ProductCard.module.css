@@ -73,6 +73,11 @@
   object-fit: contain;
 }
 
+.imageLink .productImg {
+  display: block;
+  min-height: 180px;
+}
+
 .body {
   padding: 16px;
   display: flex;

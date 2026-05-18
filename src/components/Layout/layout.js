@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Header, Footer } from '../index';
+import { ScrollToTop } from '../ScrollToTop';
 import * as styles from "./layout.module.css";
 
 export const Layout = ({ children }) => {
@@ -14,6 +15,7 @@ export const Layout = ({ children }) => {
         </main>
         <Footer />
       </div>
+      <ScrollToTop />
     </div>
   )
 }

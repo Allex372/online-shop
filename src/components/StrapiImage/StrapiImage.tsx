@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image'
 import { graphql } from 'gatsby'
+import * as styles from './StrapiImage.module.css'
+
+const PRODUCT_PLACEHOLDER = '/images/product-placeholder.svg'
 
 export const strapiUploadFileFragment = graphql`
   fragment StrapiUploadFile on REST_UploadFile {
@@ -51,12 +54,37 @@ type StrapiImageProps = {
   variant?: 'card' | 'detail'
 }
 
+const ImageFallback = ({
+  alt,
+  className,
+  variant,
+}: {
+  alt: string
+  className?: string
+  variant: 'card' | 'detail'
+}) => (
+  <div
+    className={`${styles.fallback} ${variant === 'detail' ? styles.fallbackDetail : ''} ${className || ''}`}
+    role="img"
+    aria-label={alt || 'Зображення товару відсутнє'}
+  >
+    <img
+      src={PRODUCT_PLACEHOLDER}
+      alt=""
+      className={styles.fallbackImg}
+      aria-hidden="true"
+    />
+    <p className={styles.fallbackText}>Фото товару<br />незабаром</p>
+  </div>
+)
+
 export const StrapiImage = ({
   attributes,
   alt,
   className,
   variant = 'card',
 }: StrapiImageProps) => {
+  const [remoteFailed, setRemoteFailed] = useState(false)
   const gatsbyImage = getImage(attributes?.localFile)
 
   if (gatsbyImage) {
@@ -70,7 +98,7 @@ export const StrapiImage = ({
     )
   }
 
-  if (attributes?.url) {
+  if (attributes?.url && !remoteFailed) {
     return (
       <img
         src={attributes.url}
@@ -79,9 +107,10 @@ export const StrapiImage = ({
         loading={variant === 'detail' ? 'eager' : 'lazy'}
         decoding="async"
         style={variant === 'detail' ? { objectFit: 'contain' } : undefined}
+        onError={() => setRemoteFailed(true)}
       />
     )
   }
 
-  return null
+  return <ImageFallback alt={alt} className={className} variant={variant} />
 }
