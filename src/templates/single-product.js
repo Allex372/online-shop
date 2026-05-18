@@ -46,7 +46,8 @@ const SingleProduct = ({ data, pageContext }) => {
   const [activeTab, setActiveTab] = useState("desc")
   const [openImageModal, setOpenImageModal] = useState(false)
 
-  const { addItemToBacket, items, handleOpenBacket } = useBacket() || {}
+  const { addItemToBacket, updateItemCount, items, handleOpenBacket, openBacket } =
+    useBacket() || {}
   const [isInBacket, setIsInBacket] = useState(false)
 
   const displayPrice = ((+price || 0) * currency).toFixed(2)
@@ -58,6 +59,16 @@ const SingleProduct = ({ data, pageContext }) => {
   const handleAddToCart = () => {
     const payload = { ...attrs, id, count: quantity }
     addItemToBacket(payload)
+  }
+
+  const handleBuyOneClick = () => {
+    const payload = { ...attrs, id, count: quantity }
+    if (isInBacket) {
+      updateItemCount?.(id, quantity)
+    } else {
+      addItemToBacket(payload)
+    }
+    openBacket?.()
   }
 
   const cultureNames =
@@ -180,7 +191,7 @@ const SingleProduct = ({ data, pageContext }) => {
                   Додати в кошик
                 </button>
               )}
-              <button type="button" className={styles.btnSecondary} onClick={handleOpenBacket}>
+              <button type="button" className={styles.btnSecondary} onClick={handleBuyOneClick}>
                 Купити в 1 клік
               </button>
             </aside>

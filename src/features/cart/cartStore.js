@@ -24,6 +24,10 @@ export const useCartStore = create(
       handleOpenBacket: () =>
         set((state) => ({ showBacket: !state.showBacket })),
 
+      openBacket: () => set({ showBacket: true }),
+
+      closeBacket: () => set({ showBacket: false }),
+
       addItemToBacket: (item) => {
         const items = [...get().items, item]
         const totals = computeItemsWithSum(items)
@@ -65,6 +69,8 @@ export const useBacket = () => {
   const itemsWithSum = useCartStore((s) => s.itemsWithSum)
   const totalSum = useCartStore((s) => s.totalSum)
   const handleOpenBacket = useCartStore((s) => s.handleOpenBacket)
+  const openBacket = useCartStore((s) => s.openBacket)
+  const closeBacket = useCartStore((s) => s.closeBacket)
   const addItemToBacket = useCartStore((s) => s.addItemToBacket)
   const updateItemCount = useCartStore((s) => s.updateItemCount)
   const removeItemFromBacket = useCartStore((s) => s.removeItemFromBacket)
@@ -76,6 +82,8 @@ export const useBacket = () => {
     itemsWithSum,
     totalSum,
     handleOpenBacket,
+    openBacket,
+    closeBacket,
     addItemToBacket,
     updateItemCount,
     removeItemFromBacket,

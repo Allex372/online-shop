@@ -100,14 +100,16 @@
 .searchContainer {
     display: flex;
     align-items: center;
-    position: relative;
+    gap: 8px;
     border-bottom: 2px solid color-mix(in srgb, var(--accent) 50%, var(--color-border));
     margin-top: 8px;
 }
 
 .searchInput {
+    flex: 1 1 auto;
+    min-width: 0;
     width: 100%;
-    padding: 12px 36px 12px 4px;
+    padding: 12px 4px;
     border: none;
     background: none;
     outline: none;
@@ -116,13 +118,11 @@
 }
 
 .searchIcon {
-    position: absolute;
-    right: 4px;
-    top: 50%;
-    transform: translateY(-50%);
+    flex-shrink: 0;
     width: 22px;
     height: 22px;
     pointer-events: none;
+    opacity: 0.55;
 }
 
 .searchButton {
@@ -156,11 +156,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     cursor: pointer;
-    position: absolute;
-    right: 4px;
-    top: 50%;
-    transform: translateY(-50%);
     background: none;
     border: none;
     padding: 4px;

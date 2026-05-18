@@ -41,15 +41,13 @@ export const ProductHeaderFilters = ({ result }) => {
             </div>
 
             <div className={styles.searchContainer}>
-                <div>
-                    <input
-                        type="text"
-                        className={styles.searchInput}
-                        placeholder="Шукати"
-                        onChange={(e) => handleSearch(e)}
-                        value={searchResult}
-                    />
-                </div>
+                <input
+                    type="text"
+                    className={styles.searchInput}
+                    placeholder="Шукати"
+                    onChange={(e) => handleSearch(e)}
+                    value={searchResult}
+                />
                 {searchResult?.length > 0 ?
                     <button
                         type="button"

@@ -94,30 +94,19 @@ export const Header = () => {
         <div className={styles.volWrapper}>
           <div className={styles.socialsWrapper}>
             <div className={styles.searchContainer}>
-                <div>
-                  <input
-                    type="text"
-                    role="button"
-                    className={styles.searchInput}
-                    placeholder="Шукати"
-                    onChange={e => handleSearch(e)}
-                    value={searchResult}
-                    onKeyDown={e => {
-                      if (e.key === "Enter") {
-                        handleSetResult()
-                      }
-                    }}
-                  />
-                </div>
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder="Шукати"
+                  onChange={e => handleSearch(e)}
+                  value={searchResult}
+                  onKeyDown={e => {
+                    if (e.key === "Enter") {
+                      handleSetResult()
+                    }
+                  }}
+                />
                 {searchResult?.length > 0 ? (
-                  <>
-                    <button
-                      type="button"
-                      className={styles.searchButton}
-                      onClick={() => handleSetResult()}
-                    >
-                      <p>Шукати</p>
-                    </button>
                     <button
                       type="button"
                       className={styles.clearIcon}
@@ -126,12 +115,11 @@ export const Header = () => {
                     >
                       <img src={close} alt="" />
                     </button>
-                  </>
                 ) : (
                   <img
                     src={searchIcon}
                     className={styles.searchIcon}
-                    alt="Search Icon"
+                    alt=""
                   />
                 )}
               </div>
