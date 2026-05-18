@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react"
+import React, { useState, useEffect } from "react"
 import { graphql, Link } from "gatsby"
 import { Layout, Backet } from "../components"
 import "../components/StrapiImage/StrapiImage"
@@ -18,7 +18,7 @@ import {
 import { getCategoryByFilterValue, getCategoryPath } from "../lib/chemistryCategories"
 import * as styles from "./single-product.module.css"
 
-const SingleProduct = ({ data }) => {
+const SingleProduct = ({ data, pageContext }) => {
   const product = data?.rest?.products?.data?.[0]
   const attrs = product?.attributes
   const id = product?.id
@@ -63,19 +63,7 @@ const SingleProduct = ({ data }) => {
   const cultureNames =
     cultures?.data?.map((c) => c?.attributes?.name).filter(Boolean) || []
 
-  const relatedProducts = useMemo(() => {
-    const allProducts = data?.catalogProducts?.data || []
-    if (!chemistry) return []
-    return allProducts
-      .filter((item) => {
-        if (item.id === id) return false
-        if (item.attributes?.showProduct === false) return false
-        const cat =
-          item.attributes?.chemistries?.data?.[0]?.attributes?.name?.toLowerCase()
-        return cat === chemistry.toLowerCase()
-      })
-      .slice(0, 4)
-  }, [data?.catalogProducts?.data, chemistry, id])
+  const relatedProducts = pageContext?.relatedProducts || []
 
   const imageAlt = chemistry ? `${name}, ${chemistry}` : name
 
@@ -351,40 +339,6 @@ export const query = graphql`
         data {
           attributes {
             value
-          }
-        }
-      }
-      catalogProducts: products(pagination: { limit: 1000 }) {
-        data {
-          id
-          attributes {
-            url
-            name
-            showProduct
-            price
-            isAvailable
-            highPriority
-            chemistries {
-              data {
-                attributes {
-                  name
-                }
-              }
-            }
-            sizes {
-              data {
-                attributes {
-                  name
-                }
-              }
-            }
-            img {
-              data {
-                attributes {
-                  ...StrapiUploadFile
-                }
-              }
-            }
           }
         }
       }
