@@ -1,7 +1,10 @@
 require('dotenv').config()
 
 const path = require('path')
-const { submitOrder } = require('./lib/submit-order-handler')
+const {
+  handleSubmitOrderRequest,
+  getClientIpFromRequest,
+} = require('./lib/handle-submit-order')
 const { createStrapiImageResolvers } = require('./lib/create-strapi-image-resolvers')
 const { CHEMISTRY_CATEGORIES } = require('./src/lib/chemistryCategories')
 
@@ -19,12 +22,20 @@ exports.onCreateDevServer = ({ app }) => {
 
     req.on('end', async () => {
       try {
-        const orderData = JSON.parse(rawBody || '{}')
-        const { statusCode, body } = await submitOrder(orderData)
+        const clientIp = getClientIpFromRequest(req)
+        const { statusCode, headers, body } = await handleSubmitOrderRequest({
+          body: rawBody,
+          clientIp,
+        })
+
+        if (headers?.['Content-Type']) {
+          res.setHeader('Content-Type', headers['Content-Type'])
+        }
+
         res.status(statusCode).send(body)
       } catch (error) {
         console.error('submit-order dev handler error:', error)
-        res.status(500).json({ error: 'Failed to submit order' })
+        res.status(500).json({ error: 'Помилка сервера. Спробуйте пізніше.' })
       }
     })
   })

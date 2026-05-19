@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCartShopping,
     faXmark,
-    faLeaf,
     faTruck,
     faHeadset,
     faShieldHalved,
@@ -18,8 +17,6 @@ import { useCurrencyRate } from '../../hooks/useCurrencyRate';
 import { submitOrder } from '../../lib/api/submitOrder';
 import { BacketItem } from './BacketItem/BacketItem';
 import * as styles from './Backet.module.css';
-
-const FREE_SHIPPING_THRESHOLD = 2000;
 
 const itemsLabel = (count) => {
     if (count === 1) return '1 товар';
@@ -47,14 +44,13 @@ export const Backet = () => {
         address: '',
     });
     const [formError, setFormError] = useState(false);
+    const [submitError, setSubmitError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [statusCode, setStatusCode] = useState(null);
 
     const itemCount = items?.length || 0;
     const totalUah = +(totalSum * currencyRate).toFixed(2);
-    const shippingRemaining = Math.max(0, FREE_SHIPPING_THRESHOLD - totalUah);
-    const hasFreeShipping = totalUah >= FREE_SHIPPING_THRESHOLD;
-    const shippingProgress = Math.min(100, (totalUah / FREE_SHIPPING_THRESHOLD) * 100);
+    const hasFreeShipping = totalUah >= 2000;
 
     useEffect(() => {
         setMounted(true);
@@ -108,9 +104,12 @@ export const Backet = () => {
         const isValid = Object.values(formData).every((v) => v.trim() !== '');
         if (!isValid) {
             setFormError(true);
+            setSubmitError('');
             return;
         }
 
+        setFormError(false);
+        setSubmitError('');
         setIsSubmitting(true);
 
         const orderData = {
@@ -138,6 +137,9 @@ export const Backet = () => {
             setFormData({ name: '', email: '', phone: '', address: '' });
         } catch (error) {
             console.error('Помилка відправки замовлення:', error);
+            setSubmitError(
+                error?.message || 'Не вдалося оформити замовлення. Спробуйте ще раз.'
+            );
         } finally {
             setIsSubmitting(false);
         }
@@ -202,31 +204,6 @@ export const Backet = () => {
                         />
 
                         {itemCount > 0 && (
-                            <>
-                                <div className={styles.shippingBar}>
-                                    <div className={styles.shippingTop}>
-                                        <FontAwesomeIcon icon={faLeaf} />
-                                        <div>
-                                            <p className={styles.shippingTitle}>
-                                                {hasFreeShipping
-                                                    ? 'Безкоштовна доставка'
-                                                    : 'Безкоштовна доставка'}
-                                            </p>
-                                            <p className={styles.shippingHint}>
-                                                {hasFreeShipping
-                                                    ? 'Вітаємо! Доставка для вашого замовлення безкоштовна.'
-                                                    : `Додайте товарів на ${shippingRemaining.toFixed(0)} ₴ і отримайте безкоштовну доставку`}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className={styles.progressTrack}>
-                                        <div
-                                            className={styles.progressFill}
-                                            style={{ width: `${shippingProgress}%` }}
-                                        />
-                                    </div>
-                                </div>
-
                                 <section className={styles.checkoutSection}>
                                     <h3>Оформлення замовлення</h3>
                                     <div className={styles.formGrid}>
@@ -276,8 +253,12 @@ export const Backet = () => {
                                             Заповніть усі поля форми
                                         </p>
                                     )}
+                                    {submitError && (
+                                        <p className={styles.formError} role="alert">
+                                            {submitError}
+                                        </p>
+                                    )}
                                 </section>
-                            </>
                         )}
                     </div>
 

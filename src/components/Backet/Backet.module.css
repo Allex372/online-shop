@@ -164,55 +164,6 @@
   display: none;
 }
 
-.shippingBar {
-  margin: 24px 0;
-  padding: 18px 20px;
-  border-radius: var(--radius-md);
-  background: var(--color-primary-muted);
-  border: 1px solid #bbf7d0;
-}
-
-.shippingTop {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  margin-bottom: 14px;
-  color: var(--color-primary);
-}
-
-.shippingTop svg {
-  margin-top: 2px;
-  flex-shrink: 0;
-}
-
-.shippingTitle {
-  margin: 0 0 6px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--color-primary-dark);
-}
-
-.shippingHint {
-  margin: 0;
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  line-height: 1.45;
-}
-
-.progressTrack {
-  height: 8px;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.8);
-  overflow: hidden;
-}
-
-.progressFill {
-  height: 100%;
-  border-radius: var(--radius-full);
-  background: linear-gradient(90deg, var(--color-primary), #22c55e);
-  transition: width 0.4s ease;
-}
-
 .checkoutSection {
   margin-top: 12px;
   padding-bottom: 8px;
@@ -563,10 +514,6 @@
 
   .formGrid {
     grid-template-columns: 1fr;
-  }
-
-  .shippingBar {
-    margin: 16px 0 20px;
   }
 
   .mobileBar {
