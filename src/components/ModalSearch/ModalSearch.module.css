@@ -1,19 +1,58 @@
-.wrapperOpened {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: white;
-    height: 100%;
-    width: 100%;
-    z-index: 2;
-    transition: height 0.3s ease-in-out;
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0;
 }
 
-.wrapperClosed {
-    /* height: 0; */
-    /* overflow: hidden; */
-    display: none;
+.backdrop {
+    position: absolute;
+    inset: 0;
+    border: none;
+    padding: 0;
+    background: rgba(17, 24, 39, 0.4);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+}
+
+.overlayOpen .backdrop {
+    opacity: 1;
+}
+
+.overlayClosing .backdrop {
+    opacity: 0;
+}
+
+.panel {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background: var(--color-surface);
+    padding: 16px var(--page-gutter) 24px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition:
+        transform var(--transition-smooth),
+        opacity var(--transition-smooth);
+}
+
+.panelOpen {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.panelClosing {
+    transform: translateY(-12px);
+    opacity: 0;
+}
+
+.bodyNoScroll {
+    overflow: hidden;
 }
 
 .wrapper {
@@ -21,51 +60,69 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    margin-bottom: 8px;
 }
 
 .closeModal {
-    height: 25px;
-    width: 25px;
-    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--color-bg);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.closeModal:hover {
+    background: color-mix(in srgb, var(--accent) 12%, var(--color-bg));
+    color: var(--accent);
+}
+
+.closeModal svg {
+    width: 16px;
+    height: 16px;
 }
 
 .title {
-    font-size: 38px;
-    font-family: 'Merriweather', serif;
-    margin-top: 16px;
-    color: #0d8041;
-    text-align: start;
-    margin-left: 16px;
+    font-size: 1.35rem;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    margin: 0;
+    color: var(--accent);
 }
 
 .searchContainer {
     display: flex;
     align-items: center;
-    position: relative;
-    border-bottom: 1px solid #0d8041;
-    margin-right: 16px;
-    margin-left: 16px;
-    margin-top: 16px;
+    gap: 8px;
+    border-bottom: 2px solid color-mix(in srgb, var(--accent) 50%, var(--color-border));
+    margin-top: 8px;
 }
 
 .searchInput {
-    width: 300px;
-    padding: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    padding: 12px 4px;
     border: none;
     background: none;
     outline: none;
-    padding: 12px;
-    transition: width 0.3s, opacity 0.3s;
-
-    font-size: 16px;
-    font-family: 'Merriweather', serif;
+    font-size: 1rem;
+    font-family: var(--font-sans);
 }
 
 .searchIcon {
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-    top: 12px;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    pointer-events: none;
+    opacity: 0.55;
 }
 
 .searchButton {
@@ -73,23 +130,43 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-family: 'Merriweather', serif;
-    background-color: #0d8041;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    background-color: var(--accent);
     border: none;
-    width: 150px;
-    height: 30px;
-    border-radius: 20px;
+    width: 100%;
+    max-width: 200px;
+    height: 40px;
+    border-radius: var(--radius-md);
     color: white;
-    font-size: 18px;
-    padding: 4px;
-    margin: 12px auto 0 auto;
+    font-size: 1rem;
+    margin: 16px auto 0;
+    transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.searchButton:hover {
+    transform: translateY(-1px);
+}
+
+.searchButton:active {
+    transform: translateY(0);
 }
 
 .clearIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
     cursor: pointer;
-    position: absolute;
-    right: 4px;
-    top: 16px;
-    height: 16px;
-    filter: invert(98%) sepia(1%) saturate(950%) hue-rotate(314deg) brightness(98%) contrast(69%);
+    background: none;
+    border: none;
+    padding: 4px;
+    width: 28px;
+    height: 28px;
+    color: var(--color-text-muted);
+}
+
+.clearIcon svg {
+    width: 14px;
+    height: 14px;
 }

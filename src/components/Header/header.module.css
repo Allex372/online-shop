@@ -6,14 +6,24 @@
   width: 100%;
 }
 
-.wrapper {
+.headerShell {
+  width: 100%;
+  background: var(--header-glass);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  border-bottom: 1px solid var(--header-glass-border);
+  box-shadow: 0 4px 24px rgba(21, 128, 61, 0.05);
+}
+
+.headerInner {
   align-items: center;
-  text-align: center;
   display: flex;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding: 12px var(--page-gutter);
   justify-content: space-between;
-  border-bottom: 2px solid #0d8041;
+  gap: 20px;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .rightWrapper {
@@ -40,9 +50,12 @@
 }
 
 .volWrapper {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 .phoneWrapper {
@@ -59,6 +72,10 @@
 .socialsWrapper {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .social {
@@ -74,8 +91,10 @@
 }
 
 .searchIcon {
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .btnCall {
@@ -121,6 +140,9 @@
   margin-left: 25px;
   border-radius: 50%;
   position: relative;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .backet img {
@@ -131,7 +153,7 @@
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background-color: #0d8041;
+  background-color: var(--color-primary);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -228,64 +250,105 @@
 .searchContainer {
   display: flex;
   align-items: center;
-  position: relative;
-  border-bottom: 1px solid #0d8041;
-  margin-right: 20px;
+  gap: 8px;
+  flex: 1 1 240px;
+  min-width: 200px;
+  max-width: 400px;
+  margin: 0 4px 0 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  border-radius: var(--radius-full);
+  padding: 5px 8px 5px 16px;
+  box-shadow: 0 1px 4px rgba(21, 128, 61, 0.06);
+  box-sizing: border-box;
 }
 
 .searchInput {
-  width: 300px;
-  padding: 0;
+  flex: 1 1 auto;
+  min-width: 80px;
+  width: 100%;
+  padding: 7px 0;
   border: none;
   background: none;
   outline: none;
-  padding: 12px;
-  transition: width 0.3s, opacity 0.3s;
-
-  font-size: 16px;
-  font-family: "Merriweather", serif;
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  color: var(--color-text);
 }
 
-.searchIcon {
-  cursor: pointer;
-  position: absolute;
-  right: 0;
-  top: 12px;
+.searchInput::placeholder {
+  color: var(--color-text-muted);
 }
 
-.searchButton {
-  cursor: pointer;
-  position: absolute;
-  right: 30px;
-  top: 14px;
-  font-family: "Merriweather", serif;
-  background-color: #0d8041;
-  border: none;
-  border-radius: 20px;
-  color: white;
-  font-size: 12px;
-  padding: 4px;
+.searchInput::-webkit-search-cancel-button,
+.searchInput::-webkit-search-decoration,
+.searchInput::-webkit-search-results-button {
+  display: none;
+  appearance: none;
+}
+
+.searchContainer .searchIcon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+  pointer-events: none;
+  opacity: 0.55;
 }
 
 .clearIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
-  position: absolute;
-  right: 4px;
-  top: 16px;
-  height: 16px;
-  filter: invert(98%) sepia(1%) saturate(950%) hue-rotate(314deg)
-    brightness(98%) contrast(69%);
+  background: none;
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  transition: background 0.15s ease;
+}
+
+.clearIcon:hover {
+  background: rgba(21, 128, 61, 0.08);
+}
+
+.clearIcon img {
+  display: block;
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
 }
 
 .mobileSearchIcon {
   display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mobileSearchIcon:hover {
+  border-color: rgba(21, 128, 61, 0.35);
+  box-shadow: 0 2px 8px rgba(21, 128, 61, 0.1);
 }
 
 .phoneNumberBig {
-  color: #0d8041;
-  font-size: 24px;
-  font-weight: 500;
-  margin-right: 20px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-right: 12px;
 }
 
 @media screen and (max-width: 1177px) {
@@ -294,19 +357,19 @@
   }
 
   .mobileSearchIcon {
-    display: block;
+    display: inline-flex;
   }
 
   .mobileSearchIcon .searchIcon {
-    height: 25px;
-    width: 25px;
-    position: inherit;
-    margin-right: 20px;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    opacity: 0.65;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .wrapper {
+  .headerInner {
     display: flex;
   }
 
@@ -337,9 +400,6 @@
     display: none;
   }
 
-  .searchInput {
-    margin-right: 8px;
-  }
 
   .iconPhoneWrapper {
     display: none;

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { useBacket } from "../../context/BacketProvider"
-import { useResult } from "../../context/SearchResultProvider"
-import { useSideBar } from "../../context/SideBarProvider"
-import { useFilter } from "../../context/FilterProvider"
+import { useBacket } from "../../features/cart"
+import { useResult, useFilter, useSideBar } from "../../features/catalog"
 import { navigate } from "gatsby"
 import { ModalSearch } from "../ModalSearch/ModalSearch"
 
@@ -78,7 +76,8 @@ export const Header = () => {
 
   return (
     <>
-      <header className={styles.wrapper}>
+      <header className={styles.headerShell}>
+        <div className={styles.headerInner}>
         <div
           onKeyDown={e => {
             if (e.key === "Enter" || e.key === " ") {
@@ -94,64 +93,56 @@ export const Header = () => {
         </div>
         <div className={styles.volWrapper}>
           <div className={styles.socialsWrapper}>
-            {currentPath !== "/products/" && (
-              <div className={styles.searchContainer}>
-                <div>
-                  <input
-                    type="text"
-                    role="button"
-                    className={styles.searchInput}
-                    placeholder="Шукати"
-                    onChange={e => handleSearch(e)}
-                    value={searchResult}
-                    onKeyDown={e => {
-                      if (e.key === "Enter") {
-                        handleSetResult()
-                      }
-                    }}
-                  />
-                </div>
+            <div className={styles.searchContainer}>
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder="Шукати"
+                  onChange={e => handleSearch(e)}
+                  value={searchResult}
+                  onKeyDown={e => {
+                    if (e.key === "Enter") {
+                      handleSetResult()
+                    }
+                  }}
+                />
                 {searchResult?.length > 0 ? (
-                  <>
-                    <div
-                      className={styles.searchButton}
-                      onClick={() => handleSetResult()}
-                    >
-                      <p>Шукати</p>
-                    </div>
-                    <img
-                      src={close}
+                    <button
+                      type="button"
                       className={styles.clearIcon}
-                      alt="clear"
                       onClick={() => handleClearSearch()}
-                    />
-                  </>
+                      aria-label="Очистити пошук"
+                    >
+                      <img src={close} alt="" />
+                    </button>
                 ) : (
                   <img
                     src={searchIcon}
                     className={styles.searchIcon}
-                    alt="Search Icon"
+                    alt=""
                   />
                 )}
               </div>
-            )}
 
             {currentPath !== "/products/" && (
-              <div
+              <button
+                type="button"
                 className={styles.mobileSearchIcon}
                 onClick={() => setMobileSearchModal(true)}
+                aria-label="Відкрити пошук"
               >
                 <img
                   src={searchIcon}
                   className={styles.searchIcon}
-                  alt="Search Icon"
+                  alt=""
                 />
-              </div>
+              </button>
             )}
 
-            {mobileSeacrhModal && (
-              <ModalSearch setMobileSearchModal={setMobileSearchModal} />
-            )}
+            <ModalSearch
+              isOpen={mobileSeacrhModal}
+              onClose={() => setMobileSearchModal(false)}
+            />
 
             <div className={styles.social}>
               <a
@@ -213,14 +204,14 @@ export const Header = () => {
               Зателефонувати
             </a> */}
 
-            <div className={styles.backet} onClick={() => handleOpenBacket()}>
-              <img alt="backet" src={backet} />
+            <button type="button" className={styles.backet} onClick={() => handleOpenBacket()} aria-label="Кошик">
+              <img alt="" src={backet} />
               {items?.length >= 1 && (
                 <div className={styles.backetLength}>
                   <p>{items?.length}</p>
                 </div>
               )}
-            </div>
+            </button>
           </div>
 
           <div className={styles.phoneWrapperSmall}>
@@ -238,6 +229,7 @@ export const Header = () => {
               <p className={styles.phoneNumber}>067 471 14 34</p>
             </a>
           </div>
+        </div>
         </div>
       </header>
 

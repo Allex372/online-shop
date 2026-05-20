@@ -1,6 +1,5 @@
 import React from 'react';
-import { useResult } from '../../context/SearchResultProvider';
-import { useFilter } from "../../context/FilterProvider";
+import { useResult, useFilter } from '../../features/catalog';
 
 import * as styles from './ProductHeaderFilters.module.css';
 
@@ -42,22 +41,22 @@ export const ProductHeaderFilters = ({ result }) => {
             </div>
 
             <div className={styles.searchContainer}>
-                <div>
-                    <input
-                        type="text"
-                        className={styles.searchInput}
-                        placeholder="Шукати"
-                        onChange={(e) => handleSearch(e)}
-                        value={searchResult}
-                    />
-                </div>
+                <input
+                    type="text"
+                    className={styles.searchInput}
+                    placeholder="Шукати"
+                    onChange={(e) => handleSearch(e)}
+                    value={searchResult}
+                />
                 {searchResult?.length > 0 ?
-                    <img
-                        src={close}
+                    <button
+                        type="button"
                         className={styles.clearIcon}
-                        alt="clear"
                         onClick={() => handleClearSearch()}
-                    />
+                        aria-label="Очистити пошук"
+                    >
+                        <img src={close} alt="" />
+                    </button>
                     :
                     <img
                         src={searchIcon}

@@ -1,142 +1,104 @@
 import * as React from "react";
 import { Link } from "gatsby";
-import { useFilter } from "../../context/FilterProvider";
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination, EffectCoverflow, Navigation } from 'swiper/modules';
-
-import adiuvant from '../../images/chemistry-elements/adiuvant.svg';
-import desuc from '../../images/chemistry-elements/desuc.svg';
-import dobruv from '../../images/chemistry-elements/dobruv.svg';
-import fung from '../../images/chemistry-elements/fung.svg';
-import insect from '../../images/chemistry-elements/insect.svg';
-import gerb from '../../images/chemistry-elements/gerb.svg';
-import protrui from '../../images/chemistry-elements/protrui.svg';
-import stimul from '../../images/chemistry-elements/Стимулятори-росту.svg';
+import { useFilter } from "../../features/catalog";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faLeaf,
+    faShieldHalved,
+    faBug,
+    faFlask,
+    faSun,
+    faDroplet,
+    faSeedling,
+    faChartLine,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+    CHEMISTRY_CATEGORIES,
+    getCategoryPath,
+} from "../../lib/chemistryCategories";
 
 import * as styles from './ChemistryElements.module.css';
 
-const ChemistryArray = [
-    {
-        id: 1,
-        name: 'Гербіциди',
-        img: gerb,
-    },
-    {
-        id: 2,
-        name: 'Фунгіциди',
-        img: fung,
-    },
-    {
-        id: 3,
-        name: 'Інсектициди',
-        img: insect,
-    },
-    {
-        id: 4,
-        name: 'Протруйники',
-        img: protrui,
-    },
-    {
-        id: 5,
-        name: 'Десиканти',
-        img: desuc,
-    },
-    {
-        id: 6,
-        name: "Прилипачі (ад'юванти)",
-        img: adiuvant,
-    },
-    {
-        id: 7,
-        name: 'Добрива',
-        img: dobruv,
-    },
-    {
-        id: 7,
-        name: 'Стимулятори росту, мікродобрива',
-        img: stimul,
-    },
-]
+const ICONS = {
+    herbicydy: faLeaf,
+    fungicydy: faShieldHalved,
+    insekticydy: faBug,
+    protrujnyky: faFlask,
+    desikanty: faSun,
+    'prylypachi-aduvanty': faDroplet,
+    dobryva: faSeedling,
+    'stymulyatory-rostu': faChartLine,
+};
 
-const inlineStyles = {
-    btnStyles: {
-        color: '#0d8041',
-    }
-}
+const ACCENTS = {
+    herbicydy: '#15803d',
+    fungicydy: '#0d9488',
+    insekticydy: '#ca8a04',
+    protrujnyky: '#7c3aed',
+    desikanty: '#ea580c',
+    'prylypachi-aduvanty': '#0284c7',
+    dobryva: '#16a34a',
+    'stymulyatory-rostu': '#059669',
+};
 
-export const ChemistryElements = () => {
-    const resultContext = useFilter();
-    const { changeChemistryFilter } = resultContext ? resultContext : {};
+const CATEGORIES = CHEMISTRY_CATEGORIES.map((cat) => ({
+    ...cat,
+    icon: ICONS[cat.slug],
+    accent: ACCENTS[cat.slug],
+}));
+
+const matchesFilter = (activeFilter, filterValue) => {
+    if (!activeFilter) return false;
+    return activeFilter.toLowerCase().trim() === filterValue.toLowerCase().trim();
+};
+
+const CategoryCard = ({ item, isActive }) => (
+    <Link
+        to={getCategoryPath(item.slug)}
+        className={`${styles.card} ${isActive ? styles.cardActive : ''}`}
+        style={{ '--accent': item.accent }}
+        aria-current={isActive ? 'true' : undefined}
+    >
+        <span className={styles.iconRing}>
+            <FontAwesomeIcon icon={item.icon} className={styles.icon} />
+        </span>
+        <span className={styles.label}>{item.name}</span>
+    </Link>
+);
+
+export const ChemistryElements = ({ variant = 'full', activeSlug = null }) => {
+    const { chemistryFilter } = useFilter() || {};
+    const isNav = variant === 'nav';
+
     return (
-        <>
-            <div className={styles.wrapper}>
-                {
-                    ChemistryArray.map((el) => {
-                        return (
-                            <Link
-                                className={styles.elemWrapper}
-                                key={el.id}
-                                to={`/products`}
-                                onClick={() => changeChemistryFilter(el.name)}
-                            >
-                                <img alt='chemistry' src={el.img} />
-                                <p className={styles.text}>{el.name}</p>
-                            </Link>
-                        )
-                    })
-                }
-            </div>
-            <Swiper
-                effect="coverflow"
-                grabCursor={true}
-                centeredSlides={true}
-                slidesPerView="auto"
-                coverflowEffect={{
-                    rotate: 0,
-                    stretch: 0,
-                    depth: 100,
-                    modifier: 2.5,
-                }}
-                navigation={{
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                    clickable: true,
-                }}
-                modules={[EffectCoverflow, Pagination, Navigation]}
-                className={styles.swiperContainer}
-                initialSlide={1}
-            >
-                {ChemistryArray?.map((el) => {
-                    return (
-                        <SwiperSlide key={el?.id} className={styles.swiperSlide}>
-                            <Link
-                                className={styles.elemWrapper}
-                                key={el.id}
-                                to={`/products/`}
-                                onClick={() => changeChemistryFilter(el.name)}
-                            >
-                                <div className={styles.elemWrapper} key={el.id}>
-                                    <div className={styles.imageWrapper}>
-                                        <img alt='chemistry' src={el.img} />
-                                    </div>
-                                    <p className={styles.text}>{el.name.length > 13 ? el.name.slice(0, 10) + '...' : el.name}</p>
-                                </div>
-                            </Link>
-                        </SwiperSlide>
-                    );
-                })}
-                <div>
-                    <div className="swiper-button-prev" style={inlineStyles.btnStyles}>
-                        <i class="fa-solid fa-chevron-left"></i>
+        <section
+            className={`${styles.section} ${isNav ? styles.sectionNav : ''}`}
+            aria-label="Категорії товарів"
+        >
+            <div className={styles.inner}>
+                {!isNav && (
+                    <div className={styles.header}>
+                        <h2 className={styles.heading}>Каталог засобів захисту рослин</h2>
+                        <p className={styles.subheading}>
+                            Оберіть категорію — покажемо відповідні товари
+                        </p>
                     </div>
-                    <div className="swiper-button-next" style={inlineStyles.btnStyles}>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
+                )}
+
+                <div className={styles.grid} role="list">
+                    {CATEGORIES.map((item) => (
+                        <CategoryCard
+                            key={item.id}
+                            item={item}
+                            isActive={
+                                activeSlug
+                                    ? activeSlug === item.slug
+                                    : matchesFilter(chemistryFilter, item.filterValue)
+                            }
+                        />
+                    ))}
                 </div>
-            </Swiper>
-        </>
-    )
-}
+            </div>
+        </section>
+    );
+};

@@ -1,91 +1,87 @@
 import React, { useState, useEffect } from 'react';
-import { useFilter } from '../../context/FilterProvider';
-import { useSideBar } from '../../context/SideBarProvider';
+import { useFilter } from '../../features/catalog';
 
 import sortIcon from '../../images/sort-icons/sort.svg';
 import arrowDown from '../../images/sort-icons/arrow-down.svg';
 
 import * as styles from './SortComponent.module.css';
 
+const SORT_OPTIONS = [
+  { key: 'alphabet', label: 'За алфавітом: A-Я' },
+  { key: 'reverseAlphabet', label: 'За алфавітом: Я-A' },
+  { key: 'priceHighToLow', label: 'Від більшої ціни до меншої' },
+  { key: 'priceLowToHigh', label: 'Від меншої ціни до більшої' },
+  { key: 'availability', label: 'За наявністю' },
+];
+
 export const SortComponent = () => {
-    const sideBarContext = useSideBar();
-    const { handleSideBar } = sideBarContext ? sideBarContext : {};
+  const { handleSortOptionChange, sortOptions } = useFilter() || {};
 
-    const resultFilterContext = useFilter();
-    const { handleSortOptionChange, sortOptions } = resultFilterContext ? resultFilterContext : {};
+  const [isOpen, setIsOpen] = useState(false);
 
-    const [showCheckboxes, setShowCheckboxes] = useState(false);
-    const [showSearchButton, setSearchTypeButton] = useState(false);
+  useEffect(() => {
+    const stored = localStorage.getItem('sortOption');
+    if (stored) {
+      try {
+        handleSortOptionChange?.(JSON.parse(stored));
+        return;
+      } catch {
+        /* ignore invalid stored value */
+      }
+    }
+    handleSortOptionChange?.('alphabet');
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- init once
+  }, []);
 
-    useEffect(() => {
-        const isAnyOptionTrue = Object.values(sortOptions).some(value => value === true);
-        if (isAnyOptionTrue) {
-            setSearchTypeButton(true);
-        }
-    }, [sortOptions]);
+  const selectOption = (key) => {
+    handleSortOptionChange?.(key);
+    if (typeof window !== 'undefined' && window.innerWidth > 768) {
+      setIsOpen(false);
+    }
+  };
 
-    const handleToggleCheckboxes = () => {
-        setShowCheckboxes((prevState) => !prevState);
-    };
-
-    useEffect(() => {
-        const isInLocalStorage = JSON.parse(localStorage.getItem('sortOption'));
-        if (!isInLocalStorage) {
-            handleSortOptionChange('alphabet');
-        } else {
-            handleSortOptionChange(isInLocalStorage);
-        }
-    }, []);
-
-    return (
-        <div className={styles.container}>
-            <div className={styles.titleWrapper} onClick={handleToggleCheckboxes}>
-                <div className={styles.filterIconWrapper}>
-                    <img src={sortIcon} alt='sort' />
-                </div>
-                <p className={styles.filterText}>Сортувати за</p>
-                <div className={styles.filterIconWrapper}>
-                    <img src={arrowDown} className={`${showCheckboxes && styles.rotateImage}`} alt='sort' />
-                </div>
-            </div>
-
-            <div className={styles.dropdown}>
-                <div
-                    className={`${styles.checkboxes} ${showCheckboxes ? styles.show : ''}`}
-                >
-                    <button
-                        className={`${styles.optionButton} ${sortOptions?.alphabet && styles.selected}`}
-                        onClick={() => handleSortOptionChange('alphabet')}
-                    >
-                        За алфавітом: A-Я
-                    </button>
-                    <button
-                        className={`${styles.optionButton} ${sortOptions?.reverseAlphabet && styles.selected}`}
-                        onClick={() => handleSortOptionChange('reverseAlphabet')}
-                    >
-                        За алфавітом: Я-A
-                    </button>
-                    <button
-                        className={`${styles.optionButton} ${sortOptions?.priceHighToLow && styles.selected}`}
-                        onClick={() => handleSortOptionChange('priceHighToLow')}
-                    >
-                        Від більшої ціни до меншої
-                    </button>
-                    <button
-                        className={`${styles.optionButton} ${sortOptions?.priceLowToHigh && styles.selected}`}
-                        onClick={() => handleSortOptionChange('priceLowToHigh')}
-                    >
-                        Від меншої ціни до більшої
-                    </button>
-                    <button
-                        className={`${styles.optionButton} ${sortOptions?.availability && styles.selected}`}
-                        onClick={() => handleSortOptionChange('availability')}
-                    >
-                        За наявністю
-                    </button>
-                    {showSearchButton && <button className={`${styles.resetButton}`} onClick={() => handleSideBar()}>Показати</button>}
-                </div>
-            </div>
+  return (
+    <div className={styles.container}>
+      <button
+        type="button"
+        className={`${styles.titleWrapper} ${isOpen ? styles.titleWrapperOpen : ''}`}
+        onClick={() => setIsOpen((prev) => !prev)}
+        aria-expanded={isOpen}
+      >
+        <div className={styles.filterIconWrapper}>
+          <img src={sortIcon} alt="" />
         </div>
-    )
-}
+        <p className={styles.filterText}>Сортувати за</p>
+        <div className={styles.filterIconWrapper}>
+          <img
+            src={arrowDown}
+            className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''}`}
+            alt=""
+          />
+        </div>
+      </button>
+
+      <div className={`${styles.dropdown} ${isOpen ? styles.dropdownOpen : ''}`}>
+        <div className={styles.checkboxes}>
+          {SORT_OPTIONS.map(({ key, label }) => (
+            <button
+              key={key}
+              type="button"
+              className={`${styles.optionButton} ${sortOptions?.[key] ? styles.selected : ''}`}
+              onClick={() => selectOption(key)}
+            >
+              {label}
+            </button>
+          ))}
+          <button
+            type="button"
+            className={styles.applyButton}
+            onClick={() => setIsOpen(false)}
+          >
+            Застосувати
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};

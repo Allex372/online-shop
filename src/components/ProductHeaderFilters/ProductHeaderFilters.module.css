@@ -23,35 +23,45 @@
 .searchContainer {
     display: flex;
     align-items: center;
-    position: relative;
-    border-bottom: 1px solid #0d8041;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+    max-width: 400px;
+    border-bottom: 1px solid var(--color-primary);
 }
 
 .searchInput {
-    width: 400px;
-    padding: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    padding: 12px 0;
     border: none;
     background: none;
     outline: none;
-    padding: 12px;
-    transition: width 0.3s, opacity 0.3s;
-
-    font-size: 16px;
-    font-family: 'Merriweather', serif;
+    font-size: 1rem;
+    font-family: var(--font-sans);
 }
 
 .searchIcon {
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-    top: 12px;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    opacity: 0.55;
 }
 
 .clearIcon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    position: absolute;
-    right: 4px;
-    top: 16px;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.clearIcon img {
     height: 16px;
     filter: invert(98%) sepia(1%) saturate(950%) hue-rotate(314deg) brightness(98%) contrast(69%);
 }

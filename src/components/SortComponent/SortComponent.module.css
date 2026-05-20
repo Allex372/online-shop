@@ -1,114 +1,191 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    margin-left: 16px;
-    width: 213px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-width: 220px;
 }
 
 .titleWrapper {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.titleWrapper:hover,
+.titleWrapperOpen {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.1);
 }
 
 .filterIconWrapper {
-    height: 24px;
-    width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .filterIconWrapper img {
-    height: 100%;
-    width: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .filterText {
-    font-family: 'Merriweather', serif;
-    font-size: 18px;
-    line-height: 30px;
-    color: #0d8041;
-    margin-left: 16px;
-    margin-right: 24px;
+  flex: 1;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+  text-align: left;
+}
+
+.chevron {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
 }
 
 .dropdown {
-    position: relative;
-    /* margin-top: 24px; */
+  display: grid;
+  grid-template-rows: 0fr;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  left: 0;
+  z-index: 200;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.rotateImage {
-    transform: rotate(180deg);
+.dropdownOpen {
+  grid-template-rows: 1fr;
 }
 
 .checkboxes {
-    padding: 10px 10px 10px 5px;
-    background-color: #fff;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    max-height: 0;
-    visibility: hidden;
-    opacity: 0;
-    transition: max-height 0.3s ease, visibility 0s linear 0.3s, opacity 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 8px;
+  background: var(--color-surface);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease, padding 0.35s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.show {
-    display: flex;
-    flex-direction: column;
-    max-height: 300px;
-    visibility: visible;
-    opacity: 1;
-    background-color: #f5f5f5;
-    transition: max-height 0.7s ease, visibility 0s linear 0s, opacity 0.3s ease;
+.dropdownOpen .checkboxes {
+  padding: 8px;
+  opacity: 1;
+  transform: translateY(0);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-md);
 }
 
 .optionButton {
-    height: 120px;
-    margin-bottom: 12px;
-    border: none;
-    background-color: #f5f5f5;
-    color: #0d8041;
-    font-size: 16px;
-    user-select: none;
-    text-align: left;
-    padding: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 10px 12px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
 .optionButton:hover {
-    background-color: #EDDDDD;
-    padding: 8px;
-    border-radius: 8px;
+  background: var(--color-primary-muted);
+}
+
+.optionButton:active {
+  transform: scale(0.98);
 }
 
 .selected {
-    background-color: #EDDDDD;
-    border-radius: 8px;
+  background: var(--color-primary-muted);
+  color: var(--color-primary-dark);
+  font-weight: 600;
 }
 
-
-.resetButton {
-    display: none;
+.applyButton {
+  display: none;
 }
 
 @media screen and (max-width: 768px) {
-    .show {
-        border-bottom: 1px solid #0d8041;
-    }
+  .container {
+    min-width: 0;
+  }
 
-    .container {
-        margin-left: 0;
-    }
+  .dropdown {
+    position: static;
+    margin-top: 0;
+  }
 
-    .resetButton {
-        background-color: #0d8041;
-        font-family: 'Merriweather', serif;
-        color: #fff;
-        font-size: 12px;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        outline: none;
-        display: block;
-    }
+  .dropdown:not(.dropdownOpen) {
+    display: none;
+  }
+
+  .dropdownOpen {
+    display: block;
+    grid-template-rows: unset;
+    animation: sortSlideDown 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dropdownOpen .checkboxes {
+    margin-top: 8px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: none;
+  }
+
+  .applyButton {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: var(--color-primary);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .applyButton:hover {
+    background: var(--color-primary-dark);
+  }
+}
+
+@keyframes sortSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

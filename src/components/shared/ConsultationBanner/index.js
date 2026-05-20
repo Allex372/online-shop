@@ -1,0 +1,1 @@
+export { ConsultationBanner } from './ConsultationBanner'

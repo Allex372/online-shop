@@ -1,260 +1,375 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { graphql, useStaticQuery } from 'gatsby';
-import { useBacket } from '../../context/BacketProvider';
+import { createPortal } from 'react-dom';
+import { Link } from 'gatsby';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faCartShopping,
+    faXmark,
+    faTruck,
+    faHeadset,
+    faShieldHalved,
+    faLock,
+    faArrowRight,
+} from '@fortawesome/free-solid-svg-icons';
+import { useBacket } from '../../features/cart';
+import { useModalTransition } from '../../hooks/useModalTransition';
+import { useCurrencyRate } from '../../hooks/useCurrencyRate';
+import { submitOrder } from '../../lib/api/submitOrder';
 import { BacketItem } from './BacketItem/BacketItem';
-
 import * as styles from './Backet.module.css';
 
-import closeIcon from '../../images/close.png'
+const itemsLabel = (count) => {
+    if (count === 1) return '1 товар';
+    if (count >= 2 && count <= 4) return `${count} товари`;
+    return `${count} товарів`;
+};
 
 export const Backet = () => {
-    const backetContext = useBacket();
-    const { showBacket, handleOpenBacket, items, totalSum, itemsWithSum, clearBacket } = backetContext ? backetContext : {};
-    const [isOffered, setIsOffered] = useState({
-        preparedToOffer: true,
-        readyToOffer: false,
-        offered: false,
-    });
+    const {
+        showBacket,
+        handleOpenBacket,
+        items,
+        totalSum,
+        itemsWithSum,
+        clearBacket,
+    } = useBacket() || {};
 
+    const currencyRate = useCurrencyRate();
+    const [mounted, setMounted] = useState(false);
+    const { shouldRender, phase } = useModalTransition(showBacket, 300);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
         address: '',
     });
-
-    const [formDataValid, setFormDataValid] = useState(false);
+    const [formError, setFormError] = useState(false);
+    const [submitError, setSubmitError] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [statusCode, setStatusCode] = useState(null);
 
-    const data = useStaticQuery(graphql`
-        query {
-            rest {
-                currencies {
-                    data {
-                        attributes {
-                            value
-                        }
-                    }
-                }
-            }
-        }
-    `);
-
-    const Currencie = data?.rest?.currencies?.data[0]?.attributes.value;
+    const itemCount = items?.length || 0;
+    const totalUah = +(totalSum * currencyRate).toFixed(2);
+    const hasFreeShipping = totalUah >= 2000;
 
     useEffect(() => {
-        const newIsOffered = {
-            preparedToOffer: true,
-            readyToOffer: false,
-            offered: false,
-        };
-        if (isOffered.offered && formDataValid) {
-            const orderData = {
-                fullName: formData.name,
-                phoneNumber: formData.phone,
-                email: formData.email,
-                address: formData.address,
-                products: [],
-                totalAmount: 0,
-            };
+        setMounted(true);
+    }, []);
 
-            itemsWithSum.forEach((item) => {
-                const productItem = {
-                    id: +item.id,
-                    productName: item.name,
-                    quantity: item.count ? item.count : 1,
-                    price: +(item.price * Currencie).toFixed(2),
-                    totalAmount: +(item.sum * Currencie).toFixed(2),
-                };
-                orderData.products.push(productItem);
-                orderData.totalAmount = +(totalSum * Currencie).toFixed(2);
+    useEffect(() => {
+        if (statusCode === 200) clearBacket();
+    }, [statusCode, clearBacket]);
+
+    useEffect(() => {
+        if (!shouldRender) return undefined;
+
+        const onEscape = (e) => {
+            if (e.key === 'Escape') handleOpenBacket();
+        };
+        document.addEventListener('keydown', onEscape);
+
+        const scrollY = window.scrollY;
+        const { style } = document.body;
+        const prev = {
+            position: style.position,
+            top: style.top,
+            width: style.width,
+            overflow: style.overflow,
+        };
+
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = '100%';
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            document.removeEventListener('keydown', onEscape);
+            document.body.style.position = prev.position;
+            document.body.style.top = prev.top;
+            document.body.style.width = prev.width;
+            document.body.style.overflow = prev.overflow;
+            window.scrollTo(0, scrollY);
+        };
+    }, [shouldRender, handleOpenBacket]);
+
+    const handleChangeInput = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+        setFormError(false);
+    };
+
+    const handleSubmit = async () => {
+        if (!items?.length) return;
+
+        const isValid = Object.values(formData).every((v) => v.trim() !== '');
+        if (!isValid) {
+            setFormError(true);
+            setSubmitError('');
+            return;
+        }
+
+        setFormError(false);
+        setSubmitError('');
+        setIsSubmitting(true);
+
+        const orderData = {
+            fullName: formData.name,
+            phoneNumber: formData.phone,
+            email: formData.email,
+            address: formData.address,
+            products: [],
+            totalAmount: totalUah,
+        };
+
+        itemsWithSum.forEach((item) => {
+            orderData.products.push({
+                id: +item.id,
+                productName: item.name,
+                quantity: item.count || 1,
+                price: +(item.price * currencyRate).toFixed(2),
+                totalAmount: +(item.sum * currencyRate).toFixed(2),
             });
+        });
 
-            axios.post('https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com/api/orders', orderData, {
-                headers: {
-                    Authorization: `Bearer f98b10acb8958a3d9ba99650cbf0480ebd5e93222f49a844e98c560a8d178711d159d6e4ca8e7428b85d8967b94acf24e9dc31429b80eeadb4f0e08d5ef14564b8fa923ed239d233936f079f720f2796f94f50b9cc0f2bf90234b85be8220a96a8c92391deeccb98bf50cbb54018d81604da4315d23d020925ffff15e22167d4`,
-                },
-            })
-                .then(response => {
-                    setStatusCode(+response.data);
-                    setIsOffered(newIsOffered);
-                })
-                .catch(error => {
-                    console.error('Помилка відправки на сервер Strapi:', error);
-                    setIsOffered(newIsOffered);
-                });
+        try {
+            const { data } = await submitOrder(orderData);
+            setStatusCode(+data);
+            setFormData({ name: '', email: '', phone: '', address: '' });
+        } catch (error) {
+            console.error('Помилка відправки замовлення:', error);
+            setSubmitError(
+                error?.message || 'Не вдалося оформити замовлення. Спробуйте ще раз.'
+            );
+        } finally {
+            setIsSubmitting(false);
         }
-    }, [isOffered, Currencie, formData, formDataValid, itemsWithSum, totalSum]);
-
-    useEffect(() => {
-        statusCode === 200 && clearBacket();
-    }, [statusCode, clearBacket])
-
-    useEffect(() => {
-        if (showBacket) {
-            document.body.classList.add(styles.bodyNoScroll);
-        } else {
-            document.body.classList.remove(styles.bodyNoScroll);
-        }
-    }, [showBacket]);
-
-    const handleOffered = (status) => {
-        const newIsOffered = {
-            preparedToOffer: false,
-            readyToOffer: false,
-            offered: false,
-        };
-
-        switch (status) {
-            case 'preparedToOffer':
-                newIsOffered.preparedToOffer = true;
-                break;
-            case 'readyToOffer':
-                newIsOffered.readyToOffer = true;
-                break;
-            case 'offered':
-                newIsOffered.offered = true;
-                break;
-            default:
-                break;
-        }
-
-        if (status === 'offered') {
-            const isFormValid = Object.values(formData).every((value) => value.trim() !== '');
-            setFormDataValid(isFormValid);
-            newIsOffered.readyToOffer = true;
-        }
-
-        setIsOffered(newIsOffered);
     };
 
-    const handleChangeInput = (event) => {
-        const { name, value } = event.target;
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            [name]: value,
-        }));
-    };
+    const closeCart = () => handleOpenBacket();
 
     const handleClearStatusCode = () => {
-        const modal = document.getElementById('modal');
-        modal.scrollTo({ top: 0, behavior: 'smooth' })
+        document.getElementById('cart-modal-body')?.scrollTo({ top: 0, behavior: 'smooth' });
         setStatusCode(null);
-    }
+    };
 
-    return (
-        <>
-            {showBacket && (
-                <div className={`${styles.container} ${styles.open}`}>
-                    <div className={styles.modal} id='modal'>
-                        <div className={styles.backetHeaderWrapper}>
-                            <p>Корзина</p>
-                            <div
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                        handleOpenBacket();
-                                    }
-                                }}
-                                role="button"
-                                tabIndex={0}
-                                className={styles.closeBntIconWrapper} onClick={() => handleOpenBacket()}>
-                                <img src={closeIcon} alt='close' />
-                            </div>
-                        </div>
-                        <div className={styles.itemWrapper}>
-                            <BacketItem items={items} statusCode={statusCode} clearStatusCode={handleClearStatusCode} currencie={Currencie} />
-                        </div>
-                        <div className={`${styles.offerFormWrapper} ${isOffered.readyToOffer && items?.length ? styles.openForm : ''}`}>
-                            <p className={styles.offeredText}>Оформлення замовлення:</p>
-                            <div className={`${isOffered.readyToOffer ? styles.formContainer : styles.displayNone}`}>
-                                <div className={styles.inputsWrapper}>
-                                    <div className={styles.inputWrapper}>
-                                        <label htmlFor="name" className={styles.label}>Прізвище, і'мя, по батькові</label>
-                                        <input
-                                            id="name"
-                                            className={styles.input}
-                                            type="text"
-                                            placeholder="ПІП"
-                                            name="name"
-                                            value={formData.name}
-                                            onChange={handleChangeInput}
-                                        />
-                                    </div>
-                                    <div className={styles.inputWrapper}>
-                                        <label htmlFor="email" className={styles.label}>Електронна пошта</label>
-                                        <input
-                                            id="email"
-                                            className={styles.input}
-                                            type="text"
-                                            placeholder="Введіть електронну пошту"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChangeInput}
-                                        />
-                                    </div>
-                                </div>
+    if (!mounted || !shouldRender) return null;
 
-                                <div className={styles.inputsWrapper}>
-                                    <div className={styles.inputWrapper}>
-                                        <label htmlFor="phone" className={styles.label}>Номер телефону</label>
-                                        <input
-                                            id="phone"
-                                            className={styles.input}
-                                            type="text"
-                                            placeholder="Введіть номер телефону"
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handleChangeInput}
-                                        />
-                                    </div>
-                                    <div className={styles.inputWrapper}>
-                                        <label htmlFor="address" className={styles.label}>Адреса доставки</label>
-                                        <input
-                                            id="address"
-                                            className={styles.input}
-                                            type="text"
-                                            placeholder="Введіть вашу адресу"
-                                            name="address"
-                                            value={formData.address}
-                                            onChange={handleChangeInput}
-                                        />
-                                    </div>
-                                </div>
+    const isClosing = phase === 'closing';
+    const isOpenAnim = phase === 'open';
 
-                            </div>
-
-                            {(isOffered.offered && !formDataValid) && (<p className={styles.warningText}>Всі поля повинні бути заповнені</p>)}
-
-                        </div>
-                        {
-                            items?.length ?
-
-                                <div className={styles.summBlockWrapper}>
-                                    <div className={styles.summBlock}>
-                                        <p className={styles.sumText}>{(totalSum * Currencie).toFixed(1)}₴</p>
-                                        {
-                                            isOffered.preparedToOffer &&
-                                            <button className={styles.orderBtn} onClick={() => handleOffered('readyToOffer')}>
-                                                Оформити замовлення
-                                            </button>
-                                        }
-                                        {
-                                            isOffered.readyToOffer &&
-                                            <button className={styles.orderBtn} onClick={() => handleOffered('offered')}>
-                                                {isOffered.offered ? <div className={styles.spinner} /> : 'Замовити'}
-                                            </button>
-                                        }
-
-                                    </div>
-                                </div>
-                                :
-                                <></>
-                        }
+    return createPortal(
+        <div
+            className={`${styles.overlay} ${isOpenAnim ? styles.overlayOpen : ''} ${isClosing ? styles.overlayClosing : ''}`}
+            role="presentation"
+            onClick={closeCart}
+        >
+            <div
+                className={`${styles.modal} ${isOpenAnim ? styles.modalOpen : ''} ${isClosing ? styles.modalClosing : ''} ${itemCount === 0 ? styles.modalEmpty : ''}`}
+                role="dialog"
+                aria-modal="true"
+                aria-label="Кошик"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <header className={styles.header}>
+                    <div className={styles.headerTitle}>
+                        <FontAwesomeIcon icon={faCartShopping} className={styles.headerIcon} />
+                        <h2>Кошик</h2>
+                        {itemCount > 0 && (
+                            <span className={styles.badge}>{itemsLabel(itemCount)}</span>
+                        )}
                     </div>
+                    <button
+                        type="button"
+                        className={styles.closeBtn}
+                        onClick={closeCart}
+                        aria-label="Закрити кошик"
+                    >
+                        <FontAwesomeIcon icon={faXmark} />
+                    </button>
+                </header>
+
+                <div
+                    className={`${styles.body} ${itemCount === 0 ? styles.bodyEmpty : ''}`}
+                    id="cart-modal-body"
+                >
+                <div
+                    className={`${styles.layout} ${itemCount === 0 ? styles.layoutEmpty : ''}`}
+                >
+                    <div className={styles.mainCol}>
+                        <BacketItem
+                            items={items}
+                            statusCode={statusCode}
+                            clearStatusCode={handleClearStatusCode}
+                            currencie={currencyRate}
+                        />
+
+                        {itemCount > 0 && (
+                                <section className={styles.checkoutSection}>
+                                    <h3>Оформлення замовлення</h3>
+                                    <div className={styles.formGrid}>
+                                        <label className={styles.field}>
+                                            <span>Прізвище, ім&apos;я, по батькові</span>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                placeholder="ПІБ"
+                                                value={formData.name}
+                                                onChange={handleChangeInput}
+                                            />
+                                        </label>
+                                        <label className={styles.field}>
+                                            <span>Електронна пошта</span>
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                placeholder="email@example.com"
+                                                value={formData.email}
+                                                onChange={handleChangeInput}
+                                            />
+                                        </label>
+                                        <label className={styles.field}>
+                                            <span>Номер телефону</span>
+                                            <input
+                                                type="tel"
+                                                name="phone"
+                                                placeholder="+380 (__) ___ __ __"
+                                                value={formData.phone}
+                                                onChange={handleChangeInput}
+                                            />
+                                        </label>
+                                        <label className={styles.field}>
+                                            <span>Адреса доставки</span>
+                                            <input
+                                                type="text"
+                                                name="address"
+                                                placeholder="Місто, вулиця, будинок"
+                                                value={formData.address}
+                                                onChange={handleChangeInput}
+                                            />
+                                        </label>
+                                    </div>
+                                    {formError && (
+                                        <p className={styles.formError}>
+                                            Заповніть усі поля форми
+                                        </p>
+                                    )}
+                                    {submitError && (
+                                        <p className={styles.formError} role="alert">
+                                            {submitError}
+                                        </p>
+                                    )}
+                                </section>
+                        )}
+                    </div>
+
+                    {itemCount > 0 && (
+                        <aside className={styles.sidebar}>
+                            <div className={styles.summaryCard}>
+                                <h3>Ваше замовлення</h3>
+                                <dl className={styles.summaryLines}>
+                                    <div>
+                                        <dt>{itemsLabel(itemCount)}</dt>
+                                        <dd>{totalUah.toFixed(2)} ₴</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Сума товарів</dt>
+                                        <dd>{totalUah.toFixed(2)} ₴</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Доставка</dt>
+                                        <dd className={styles.freeDelivery}>
+                                            {hasFreeShipping ? 'Безкоштовно' : 'За тарифами'}
+                                        </dd>
+                                    </div>
+                                </dl>
+                                <div className={styles.totalBox}>
+                                    <span>До сплати</span>
+                                    <strong>{totalUah.toFixed(2)} ₴</strong>
+                                </div>
+                            </div>
+
+                            <button
+                                type="button"
+                                className={styles.primaryBtn}
+                                onClick={handleSubmit}
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? (
+                                    <span className={styles.spinner} />
+                                ) : (
+                                    <>
+                                        Оформити замовлення
+                                        <FontAwesomeIcon icon={faArrowRight} />
+                                    </>
+                                )}
+                            </button>
+
+                            <Link to="/products" className={styles.secondaryBtn} onClick={closeCart}>
+                                Продовжити покупки
+                            </Link>
+
+                            <p className={styles.trustNote}>
+                                <FontAwesomeIcon icon={faLock} />
+                                Ваші дані під захистом
+                            </p>
+                        </aside>
+                    )}
                 </div>
-            )
-            }
-        </>
+                </div>
+
+                {itemCount > 0 && (
+                    <aside className={styles.mobileBar} aria-label="Підсумок замовлення">
+                        <div className={styles.mobileTotal}>
+                            <div>
+                                <span className={styles.mobileTotalLabel}>До сплати</span>
+                                <span className={styles.mobileTotalMeta}>
+                                    {itemsLabel(itemCount)} ·{' '}
+                                    {hasFreeShipping ? 'доставка безкоштовно' : 'доставка за тарифами'}
+                                </span>
+                            </div>
+                            <strong>{totalUah.toFixed(2)} ₴</strong>
+                        </div>
+                        <button
+                            type="button"
+                            className={styles.primaryBtn}
+                            onClick={handleSubmit}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? (
+                                <span className={styles.spinner} />
+                            ) : (
+                                <>
+                                    Оформити замовлення
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                </>
+                            )}
+                        </button>
+                        <Link to="/products" className={styles.secondaryBtn} onClick={closeCart}>
+                            Продовжити покупки
+                        </Link>
+                        <p className={styles.trustNoteMobile}>
+                            <FontAwesomeIcon icon={faLock} />
+                            Ваші дані під захистом
+                        </p>
+                    </aside>
+                )}
+
+                <footer className={styles.trustFooter}>
+                    <div>
+                        <FontAwesomeIcon icon={faShieldHalved} />
+                        <span>Якісна продукція</span>
+                    </div>
+                    <div>
+                        <FontAwesomeIcon icon={faTruck} />
+                        <span>Швидка доставка</span>
+                    </div>
+                    <div>
+                        <FontAwesomeIcon icon={faHeadset} />
+                        <span>Професійна підтримка</span>
+                    </div>
+                </footer>
+            </div>
+        </div>,
+        document.body
     );
 };

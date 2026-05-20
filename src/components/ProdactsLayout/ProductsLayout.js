@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ProductCard } from './ProductCard';
 
 import * as styles from './ProductsLayout.module.css'
 
-export const ProductsLayout = ({ array, viewStyle }) => {
-    const [viewOptions, setViewOptions] = useState({
-        gridView: true,
-        listView: false,
-    });
+const DEFAULT_VIEW = { gridView: true, listView: false };
 
-    const view = viewStyle ? viewStyle : viewOptions;
+export const ProductsLayout = ({ array, viewStyle, currencyRate = 1 }) => {
+    const view = viewStyle ?? DEFAULT_VIEW;
 
     return (
         <>
@@ -17,7 +14,7 @@ export const ProductsLayout = ({ array, viewStyle }) => {
                 {array.map((el) => {
                     const { id } = el;
                     return (
-                        <ProductCard viewStyle={viewStyle} product={el} key={+id} />
+                        <ProductCard viewStyle={viewStyle} product={el} currencyRate={currencyRate} key={+id} />
                     )
                 })}
 

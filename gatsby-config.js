@@ -4,15 +4,19 @@
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/
  */
 
+require('dotenv').config()
+
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
   siteMetadata: {
     title: `Вікторія Захід Трейд`,
-    // description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
-    siteUrl: `https://viktoria-zahidtrade.com/`,
+    description: `Засоби захисту рослин, добрива та агрохімія в Україні. Гербіциди, фунгіциди, інсектициди. Доставка та консультація. Тел. 067 471 14 34.`,
+    author: `Вікторія Захід Трейд`,
+    siteUrl: `https://viktoria-zahidtrade.com`,
+    defaultImage: `/icons/icon-512x512.png`,
+    phone: `+380674711434`,
   },
   plugins: [
     `gatsby-plugin-netlify`,
@@ -22,7 +26,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-sitemap',
       options: {
-        output: '/sitemap.xml',
+        excludes: ['/dev-404-page/**', '/404'],
       },
     },
     {
@@ -37,9 +41,9 @@ module.exports = {
       options: {
         typeName: 'REST',
         fieldName: 'rest',
-        url: 'https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com/graphql',
+        url: process.env.STRAPI_GRAPHQL_URL || 'https://dry-tundra-95600-dbbf09fef1a1.herokuapp.com/graphql',
         headers: {
-          Authorization: 'Bearer f98b10acb8958a3d9ba99650cbf0480ebd5e93222f49a844e98c560a8d178711d159d6e4ca8e7428b85d8967b94acf24e9dc31429b80eeadb4f0e08d5ef14564b8fa923ed239d233936f079f720f2796f94f50b9cc0f2bf90234b85be8220a96a8c92391deeccb98bf50cbb54018d81604da4315d23d020925ffff15e22167d4',
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
         },
       },
     },
@@ -57,15 +61,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Вікторія Захід Трейд`,
+        short_name: `ВЗ Трейд`,
         start_url: `/`,
-        background_color: `#663399`,
-        // This will impact how browsers show your PWA/website
-        // https://css-tricks.com/meta-theme-color-and-trickery/
-        // theme_color: `#663399`,
+        background_color: `#ffffff`,
+        theme_color: `#15803d`,
         display: `minimal-ui`,
-        icon: `src/images/newLogo.png`, // This path is relative to the root of the site.
+        icon: `src/images/newLogo.png`,
       },
     },
   ],
