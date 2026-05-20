@@ -19,7 +19,6 @@ module.exports = {
     phone: `+380674711434`,
   },
   plugins: [
-    `gatsby-plugin-netlify`,
     `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,

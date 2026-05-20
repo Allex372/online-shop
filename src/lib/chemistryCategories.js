@@ -1,7 +1,7 @@
 /**
  * Єдине джерело категорій ЗЗР — slug, фільтр (як у Strapi/фільтрах), SEO-тексти.
  */
-export const CHEMISTRY_CATEGORIES = [
+const CHEMISTRY_CATEGORIES = [
   {
     id: 'herbicydy',
     slug: 'herbicydy',
@@ -92,14 +92,14 @@ export const CHEMISTRY_CATEGORIES = [
   },
 ];
 
-export const CATEGORY_BASE_PATH = '/kategoriya';
+const CATEGORY_BASE_PATH = '/kategoriya';
 
-export const getCategoryPath = (slug) => `${CATEGORY_BASE_PATH}/${slug}/`;
+const getCategoryPath = (slug) => `${CATEGORY_BASE_PATH}/${slug}/`;
 
-export const getCategoryBySlug = (slug) =>
+const getCategoryBySlug = (slug) =>
   CHEMISTRY_CATEGORIES.find((c) => c.slug === slug) || null;
 
-export const buildCategoryFaq = (categoryName) => [
+const buildCategoryFaq = (categoryName) => [
   {
     question: `Де купити ${categoryName.toLowerCase()} в Україні?`,
     answer: `${categoryName} можна замовити в інтернет-магазині Вікторія Захід Трейд з доставкою по Україні. Для консультації телефонуйте: 067 471 14 34.`,
@@ -116,7 +116,7 @@ export const buildCategoryFaq = (categoryName) => [
   },
 ];
 
-export const getCategoryByFilterValue = (filterValue) => {
+const getCategoryByFilterValue = (filterValue) => {
   if (!filterValue) return null;
   const normalized = filterValue.toLowerCase().trim();
   return (
@@ -126,13 +126,11 @@ export const getCategoryByFilterValue = (filterValue) => {
   );
 };
 
-/* eslint-disable no-undef */
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    CHEMISTRY_CATEGORIES,
-    CATEGORY_BASE_PATH,
-    getCategoryPath,
-    getCategoryBySlug,
-    getCategoryByFilterValue,
-  };
-}
+module.exports = {
+  CHEMISTRY_CATEGORIES,
+  CATEGORY_BASE_PATH,
+  getCategoryPath,
+  getCategoryBySlug,
+  buildCategoryFaq,
+  getCategoryByFilterValue,
+};
